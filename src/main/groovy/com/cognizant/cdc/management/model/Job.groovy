@@ -5,6 +5,10 @@ class Job implements Entity<Job>{
     long id
     long userId
 
+    Integer ExperienceFrom
+    Integer ExperienceTo
+
+    String title
     String content
 
     @Override

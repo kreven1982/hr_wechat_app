@@ -16,7 +16,7 @@
 
     <servlet-mapping>
         <servlet-name>SpringMVC</servlet-name>
-        <url-pattern>/v/*</url-pattern>
+        <url-pattern>/m/*</url-pattern>
     </servlet-mapping>
 
     <context-param>
