@@ -1,4 +1,4 @@
-package com.cognizant.cdc.hr.model
+package com.cognizant.cdc.management.model
 
 interface Entity<T> {
     public Map toDBMap()

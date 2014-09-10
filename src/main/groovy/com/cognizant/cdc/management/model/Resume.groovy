@@ -1,4 +1,4 @@
-package com.cognizant.cdc.hr.model
+package com.cognizant.cdc.management.model
 
 class Resume implements Entity<Resume>{
 
