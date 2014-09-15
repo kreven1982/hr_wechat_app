@@ -1,15 +1,6 @@
-package com.cognizant.cdc.management.model
+package com.cognizant.cdc.model
 
-class Job implements Entity<Job>{
-
-    long id
-    long userId
-
-    Integer ExperienceFrom
-    Integer ExperienceTo
-
-    String title
-    String content
+class Resume implements Entity<Resume>{
 
     @Override
     Map toDBMap() {
@@ -17,7 +8,7 @@ class Job implements Entity<Job>{
     }
 
     @Override
-    Job fromDBMap(Map map) {
+    Resume fromDBMap(Map map) {
         return null  //To change body of implemented methods use File | Settings | File Templates.
     }
 }

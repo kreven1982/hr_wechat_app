@@ -14,6 +14,8 @@ war {
 
 jettyRun {
     contextPath = ""
+    reload ="automatic"
+    scanIntervalSeconds = 1
 }
 
 //Auto register git as vcs tool

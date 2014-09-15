@@ -1,4 +1,4 @@
-package com.cognizant.cdc.management.model
+package com.cognizant.cdc.model
 
 class User implements Entity<User>{
 
