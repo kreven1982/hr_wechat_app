@@ -20,28 +20,28 @@
     <div class="collapse navbar-collapse" id="banner-menu">
       <ul class="nav navbar-nav">
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Job Description <span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">职位管理<span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
-            <li><a href="<%= contextPath %>/m/management/job/new">New Job</a></li>
-            <li><a href="<%= contextPath %>/m/management/job">View All Jobs</a></li>
+            <li><a href="<%= contextPath %>/m/management/job/new">发布职位</a></li>
+            <li><a href="<%= contextPath %>/m/management/job">所有职位</a></li>
             <li class="divider"></li>
-            <li><a href="#">Search Jobs</a></li>
+            <li><a href="#">搜索职位</a></li>
           </ul>
         </li>
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Resume <span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">简历管理<span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
-            <li><a href="#">View Resumes</a></li>
-            <li><a href="#">Search Resumes</a></li>
+            <li><a href="#">相关的简历</a></li>
+            <li><a href="#">搜索简历</a></li>
           </ul>
         </li>
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Signed in as Christine <span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">你好, Christine <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
-            <li><a href="#">Logout</a></li>
+            <li><a href="#">注销</a></li>
           </ul>
         </li>
       </ul>

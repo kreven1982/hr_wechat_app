@@ -5,7 +5,7 @@
 
 <t:standard title="申请该职位">
 
-    <form role="form" class="new-resume animated fadeInRight">
+    <form role="form" class="new-resume">
       <div class="form-group">
         <label for="name">姓名</label>
         <input type="email" class="form-control" id="name" placeholder="姓名">
