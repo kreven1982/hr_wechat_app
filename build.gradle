@@ -5,7 +5,10 @@ apply plugin: 'war'
 apply plugin: 'jetty'
 
 repositories {
-    mavenCentral()
+    //mavenCentral()
+	maven {
+		url "http://repo1.maven.org/maven2"
+	}
 }
 
 war {
@@ -26,7 +29,7 @@ rootProject.idea.project.ipr {
 }
 
 dependencies {
-	compile 'org.codehaus.groovy:groovy-all:2.3.3'
+	compile 'org.codehaus.groovy:groovy-all:2.3.6'
 
 	compile 'log4j:log4j:1.2.16'
 	compile 'org.mongodb:mongo-java-driver:2.12.3'
