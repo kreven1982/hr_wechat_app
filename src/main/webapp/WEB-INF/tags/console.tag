@@ -13,7 +13,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>${title}</title>
 
+    <link rel="stylesheet" href="<%= contextPath %>/css/font-awesome.min.css">
     <link rel="stylesheet" href="<%= contextPath %>/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<%= contextPath %>/css/simditor.css">
+    <link rel="stylesheet" href="<%= contextPath %>/css/bootstrap-slider.min.css">
 
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -26,6 +29,8 @@
 
     <script src="<%= contextPath %>/libs/jquery.js"></script>
     <script src="<%= contextPath %>/libs/bootstrap.min.js"></script>
+    <script src="<%= contextPath %>/libs/simditor-all.js"></script>
+    <script src="<%= contextPath %>/libs/bootstrap-slider.min.js"></script>
   </head>
   <body>
     <jsp:include page="banner.jsp" />
