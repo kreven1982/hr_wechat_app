@@ -33,13 +33,18 @@ class JobManagementController {
     }
 
     @RequestMapping(value="new", method = RequestMethod.GET)
-    public String showNewJobPage() {
-        return "management/jobNew"
+    public ModelAndView showNewJobPage() {
+
+        ModelAndView mav = new ModelAndView("management/jobNew")
+        mav.addObject("job", new Job())
+        return mav
     }
 
     @RequestMapping(value="new", method = RequestMethod.POST)
     @ResponseBody
     public Map newJob() {
+
+
         return [ success: true ]
     }
 
