@@ -1,6 +1,9 @@
 package com.cognizant.cdc.controller
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.cognizant.cdc.model.Job
+
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
@@ -32,16 +35,18 @@ class ContentController {
         return modelAndView
     }
 
+    @RequestMapping(value="view", method = RequestMethod.GET)
+    public String showDetail() {
+        return "management/content"
+    }
+	
+	@RequestMapping(value="search", method = RequestMethod.GET)
+	public String search() {
+		return "management/contentSearch"
+	}
+
     @RequestMapping(value="new", method = RequestMethod.GET)
-    public String showNewJobPage() {
-        return "management/jobNew"
+    public String toNewContent(HttpServletRequest request) {
+        return "management/contentNew"
     }
-
-    @RequestMapping(value="new", method = RequestMethod.POST)
-    @ResponseBody
-    public Map newJob() {
-        return [ success: true ]
-    }
-
-
 }

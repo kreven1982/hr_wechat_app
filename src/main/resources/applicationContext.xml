@@ -19,5 +19,7 @@
         <property name="ignoreResourceNotFound" value="false"/>
         <property name="location" value="classpath:app.properties"/>
 	</bean>
+	
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
 
 </beans>

@@ -38,12 +38,13 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">内容管理<span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
+          	<li><a href="<%= contextPath %>/m/content/new">内容新建</a></li>
             <li><a href="<%= contextPath %>/m/content/list">内容列表</a></li>
             <li><a href="<%= contextPath %>/m/content/search">内容搜索</a></li>
           </ul>
         </li>
       </ul>
-
+	
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">你好, Christine <span class="caret"></span></a>
