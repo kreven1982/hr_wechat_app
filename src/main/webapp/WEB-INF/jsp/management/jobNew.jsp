@@ -5,7 +5,7 @@
 
 <t:console title="发布新职位">
 
-    <form class="form-horizontal new-job col-lg-10 col-lg-offset-1" role="form" ng-controller="JobController">
+    <form class="form-horizontal new-job col-lg-10 col-lg-offset-1" role="form" ng-controller="jobController">
       <h4>发布新职位</h4>
       <div class="form-group">
         <label for="title" class="col-sm-2 control-label">职位名称</label>
@@ -62,7 +62,8 @@
       </div>
       <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
-          <button type="submit" class="btn btn-default">保存</button>
+          <button type="submit" class="btn btn-default" ng-click="submitJob()">保存</button>
+          <button type="submit" class="btn btn-default">预览</button>
         </div>
       </div>
     </form>

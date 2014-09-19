@@ -1,6 +1,6 @@
-var jobApp = angular.module('jobApp', ['ui.bootstrap','ui.bootstrap-slider','simditor']);
+var jobApp = angular.module('jobApp', ['ngResource','ui.bootstrap','ui.bootstrap-slider','simditor']);
 
-jobApp.controller('JobController', ['$scope', function($scope) {
+jobApp.controller('jobController', ['$scope', 'jobService', function($scope, jobService) {
     $scope.job = {
         title: "",
         type: "talent",
@@ -24,5 +24,10 @@ jobApp.controller('JobController', ['$scope', function($scope) {
         }
 
         return from + " - " + to + " 年";
+    }
+
+    $scope.submitJob = function() {
+        alert("fasdfasdf");
+        jobService.submitNewJob($scope.job);
     }
 }]);

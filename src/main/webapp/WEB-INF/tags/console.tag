@@ -36,6 +36,7 @@
     <script src="<%= contextPath %>/libs/ui-bootstrap-tpls.min.js"></script>
 
      <script src="<%= contextPath %>/app/scripts/app.js"></script>
+     <script src="<%= contextPath %>/app/scripts/services/jobService.js"></script>
      <script src="<%= contextPath %>/app/scripts/vendor/slider.js"></script>
      <script src="<%= contextPath %>/app/scripts/vendor/editor.js"></script>
 
