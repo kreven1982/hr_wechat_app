@@ -6,7 +6,7 @@
 %>
 
 <!DOCTYPE html>
-<html>
+<html ng-app="jobApp">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -28,12 +28,20 @@
     <script src="<%= contextPath %>/less/less.js" type="text/javascript"></script>
 
     <script src="<%= contextPath %>/libs/jquery.js"></script>
-    <script src="<%= contextPath %>/libs/bootstrap.min.js"></script>
     <script src="<%= contextPath %>/libs/simditor-all.js"></script>
     <script src="<%= contextPath %>/libs/bootstrap-slider.min.js"></script>
     <script src="<%= contextPath %>/libs/holder.js"></script>
     <script src="<%= contextPath %>/libs/masonry.pkgd.min.js"></script>
     <script src="<%= contextPath %>/libs/imagesloaded.pkgd.min.js"></script>
+
+    <script src="<%= contextPath %>/libs/angular.min.js"></script>
+    <script src="<%= contextPath %>/libs/ui-bootstrap.min.js"></script>
+    <script src="<%= contextPath %>/libs/ui-bootstrap-tpls.min.js"></script>
+
+     <script src="<%= contextPath %>/app/scripts/app.js"></script>
+     <script src="<%= contextPath %>/app/scripts/vendor/slider.js"></script>
+     <script src="<%= contextPath %>/app/scripts/vendor/editor.js"></script>
+
   </head>
   <body>
     <jsp:include page="/WEB-INF/jsp/management/banner.jsp" />
