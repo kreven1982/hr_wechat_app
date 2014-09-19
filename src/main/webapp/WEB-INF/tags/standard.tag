@@ -28,7 +28,7 @@
     <script src="<%= contextPath %>/libs/bootstrap.min.js"></script>
   </head>
   <body>
-    <jsp:include page="banner.jsp" />
+    <jsp:include page="/WEB-INF/jsp/management/banner.jsp" />
 
     <jsp:doBody/>
 

@@ -1,11 +1,14 @@
-apply plugin: 'eclipse'
+apply plugin: 'eclipse-wtp'
 apply plugin: 'idea'
 apply plugin: 'groovy'
 apply plugin: 'war'
 apply plugin: 'jetty'
 
 repositories {
-    mavenCentral()
+    //mavenCentral()
+	maven {
+		url "http://repo1.maven.org/maven2"
+	}
 }
 
 war {
@@ -26,12 +29,13 @@ rootProject.idea.project.ipr {
 }
 
 dependencies {
-	compile 'org.codehaus.groovy:groovy-all:2.3.3'
+	compile 'org.codehaus.groovy:groovy-all:2.3.6'
 
 	compile 'log4j:log4j:1.2.16'
 	compile 'org.mongodb:mongo-java-driver:2.12.3'
 
     compile "javax.servlet:jstl:1.2"
+	compile "javax.servlet.jsp:jsp-api:2.2"
 
     def springVersion = "4.0.6.RELEASE"
     compile "org.springframework:spring-beans:${springVersion}"

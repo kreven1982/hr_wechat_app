@@ -30,6 +30,9 @@
     <script src="<%= contextPath %>/libs/jquery.js"></script>
     <script src="<%= contextPath %>/libs/simditor-all.js"></script>
     <script src="<%= contextPath %>/libs/bootstrap-slider.min.js"></script>
+    <script src="<%= contextPath %>/libs/holder.js"></script>
+    <script src="<%= contextPath %>/libs/masonry.pkgd.min.js"></script>
+    <script src="<%= contextPath %>/libs/imagesloaded.pkgd.min.js"></script>
 
     <script src="<%= contextPath %>/libs/angular.min.js"></script>
     <script src="<%= contextPath %>/libs/ui-bootstrap.min.js"></script>
@@ -42,7 +45,7 @@
 
   </head>
   <body>
-    <jsp:include page="banner.jsp" />
+    <jsp:include page="/WEB-INF/jsp/management/banner.jsp" />
 
     <jsp:doBody/>
 
