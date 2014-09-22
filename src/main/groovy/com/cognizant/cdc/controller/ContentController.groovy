@@ -11,7 +11,7 @@ import com.cognizant.cdc.model.Content
 import com.cognizant.cdc.model.Job
 
 @Controller
-@RequestMapping(value = "/content")
+@RequestMapping(value = "/management/content")
 class ContentController {
 
     List<Content> sampleContents = [
