@@ -32,6 +32,7 @@ class ResumeManagementController {
 		ModelAndView modelAndView = new ModelAndView("management/resumeList") 
 		modelAndView.addObject("resumeList", exampls)
 		
+		
         return modelAndView
     }
 
