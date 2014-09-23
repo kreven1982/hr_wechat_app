@@ -7,7 +7,8 @@ import groovy.transform.TypeChecked
 @TypeChecked
 enum DocumentNames {
 
-    JOB("job")
+    JOB("job"),
+    SEQUENCE("sequence")
 
     private String collectionName
     private Map options

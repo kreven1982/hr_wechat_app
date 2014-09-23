@@ -1,11 +1,8 @@
-/*global window,location*/
-(function (window) {
-  'use strict';
+'use strict';
+angular.module('simditor',[]).directive('simditor', function ($window) {
 
-  var Simditor = window.Simditor;
-  var directives = angular.module('simditor',[]);
+    var Simditor = $window.Simditor;
 
-  directives.directive('simditor', function () {
     return {
       require: "?^ngModel",
       link: function (scope, element, attrs, ngModel) {
@@ -43,5 +40,4 @@
         });
       }
     };
-  });
-}(window));
+});

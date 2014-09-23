@@ -17,7 +17,6 @@ class Resume implements Entity<Resume>{
     }
 
     @Override
-    Resume fromDBMap(Map map) {
-        return null  //To change body of implemented methods use File | Settings | File Templates.
+    public void fromDBMap(Map map) {
     }
 }

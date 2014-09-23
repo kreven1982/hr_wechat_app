@@ -6,7 +6,11 @@ import com.cognizant.cdc.model.enums.RecruitmentType
 class Job implements Entity<Job>{
 
     long id
-    long userId
+    Long userId
+
+    String title
+    String content
+    String introduction
 
     RecruitmentType type
     Diploma diploma
@@ -17,24 +21,38 @@ class Job implements Entity<Job>{
     Integer experienceTo
 
     int totalOfResumes = 0
-
-    String title
-    String content
+    long createTime
 
     @Override
-    Map toDBMap() {
+    public Map toDBMap() {
         return [
-                id: id,
+                _id: id,
                 userId: userId,
+                title : title,
+                introduction: introduction,
+                content: content,
                 type: type.toString(),
                 diploma: diploma.toString(),
-
+                locations: locations,
+                experienceFrom : experienceFrom,
+                experienceTo : experienceTo
         ]
     }
 
     @Override
-    Job fromDBMap(Map map) {
-        return null  //To change body of implemented methods use File | Settings | File Templates.
+    public void fromDBMap(Map map) {
+        this.id = map._id
+        this.userId = map.userId
+        this.title = map.title
+        this.introduction= map.introduction
+        this.content= map.content
+        this.type= RecruitmentType.valueOf(map.type)
+        this.diploma= Diploma.valueOf(map.diploma)
+        this.locations= map.locations
+        this.experienceFrom = map.experienceFrom
+        this.experienceTo = map.experienceTo
+        this.totalOfResumes= map.totalOfResumes ?: 0
+        this.createTime= createTime
     }
 
     String getExperiences() {
