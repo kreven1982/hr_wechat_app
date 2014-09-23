@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="<%= contextPath %>/css/bootstrap.min.css">
     <link rel="stylesheet" href="<%= contextPath %>/css/simditor.css">
     <link rel="stylesheet" href="<%= contextPath %>/css/bootstrap-slider.min.css">
-    <link rel="stylesheet" href="<%= contextPath %>/css/bootstrap-lightbox.min.css">
+    <%-- <link rel="stylesheet" href="<%= contextPath %>/css/bootstrap-lightbox.min.css"> --%>
 
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -32,15 +32,15 @@
     <script src="<%= contextPath %>/libs/bootstrap.min.js"></script>
     <script src="<%= contextPath %>/libs/simditor-all.js"></script>
     <script src="<%= contextPath %>/libs/bootstrap-slider.min.js"></script>
-    <script src="<%= contextPath %>/libs/holder.js"></script>
+    <%-- <script src="<%= contextPath %>/libs/holder.js"></script>
     <script src="<%= contextPath %>/libs/masonry.pkgd.min.js"></script>
-    <script src="<%= contextPath %>/libs/imagesloaded.pkgd.min.js"></script>
+    <script src="<%= contextPath %>/libs/imagesloaded.pkgd.min.js"></script> --%>
     
 
     <script src="<%= contextPath %>/libs/angular.min.js"></script>
     <script src="<%= contextPath %>/libs/ui-bootstrap.min.js"></script>
     <script src="<%= contextPath %>/libs/ui-bootstrap-tpls.min.js"></script>
-    <script src="<%= contextPath %>/libs/bootstrap-lightbox.min.js"></script>
+    <%-- <script src="<%= contextPath %>/libs/bootstrap-lightbox.min.js"></script> --%>
 
 	<script src="<%= contextPath %>/app/scripts/app.js"></script>
 	<script src="<%= contextPath %>/app/scripts/vendor/slider.js"></script>

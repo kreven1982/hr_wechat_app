@@ -6,7 +6,7 @@
 <t:standard title="申请该职位">
 	
 	<form role="form" class="new-resume" ng-controller="weixinController">
-		<span>{{resume}}</span>
+		<!-- <span>{{resume}}</span> -->
 		<div class="form-group">
 			<label for="name">姓名*</label> 
 			<input type="text" class="form-control"id="name" placeholder="姓名" ng-model="resume.name">
