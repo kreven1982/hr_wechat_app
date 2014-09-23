@@ -18,9 +18,7 @@ class Content implements Entity<Content>{
 	}
 
 	@Override
-	public Content fromDBMap(Map map) {
-		// TODO Auto-generated method stub
-		return null;
+	public void fromDBMap(Map map) {
 	}
 
 }

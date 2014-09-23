@@ -1,10 +1,13 @@
-angular.module('jobApp').service('jobService', function(){
+angular.module('jobApp').service('jobService', function($http){
 
       this.getJob = function(jobId) {
-           alert(jobId);
       };
 
       this.submitNewJob = function(job) {
-           alert(job.title);
+
+      };
+
+      this.getJobLocations = function() {
+
       };
 });

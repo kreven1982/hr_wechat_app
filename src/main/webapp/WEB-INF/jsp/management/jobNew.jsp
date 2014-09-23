@@ -14,7 +14,7 @@
         </div>
       </div>
       <div class="form-group">
-        <label for="experience" class="col-sm-2 control-label">招聘类型</label>
+        <label class="col-sm-2 control-label">招聘类型</label>
         <div class="btn-group col-sm-8">
           <label class="btn btn-default btn-sm" btn-radio="'talent'" ng-model="job.type">社会招聘</label>
           <label class="btn btn-default btn-sm" btn-radio="'graduate'" ng-model="job.type">校内招聘</label>
@@ -30,10 +30,7 @@
       <div class="form-group">
         <label for="location" class="col-sm-2 control-label">工作地点</label>
         <div class="btn-group col-sm-8">
-          <label class="btn btn-default btn-sm" ng-model="job.locations['上海']" btn-checkbox>上海</label>
-          <label class="btn btn-default btn-sm" ng-model="job.locations['天津']" btn-checkbox>天津</label>
-          <label class="btn btn-default btn-sm" ng-model="job.locations['大连']" btn-checkbox>大连</label>
-          <label class="btn btn-default btn-sm" ng-model="job.locations['深圳']" btn-checkbox>深圳</label>
+          <label class="btn btn-default btn-sm" ng-model="job.locations[location]" btn-checkbox  ng-repeat="location in locations">{{location}}</label>
         </div>
       </div>
       <div class="form-group">
@@ -57,7 +54,7 @@
       <div class="form-group">
         <label for="detail" class="col-sm-2 control-label">职责介绍</label>
         <div class="col-sm-8">
-          <div simditor ng-model="job.detail" placeholder="职责介绍"></div>
+          <div simditor ng-model="job.content" placeholder="职责介绍"></div>
         </div>
       </div>
       <div class="form-group">

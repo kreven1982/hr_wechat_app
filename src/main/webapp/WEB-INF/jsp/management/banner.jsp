@@ -4,10 +4,10 @@
   String contextPath = request.getContextPath() ;
 %>
 
-<nav class="navbar navbar-default" role="navigation">
+<nav class="navbar navbar-default" role="navigation" ng-controller="bannerController">
   <div class="container-fluid">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#banner-menu">
+      <button type="button" class="navbar-toggle collapsed" ng-click="isCollapsed = !isCollapsed">
         <span class="sr-only">Toggle navigation</span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -17,12 +17,12 @@
     </div>
 
     <!-- Collect the nav links-->
-    <div class="collapse navbar-collapse" id="banner-menu">
+    <div class="collapse navbar-collapse" collapse="isCollapsed">
       <ul class="nav navbar-nav">
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">职位管理<span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
-            <li><a href="<%= contextPath %>/m/management/job/new">发布职位</a></li>
+            <li><a href="<%= contextPath %>/m/management/job?new=true">发布职位</a></li>
             <li><a href="<%= contextPath %>/m/management/job">所有职位</a></li>
             <li class="divider"></li>
             <li><a href="#">搜索职位</a></li>

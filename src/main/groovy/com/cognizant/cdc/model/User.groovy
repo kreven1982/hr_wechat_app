@@ -7,12 +7,11 @@ class User implements Entity<User>{
 
 
     @Override
-    Map toDBMap() {
+    public Map toDBMap() {
         return null  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
-    User fromDBMap(Map map) {
-        return null  //To change body of implemented methods use File | Settings | File Templates.
+    public void fromDBMap(Map map) {
     }
 }
