@@ -13,7 +13,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">高知特微招聘管理界面</a>
+      <a class="navbar-brand" href="javascript:void;">高知特微招聘管理界面</a>
     </div>
 
     <!-- Collect the nav links-->

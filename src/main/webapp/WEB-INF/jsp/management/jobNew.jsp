@@ -5,12 +5,12 @@
 
 <t:console title="发布新职位">
 
-    <form class="form-horizontal new-job col-lg-10 col-lg-offset-1" role="form" ng-controller="jobController">
+    <form name="jobForm" class="form-horizontal new-job col-lg-10 col-lg-offset-1" role="form" ng-controller="jobController" ng-submit="submitJob()">
       <h4>发布新职位</h4>
       <div class="form-group">
         <label for="title" class="col-sm-2 control-label">职位名称</label>
         <div class="col-sm-8">
-          <input class="form-control" id="title" placeholder="职位名称" ng-model="job.title">
+          <input class="form-control" id="title" placeholder="职位名称" ng-model="job.title" ng-required="true" ng-maxlength="20">
         </div>
       </div>
       <div class="form-group">
@@ -48,7 +48,7 @@
       <div class="form-group">
         <label for="experience" class="col-sm-2 control-label">工作简单介绍</label>
         <div class="col-sm-8">
-          <input class="form-control" id="experience" placeholder="工作简单介绍" ng-model="job.introduction">
+          <input class="form-control" id="experience" placeholder="工作简单介绍" ng-model="job.introduction" ng-required="true">
         </div>
       </div>
       <div class="form-group">
@@ -59,8 +59,8 @@
       </div>
       <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
-          <button type="submit" class="btn btn-default" ng-click="submitJob()">保存</button>
-          <button type="submit" class="btn btn-default">预览</button>
+          <button type="submit" class="btn btn-default">保存</button>
+          <button class="btn btn-default" ng-disabled="jobForm.$invalid">预览</button>
         </div>
       </div>
     </form>

@@ -20,6 +20,14 @@ jobApp.controller('jobController', ['$scope', '$http','jobService', function($sc
     });
 
     $scope.submitJob = function() {
+
+        if($scope.jobForm.$valid) {
+            alert("form is valid");
+        } else {
+            alert("form is not valid");
+        }
+        return;
+
         var job = angular.copy($scope.job);
         job.experienceFrom = job.experience[0];
         job.experienceTo = job.experience[1];
