@@ -29,7 +29,7 @@
                         2014-08-06
                     </div>
                     <div class="toolbar col-xs-6">
-                        <a href="/m/job/apply?id=2">申请</a>
+                        <a href="${pageContext.request.contextPath}/m/job/apply?id=2">申请</a>
                         <a href="#">查看详情</a>
                     </div>
                 </div>

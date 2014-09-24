@@ -6,7 +6,7 @@
 %>
 
 <!DOCTYPE html>
-<html>
+<html ng-app="weixinApp">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -26,9 +26,11 @@
 
     <script src="<%= contextPath %>/libs/jquery.js"></script>
     <script src="<%= contextPath %>/libs/bootstrap.min.js"></script>
+    <script src="<%= contextPath %>/libs/angular.min.js"></script>
+    <script src="<%= contextPath %>/app/scripts/weixinApp.js"></script>
   </head>
   <body>
-    <jsp:include page="/WEB-INF/jsp/management/banner.jsp" />
+    <jsp:include page="/WEB-INF/jsp/weixin/banner.jsp" />
 
     <jsp:doBody/>
 

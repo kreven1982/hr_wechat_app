@@ -31,16 +31,16 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">简历管理<span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
-            <li><a href="#">相关的简历</a></li>
-            <li><a href="#">搜索简历</a></li>
+            <li><a href="<%= contextPath %>/m/management/resume/list">相关的简历</a></li>
+            <li><a href="<%= contextPath %>/m/management/resume/search">搜索简历</a></li>
           </ul>
         </li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">内容管理<span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
-          	<li><a href="<%= contextPath %>/m/content/new">内容新建</a></li>
-            <li><a href="<%= contextPath %>/m/content/list">内容列表</a></li>
-            <li><a href="<%= contextPath %>/m/content/search">内容搜索</a></li>
+          	<li><a href="<%= contextPath %>/m/management/content/new">内容新建</a></li>
+            <li><a href="<%= contextPath %>/m/management/content/list">内容列表</a></li>
+            <li><a href="<%= contextPath %>/m/management/content/search">内容搜索</a></li>
           </ul>
         </li>
       </ul>
