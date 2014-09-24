@@ -35,9 +35,6 @@
     <script src="libs/underscore.js"></script>
     <script src="libs/simditor-all.js"></script>
     <script src="libs/bootstrap-slider.min.js"></script>
-    <script src="libs/holder.js"></script>
-    <script src="libs/masonry.pkgd.min.js"></script>
-    <script src="libs/imagesloaded.pkgd.min.js"></script>
 
     <script src="libs/angular.min.js"></script>
     <script src="libs/ui-bootstrap.min.js"></script>
