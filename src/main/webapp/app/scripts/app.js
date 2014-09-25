@@ -87,8 +87,15 @@ jobApp.controller('jobController', ['$scope', '$http', '$modal', 'jobService', '
 
 }]);
 
-jobApp.controller('bannerController', ['$scope', function($scope) {
-       $scope.isCollapsed = true;
+jobApp.controller('bannerController', ['$scope','$modal','baseUrl', function($scope, $modal, baseUrl) {
+	$scope.isCollapsed = true;
+       
+	/*$scope.openSearchResume = function(){
+		var modalInstance = $modal.open({
+			templateUrl: baseUrl + 'app/views/searchResume.dialog.html',
+		    size : 'lg'
+		});
+	};*/
 }]);
 
 jobApp.controller('jobListController', 'baseUrl', ['$scope', function($scope, baseUrl) {
@@ -111,3 +118,23 @@ jobApp.directive('optionRequired', function(){
         }
      }
 });
+
+/*jobApp.controller('resumeSearchController', ['$scope', function($scope) {
+	$scope.openSearchResume = function(){
+		var modalInstance = $modal.open({
+	        templateUrl: baseUrl + 'app/views/searchResume.dialog.html',
+	        size : 'lg'
+	     });
+	};
+}]);*/
+
+jobApp.controller('resumeSearchController', ['$scope','$modal','baseUrl', function($scope, $modal, baseUrl) {
+	$scope.isCollapsed = true;
+       
+	$scope.openSearchResume = function(){
+		var modalInstance = $modal.open({
+			templateUrl: baseUrl + 'app/views/searchResume.dialog.html',
+		    size : 'lg'
+		});
+	};
+}]);
