@@ -10,7 +10,7 @@
       <div class="form-group">
         <label for="title" class="col-sm-2 control-label">职位名称</label>
         <div class="col-sm-8">
-          <input class="form-control" id="title" placeholder="职位名称" ng-model="job.title" ng-required="true" ng-maxlength="20">
+          <input class="form-control" id="title" placeholder="职位名称" ng-model="job.title" ng-required="true">
         </div>
       </div>
       <div class="form-group">
@@ -21,16 +21,16 @@
         </div>
       </div>
       <div class="form-group">
-        <label for="experience" class="col-sm-2 control-label">经验要求</label>
+        <label class="col-sm-2 control-label">经验要求</label>
         <div class="col-sm-8" style="margin-top: 6px;">
-          <span slider ng-model="job.experience" min="0" max="16" range="true" tooltip="hide"></span>
+          <span slider ng-model="data.experience" min="0" max="16" range="true" tooltip="hide"></span>
           <span style="margin-left: 16px"><b>{{ showExperience() }}</b></span>
         </div>
       </div>
       <div class="form-group">
         <label for="location" class="col-sm-2 control-label">工作地点</label>
-        <div class="btn-group col-sm-8">
-          <label class="btn btn-default btn-sm" ng-model="job.locations[location]" btn-checkbox  ng-repeat="location in locations">{{location}}</label>
+        <div class="btn-group col-sm-8" option-required="" locations="job.locations">
+          <label class="btn btn-default btn-sm" ng-model="data.locations[location]" btn-checkbox  ng-repeat="(location, selected) in data.locations">{{location}}</label>
         </div>
       </div>
       <div class="form-group">

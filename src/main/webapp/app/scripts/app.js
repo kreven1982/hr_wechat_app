@@ -1,48 +1,50 @@
 var jobApp = angular.module('jobApp', ['ui.bootstrap','ui.bootstrap-slider','simditor']);
 
-jobApp.controller('jobController', ['$scope', '$http','jobService', function($scope, $http, jobService) {
+jobApp.value("baseUrl", $("base").attr("href"));
+
+jobApp.controller('jobController', ['$scope', '$http', '$modal', 'jobService', 'baseUrl', function($scope, $http, $modal, jobService, baseUrl) {
 
     $scope.job = {
         title: "",
         type: "talent",
         diploma : 'none',
-        experience : [3, 8],
-        locations : {
-           "上海" : true
-        },
+        experienceFrom: 0,
+        experienceTo: 0,
+        locations : null,
         introduction: "",
         content: ""
     };
 
-    //Initialize locations
-    $http.get('/m/management/job/locations').success(function(data, status, headers, config){
-         $scope.locations = data.locations;
-    });
+    $scope.data = {
+        experience : [3, 8],
+        locations : {}
+    };
 
+    //Initialize locations
+    $http.get(baseUrl + 'm/management/job/locations').success(function(data, status, headers, config){
+         _.each(data.locations, function(location) {
+              $scope.data.locations[location] = false;
+         });
+    });
+       showConfirmDialog();
     $scope.submitJob = function() {
 
+
         if($scope.jobForm.$valid) {
-            alert("form is valid");
+            $http.post(baseUrl + 'm/management/job', $scope.job).success(function(data, status, headers, config){
+                 console.log(data);
+                 alert("新建成功");
+            });
         } else {
             alert("form is not valid");
         }
         return;
-
-        var job = angular.copy($scope.job);
-        job.experienceFrom = job.experience[0];
-        job.experienceTo = job.experience[1];
-        job.locations = convertLocations(job.locations);
-        delete job.experience;
-
-        $http.post('/m/management/job', job).success(function(data, status, headers, config){
-             console.log(data);
-        });
     }
 
     $scope.showExperience = function() {
 
-        var from =  $scope.job.experience[0];
-        var to = $scope.job.experience[1];
+        var from =  $scope.data.experience[0];
+        var to = $scope.data.experience[1];
 
         if(to == 16) {
            return from + "+ 年"
@@ -51,6 +53,24 @@ jobApp.controller('jobController', ['$scope', '$http','jobService', function($sc
         }
 
         return from + " - " + to + " 年";
+    }
+
+    $scope.$watch("locations", function(){
+        $scope.job.locations = convertLocations($scope.locations);
+    }, true);
+
+    $scope.$watch("data.experience", function(){
+        $scope.job.experienceFrom = $scope.data.experience[0];
+        $scope.job.experienceTo = $scope.data.experience[1];
+    }, true);
+
+    function showConfirmDialog() {
+
+        alert(baseUrl + 'app/views/confirm.dialog.html');
+         var modalInstance = $modal.open({
+            templateUrl: baseUrl + 'app/views/confirm.dialog.html',
+            size : 'lg'
+         });
     }
 
     function convertLocations(locations) {
@@ -68,5 +88,26 @@ jobApp.controller('jobController', ['$scope', '$http','jobService', function($sc
 }]);
 
 jobApp.controller('bannerController', ['$scope', function($scope) {
-     $.isCollapsed = true;
+       $scope.isCollapsed = true;
 }]);
+
+jobApp.controller('jobListController', 'baseUrl', ['$scope', function($scope, baseUrl) {
+       $http.get(baseUrl + 'm/management/job', job).success(function(data, status, headers, config){
+            console.log(data);
+       });
+}]);
+
+jobApp.directive('optionRequired', function(){
+     return {
+        restrict: "AE",
+        scope: {
+           locations : "="
+        },
+        link : function(scope, element, attrs) {
+
+            scope.$watch("locations", function(){
+               console.log(scope.locations);
+            }, true);
+        }
+     }
+});

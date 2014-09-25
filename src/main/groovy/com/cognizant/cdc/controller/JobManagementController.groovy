@@ -4,6 +4,7 @@ import com.cognizant.cdc.model.Job
 import com.cognizant.cdc.service.JobService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
@@ -17,6 +18,12 @@ class JobManagementController {
 
     @Autowired
     JobService jobService
+
+    @RequestMapping(value="template/{templateName}",method = RequestMethod.GET)
+    public ModelAndView templates(@PathVariable String templateName) {
+        ModelAndView modelAndView = new ModelAndView("management/" + templateName)
+        return modelAndView
+    }
 
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView jobs(@RequestParam(value = "new", required = false) Boolean newFlag) {
@@ -49,6 +56,6 @@ class JobManagementController {
 
         return [ locations: [
                 "上海", "北京", "深圳", "大连", "天津"
-        ] ]
+        ]]
     }
 }
