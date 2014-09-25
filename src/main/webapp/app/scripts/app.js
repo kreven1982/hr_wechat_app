@@ -26,14 +26,14 @@ jobApp.controller('jobController', ['$scope', '$http', '$modal', 'jobService', '
               $scope.data.locations[location] = false;
          });
     });
-       showConfirmDialog();
-    $scope.submitJob = function() {
 
+    showConfirmDialog();
+    $scope.submitJob = function() {
 
         if($scope.jobForm.$valid) {
             $http.post(baseUrl + 'm/management/job', $scope.job).success(function(data, status, headers, config){
                  console.log(data);
-                 alert("新建成功");
+
             });
         } else {
             alert("form is not valid");
@@ -65,11 +65,9 @@ jobApp.controller('jobController', ['$scope', '$http', '$modal', 'jobService', '
     }, true);
 
     function showConfirmDialog() {
-
-        alert(baseUrl + 'app/views/confirm.dialog.html');
          var modalInstance = $modal.open({
             templateUrl: baseUrl + 'app/views/confirm.dialog.html',
-            size : 'lg'
+            size : 'sm'
          });
     }
 
@@ -91,7 +89,7 @@ jobApp.controller('bannerController', ['$scope', function($scope) {
        $scope.isCollapsed = true;
 }]);
 
-jobApp.controller('jobListController', 'baseUrl', ['$scope', function($scope, baseUrl) {
+jobApp.controller('jobListController', ['$scope', 'baseUrl', function($scope, baseUrl) {
        $http.get(baseUrl + 'm/management/job', job).success(function(data, status, headers, config){
             console.log(data);
        });
