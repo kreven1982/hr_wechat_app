@@ -87,21 +87,14 @@ jobApp.controller('jobController', ['$scope', '$http', '$modal', 'jobService', '
 
 }]);
 
-jobApp.controller('bannerController', ['$scope','$modal','baseUrl', function($scope, $modal, baseUrl) {
+jobApp.controller('bannerController', ['$scope', function($scope) {
 	$scope.isCollapsed = true;
-       
-	/*$scope.openSearchResume = function(){
-		var modalInstance = $modal.open({
-			templateUrl: baseUrl + 'app/views/searchResume.dialog.html',
-		    size : 'lg'
-		});
-	};*/
 }]);
 
-jobApp.controller('jobListController', 'baseUrl', ['$scope', function($scope, baseUrl) {
-       $http.get(baseUrl + 'm/management/job', job).success(function(data, status, headers, config){
-            console.log(data);
-       });
+jobApp.controller('jobListController', ['$scope', 'baseUrl',  function($scope, baseUrl) {
+	$http.get(baseUrl + 'm/management/job', job).success(function(data, status, headers, config){
+		console.log(data);
+	});
 }]);
 
 jobApp.directive('optionRequired', function(){
@@ -119,22 +112,38 @@ jobApp.directive('optionRequired', function(){
      }
 });
 
-/*jobApp.controller('resumeSearchController', ['$scope', function($scope) {
-	$scope.openSearchResume = function(){
-		var modalInstance = $modal.open({
-	        templateUrl: baseUrl + 'app/views/searchResume.dialog.html',
-	        size : 'lg'
-	     });
-	};
-}]);*/
-
 jobApp.controller('resumeSearchController', ['$scope','$modal','baseUrl', function($scope, $modal, baseUrl) {
-	$scope.isCollapsed = true;
-       
+	
 	$scope.openSearchResume = function(){
 		var modalInstance = $modal.open({
 			templateUrl: baseUrl + 'app/views/searchResume.dialog.html',
-		    size : 'lg'
+		    size : 'md',
+		    controller: resumeSearchModalController
+		});
+		
+		modalInstance.result.then(function (result) {
+			console.log('Result is: ' + result.mobile);
+		}, function (reason) {
+			console.log('Modal dismissed at: ' + new Date() + '| Reason is: ' + reason);
 		});
 	};
+	
+	var resumeSearchModalController = function($scope, $modalInstance) {
+		$scope.searchForm = {
+			name: 'test',
+			mobile: '',
+			diploma: 'none',
+			experience: 'none',
+			keyword: ''
+		};
+		
+		$scope.search = function () {
+			$modalInstance.close($scope.searchForm);
+		};
+		
+		$scope.close = function () {
+			$modalInstance.dismiss('cancel');
+		};
+	};
 }]);
+
