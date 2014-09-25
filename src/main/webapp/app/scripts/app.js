@@ -109,3 +109,39 @@ jobApp.directive('optionRequired', function(){
         }
      }
 });
+
+jobApp.controller('resumeSearchController', ['$scope','$modal','baseUrl', function($scope, $modal, baseUrl) {
+	
+	$scope.openSearchResume = function(){
+		var modalInstance = $modal.open({
+			templateUrl: baseUrl + 'app/views/searchResume.dialog.html',
+		    size : 'md',
+		    controller: resumeSearchModalController
+		});
+		
+		modalInstance.result.then(function (result) {
+			console.log('Result is: ' + result.mobile);
+		}, function (reason) {
+			console.log('Modal dismissed at: ' + new Date() + '| Reason is: ' + reason);
+		});
+	};
+	
+	var resumeSearchModalController = function($scope, $modalInstance) {
+		$scope.searchForm = {
+			name: 'test',
+			mobile: '',
+			diploma: 'none',
+			experience: 'none',
+			keyword: ''
+		};
+		
+		$scope.search = function () {
+			$modalInstance.close($scope.searchForm);
+		};
+		
+		$scope.close = function () {
+			$modalInstance.dismiss('cancel');
+		};
+	};
+}]);
+
