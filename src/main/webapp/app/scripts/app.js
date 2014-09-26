@@ -147,7 +147,7 @@ jobApp.controller('resumeSearchController', ['$scope','$modal','baseUrl', functi
 
 	var resumeSearchModalController = function($scope, $modalInstance, $http, $window) {
 		$scope.searchForm = {
-			name: '11',
+			name: '',
 			mobile: '',
 			diploma: 'none',
 			experience: 'none',

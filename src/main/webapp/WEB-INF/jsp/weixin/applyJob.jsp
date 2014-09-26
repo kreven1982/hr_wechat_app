@@ -5,7 +5,7 @@
 
 <t:standard title="申请该职位">
 	
-	<form role="form" class="new-resume" ng-controller="weixinController">
+	<form role="form" class="new-resume" ng-controller="weixinResumeController">
 		<!-- <span>{{resume}}</span> -->
 		<div class="form-group">
 			<label for="name">姓名*</label> 
@@ -48,11 +48,11 @@
 
 		<div class="form-group">
 			<label for="attachment">简历附件(只能一个附件)</label> 
-			<input type="file" id="attachment" multiple="multiple">
+			<input type="file" id="attachment" file-model="resumeAttachment" >
 			<p class="help-block">你可以用手机拍摄纸质的简历,然后将照片作为附件一并上传. 你也可以在电脑上打开此页面来编辑并上传word版本简历.</p>
 		</div>
 
-		<button type="submit" class="btn btn-default">申请</button>
+		<button type="submit" class="btn btn-default" ng-click="submitResume()">申请</button>
 	</form>
 
 </t:standard>
