@@ -6,7 +6,7 @@
 <t:console title="发布新职位">
 
     <form name="jobForm" class="form-horizontal new-job col-lg-10 col-lg-offset-1" role="form" ng-controller="jobController" ng-submit="submitJob()">
-      <h4>发布新职位</h4>
+      <h4>发布新职位{{ job }}</h4>
       <div class="form-group">
         <label for="title" class="col-sm-2 control-label">职位名称</label>
         <div class="col-sm-8">
@@ -28,8 +28,8 @@
         </div>
       </div>
       <div class="form-group">
-        <label for="location" class="col-sm-2 control-label">工作地点</label>
-        <div class="btn-group col-sm-8" option-required="" locations="job.locations">
+        <label class="col-sm-2 control-label">工作地点</label>
+        <div name="locations" class="btn-group col-sm-8" option-required="" ng-model="job.locations">
           <label class="btn btn-default btn-sm" ng-model="data.locations[location]" btn-checkbox  ng-repeat="(location, selected) in data.locations">{{location}}</label>
         </div>
       </div>
