@@ -128,9 +128,9 @@ jobApp.controller('resumeSearchController', ['$scope','$modal','baseUrl', functi
 		});
 	};
 	
-	var resumeSearchModalController = function($scope, $modalInstance) {
+	var resumeSearchModalController = function($scope, $modalInstance, $http, $window) {
 		$scope.searchForm = {
-			name: 'test',
+			name: '11',
 			mobile: '',
 			diploma: 'none',
 			experience: 'none',
@@ -138,7 +138,12 @@ jobApp.controller('resumeSearchController', ['$scope','$modal','baseUrl', functi
 		};
 		
 		$scope.search = function () {
-			$modalInstance.close($scope.searchForm);
+			/*$http.get(baseUrl + 'm/management/resume/search', $scope.searchForm).success(function(data, status, headers, config){
+				console.log(data);
+			});*/
+			
+			$window.location.href = baseUrl + 'm/management/resume/list';
+			//$modalInstance.close($scope.searchForm);
 		};
 		
 		$scope.close = function () {
