@@ -26,20 +26,20 @@ jobApp.controller('jobController', ['$scope', '$http', '$modal', 'jobService', '
               $scope.data.locations[location] = false;
          });
     });
-       showConfirmDialog();
+
+
     $scope.submitJob = function() {
 
-
         if($scope.jobForm.$valid) {
+            showConfirmDialog();
             $http.post(baseUrl + 'm/management/job', $scope.job).success(function(data, status, headers, config){
                  console.log(data);
-                 alert("新建成功");
             });
+
         } else {
             alert("form is not valid");
         }
-        return;
-    }
+    };
 
     $scope.showExperience = function() {
 
@@ -53,10 +53,10 @@ jobApp.controller('jobController', ['$scope', '$http', '$modal', 'jobService', '
         }
 
         return from + " - " + to + " 年";
-    }
+    };
 
-    $scope.$watch("locations", function(){
-        $scope.job.locations = convertLocations($scope.locations);
+    $scope.$watch("data.locations", function(){
+        $scope.job.locations = convertLocations($scope.data.locations);
     }, true);
 
     $scope.$watch("data.experience", function(){
@@ -64,12 +64,18 @@ jobApp.controller('jobController', ['$scope', '$http', '$modal', 'jobService', '
         $scope.job.experienceTo = $scope.data.experience[1];
     }, true);
 
-    function showConfirmDialog() {
+    $scope.newJob = function() {
+        alert("new job");
+    };
 
-        alert(baseUrl + 'app/views/confirm.dialog.html');
+    $scope.goToList = function() {
+        alert("go to list");
+    };
+
+    function showConfirmDialog() {
          var modalInstance = $modal.open({
             templateUrl: baseUrl + 'app/views/confirm.dialog.html',
-            size : 'lg'
+            size : 'sm'
          });
     }
 
@@ -88,46 +94,57 @@ jobApp.controller('jobController', ['$scope', '$http', '$modal', 'jobService', '
 }]);
 
 jobApp.controller('bannerController', ['$scope', function($scope) {
-	$scope.isCollapsed = true;
+       $scope.isCollapsed = true;
 }]);
 
-jobApp.controller('jobListController', ['$scope', 'baseUrl',  function($scope, baseUrl) {
-	$http.get(baseUrl + 'm/management/job', job).success(function(data, status, headers, config){
-		console.log(data);
-	});
-}]);
+//jobApp.controller('jobListController', ['$scope', 'baseUrl', function($scope, baseUrl) {
+//       $http.get(baseUrl + 'm/management/job', job).success(function(data, status, headers, config){
+//            console.log(data);
+//       });
+//}]);
 
 jobApp.directive('optionRequired', function(){
      return {
         restrict: "AE",
+        require: '?ngModel',
         scope: {
-           locations : "="
+           ngModel : "="
         },
-        link : function(scope, element, attrs) {
+        link : function(scope, element, attrs, ngModel) {
+            var fieldName = attrs.name;
+            console.log(fieldName);
 
-            scope.$watch("locations", function(){
-               console.log(scope.locations);
+            scope.$watch("ngModel", function(){
+                console.log(scope.ngModel);
+                console.log(ngModel);
+                if(_.isEmpty(scope.ngModel)) {
+                    ngModel.$setValidity(fieldName, false);
+                } else {
+                    ngModel.$setValidity(fieldName, true);
+                }
+
             }, true);
         }
      }
 });
 
+
 jobApp.controller('resumeSearchController', ['$scope','$modal','baseUrl', function($scope, $modal, baseUrl) {
-	
+
 	$scope.openSearchResume = function(){
 		var modalInstance = $modal.open({
 			templateUrl: baseUrl + 'app/views/searchResume.dialog.html',
 		    size : 'md',
 		    controller: resumeSearchModalController
 		});
-		
+
 		modalInstance.result.then(function (result) {
 			console.log('Result is: ' + result.mobile);
 		}, function (reason) {
 			console.log('Modal dismissed at: ' + new Date() + '| Reason is: ' + reason);
 		});
 	};
-	
+
 	var resumeSearchModalController = function($scope, $modalInstance, $http, $window) {
 		$scope.searchForm = {
 			name: '11',
@@ -136,7 +153,7 @@ jobApp.controller('resumeSearchController', ['$scope','$modal','baseUrl', functi
 			experience: 'none',
 			keyword: ''
 		};
-		
+
 		$scope.search = function () {
 			/*$http.get(baseUrl + 'm/management/resume/search', $scope.searchForm).success(function(data, status, headers, config){
 				console.log(data);
@@ -145,7 +162,7 @@ jobApp.controller('resumeSearchController', ['$scope','$modal','baseUrl', functi
 			$window.location.href = baseUrl + 'm/management/resume/list';
 			//$modalInstance.close($scope.searchForm);
 		};
-		
+
 		$scope.close = function () {
 			$modalInstance.dismiss('cancel');
 		};
