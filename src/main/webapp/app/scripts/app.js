@@ -27,11 +27,11 @@ jobApp.controller('jobController', ['$scope', '$http', '$modal', 'jobService', '
          });
     });
 
-
+    showConfirmDialog();
     $scope.submitJob = function() {
 
         if($scope.jobForm.$valid) {
-            showConfirmDialog();
+
             $http.post(baseUrl + 'm/management/job', $scope.job).success(function(data, status, headers, config){
                  console.log(data);
             });
@@ -73,8 +73,9 @@ jobApp.controller('jobController', ['$scope', '$http', '$modal', 'jobService', '
     };
 
     function showConfirmDialog() {
-         var modalInstance = $modal.open({
+         $modal.open({
             templateUrl: baseUrl + 'app/views/confirm.dialog.html',
+            scope: $scope,
             size : 'sm'
          });
     }
@@ -103,7 +104,7 @@ jobApp.controller('bannerController', ['$scope', function($scope) {
 //       });
 //}]);
 
-jobApp.directive('optionRequired', function(){
+jobApp.directive('formRequired', function(){
      return {
         restrict: "AE",
         require: '?ngModel',
@@ -115,8 +116,6 @@ jobApp.directive('optionRequired', function(){
             console.log(fieldName);
 
             scope.$watch("ngModel", function(){
-                console.log(scope.ngModel);
-                console.log(ngModel);
                 if(_.isEmpty(scope.ngModel)) {
                     ngModel.$setValidity(fieldName, false);
                 } else {
@@ -127,7 +126,6 @@ jobApp.directive('optionRequired', function(){
         }
      }
 });
-
 
 jobApp.controller('resumeSearchController', ['$scope','$modal','baseUrl', function($scope, $modal, baseUrl) {
 
