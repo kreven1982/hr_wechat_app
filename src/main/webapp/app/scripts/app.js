@@ -27,17 +27,17 @@ jobApp.controller('jobController', ['$scope', '$http', '$modal', 'jobService', '
          });
     });
 
-    showConfirmDialog();
+
     $scope.submitJob = function() {
-
+        $scope.validated = true;
         if($scope.jobForm.$valid) {
-
+            showConfirmDialog();
             $http.post(baseUrl + 'm/management/job', $scope.job).success(function(data, status, headers, config){
                  console.log(data);
             });
 
         } else {
-            alert("form is not valid");
+
         }
     };
 
@@ -112,14 +112,12 @@ jobApp.directive('formRequired', function(){
            ngModel : "="
         },
         link : function(scope, element, attrs, ngModel) {
-            var fieldName = attrs.name;
-            console.log(fieldName);
-
             scope.$watch("ngModel", function(){
+
                 if(_.isEmpty(scope.ngModel)) {
-                    ngModel.$setValidity(fieldName, false);
+                    ngModel.$setValidity("required", false);
                 } else {
-                    ngModel.$setValidity(fieldName, true);
+                    ngModel.$setValidity("required", true);
                 }
 
             }, true);

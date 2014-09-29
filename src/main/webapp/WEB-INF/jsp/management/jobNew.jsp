@@ -5,12 +5,13 @@
 
 <t:console title="发布新职位">
 
-    <form name="jobForm" class="form-horizontal new-job col-lg-10 col-lg-offset-1" role="form" ng-controller="jobController" ng-submit="submitJob()">
+    <form name="jobForm" class="form-horizontal new-job col-lg-10 col-lg-offset-1" role="form" ng-controller="jobController" ng-submit="submitJob()" novalidate>
       <h4>发布新职位</h4>
       <div class="form-group">
         <label for="title" class="col-sm-2 control-label">职位名称</label>
         <div class="col-sm-8">
-          <input class="form-control" id="title" placeholder="职位名称" ng-model="job.title" ng-required="true">
+          <input name="title" class="form-control" id="title" placeholder="职位名称" ng-model="job.title" ng-required="true">
+          <span ng-show="jobForm.title.$error.required && validated" class="error">职位名称不能为空</span>
         </div>
       </div>
       <div class="form-group">
@@ -31,6 +32,7 @@
         <label class="col-sm-2 control-label">工作地点</label>
         <div name="locations" class="btn-group col-sm-8" form-required="true" ng-model="job.locations">
           <label class="btn btn-default btn-sm" ng-model="data.locations[location]" btn-checkbox  ng-repeat="(location, selected) in data.locations">{{location}}</label>
+          <span ng-show="jobForm.locations.$error.required && validated" class="error">至少选择一个工作地点</span>
         </div>
       </div>
       <div class="form-group">
@@ -48,13 +50,15 @@
       <div class="form-group">
         <label for="experience" class="col-sm-2 control-label">工作简单介绍</label>
         <div class="col-sm-8">
-          <input class="form-control" id="experience" placeholder="工作简单介绍" ng-model="job.introduction" ng-required="true">
+          <input name="introduction" class="form-control" id="experience" placeholder="工作简单介绍" ng-model="job.introduction" ng-required="true">
+          <span ng-show="jobForm.introduction.$error.required && validated" class="error">工作简单介绍不能为空</span>
         </div>
       </div>
       <div class="form-group">
         <label for="detail" class="col-sm-2 control-label">职责介绍</label>
         <div class="col-sm-8">
           <div simditor name="content" ng-model="job.content" placeholder="职责介绍"  form-required="true"></div>
+          <span ng-show="jobForm.content.$error.required && validated" class="error">职责介绍不能为空</span>
         </div>
       </div>
       <div class="form-group">
