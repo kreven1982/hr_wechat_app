@@ -9,7 +9,8 @@
 		<!-- <span>{{resume}}</span> -->
 		<div class="form-group">
 			<label for="name">姓名*</label> 
-			<input type="text" class="form-control"id="name" placeholder="姓名" ng-model="resume.name">
+			<input name="name" type="text" class="form-control" id="name" placeholder="姓名" ng-model="resume.name" ng-required="true">
+			<span ng-show="form.name.$error.required && validated" class="error">职位名称不能为空</span>
 		</div>
 		<div class="form-group">
 			<label for="mobile">手机*</label> 
@@ -18,7 +19,7 @@
 		<div class="form-group">
 			<label for="experience">工作经验*</label> 
 			<select class="form-control" ng-model="resume.experience">
-				<option value="">请选择</option>
+				<option value="none">请选择</option>
 				<option value="1-2">1-2</option>
 				<option value="2-3">2-3</option>
 				<option value="3-5">3-5</option>
@@ -29,15 +30,15 @@
 		<div class="form-group">
 			<label for="diploma">最高学历*</label> 
 			<select class="form-control" ng-model="resume.diploma">
-				<option value="">请选择</option>
+				<option value="none">请选择</option>
 				<optgroup label="--------------">
-		            <option value="大专">大专</option>
-					<option value="本科">本科</option>
-					<option value="硕士">硕士</option>
-					<option value="博士">博士</option>
+		            <option value="associate">大专</option>
+					<option value="bachelor">本科</option>
+					<option value="master">硕士</option>
+					<option value="doctor">博士</option>
 		        </optgroup>
 				<optgroup label="--------------">
-		            <option value="MBA">MBA</option>
+		            <option value="mba">MBA</option>
 		        </optgroup>
 			</select>
 		</div>
