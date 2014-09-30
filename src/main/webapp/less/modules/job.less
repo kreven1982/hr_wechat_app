@@ -1,33 +1,31 @@
 
-.job-container {
-    .job {
-        padding: 8px;
-        margin: 8px;
-        border-bottom: 1px solid lightblue;
+.job {
+    padding: 8px;
+    margin: 8px;
+    border-bottom: 1px solid lightblue;
 
-        &:last-child {
-             border-bottom: none;
-        }
-
-        .content {
-            margin-top: 8px;
-        }
-
-        .create-time {
-            color: gray;
-        }
-
-        .toolbar {
-            text-align: right;
-
-            a {
-                cursor: pointer;
-                margin-left: 8px;
-            }
-        }
+    &:last-child {
+         border-bottom: none;
     }
 
+    .content {
+        margin-top: 8px;
+    }
+
+    .create-time {
+        color: gray;
+    }
+
+    .toolbar {
+        text-align: right;
+
+        a {
+            cursor: pointer;
+            margin-left: 8px;
+        }
+    }
 }
+
 
 
 .pagination-container {
@@ -45,5 +43,52 @@
         width: 100%;
         float: left;
         color: red;
+    }
+}
+
+
+.preview {
+
+    .modal-content {
+        box-shadow: none;
+        background: none;
+        border: none;
+
+        .modal-body {
+            padding: 0px;
+
+
+            .iphone6 {
+                background-repeat: no-repeat;
+                background-size: 291px 593px;
+                height: 593px;
+                width: 291px;
+                background-image: url("../images/iphone6.png");
+            }
+
+            .preview-panel {
+                position: absolute;
+                left: 18px;
+                top: 72px;
+                background-color: white;
+                width: 255px;
+                height: 450px;
+                border-bottom: 1px solid lightblue;
+                overflow: hidden;
+
+                .wrapper {
+                    width: 273px;
+                    overflow-y: scroll;
+                    height: 450px;
+
+                    .job {
+                        overflow: hidden;
+                    }
+                }
+
+            }
+
+
+        }
     }
 }

@@ -21,7 +21,8 @@ angular.module('simditor',[]).directive('simditor', function ($window) {
 
         function readViewText() {
           var html = element.find('.simditor-body').html();
-          if (attrs.stripBr && html === '<br>') {
+          var text = element.find('.simditor-body').text();
+          if (text === '') {
             html = '';
           }
 

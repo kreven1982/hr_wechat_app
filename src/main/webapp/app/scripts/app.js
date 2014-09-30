@@ -2,7 +2,7 @@ var jobApp = angular.module('jobApp', ['ui.bootstrap','ui.bootstrap-slider','sim
 
 jobApp.value("baseUrl", $("base").attr("href"));
 
-jobApp.controller('jobController', ['$scope', '$http', '$modal', 'jobService', 'baseUrl', function($scope, $http, $modal, jobService, baseUrl) {
+jobApp.controller('jobController', ['$scope', '$http', '$modal', '$window', 'jobService', 'baseUrl', function($scope, $http, $modal, $window, jobService, baseUrl) {
 
     $scope.job = {
         title: "",
@@ -16,8 +16,22 @@ jobApp.controller('jobController', ['$scope', '$http', '$modal', 'jobService', '
     };
 
     $scope.data = {
+        diploma : {
+            none : "不限",
+            associate : "大专",
+            bachelor : "本科",
+            master : "硕士",
+            doctor : "博士"
+        },
         experience : [3, 8],
         locations : {}
+    };
+
+    $scope.notSorted = function(obj){
+        if (!obj) {
+            return [];
+        }
+        return Object.keys(obj);
     };
 
     //Initialize locations
@@ -36,8 +50,6 @@ jobApp.controller('jobController', ['$scope', '$http', '$modal', 'jobService', '
                  console.log(data);
             });
 
-        } else {
-
         }
     };
 
@@ -55,6 +67,14 @@ jobApp.controller('jobController', ['$scope', '$http', '$modal', 'jobService', '
         return from + " - " + to + " 年";
     };
 
+    $scope.showLocations = function() {
+        return $scope.job.locations.join(",");
+    };
+
+    $scope.showDiploma = function(key) {
+        return $scope.data.diploma[key];
+    };
+
     $scope.$watch("data.locations", function(){
         $scope.job.locations = convertLocations($scope.data.locations);
     }, true);
@@ -65,11 +85,20 @@ jobApp.controller('jobController', ['$scope', '$http', '$modal', 'jobService', '
     }, true);
 
     $scope.newJob = function() {
-        alert("new job");
+         $window.location.href = baseUrl + 'm/management/job?new=true';
     };
 
     $scope.goToList = function() {
-        alert("go to list");
+        $window.location.href = baseUrl + 'm/management/job';
+    };
+
+    $scope.preview = function() {
+         $modal.open({
+            templateUrl: baseUrl + 'app/views/job.preview.html',
+            scope: $scope,
+            windowClass: "preview",
+            size : 'sm'
+         });
     };
 
     function showConfirmDialog() {

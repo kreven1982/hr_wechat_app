@@ -1,0 +1,34 @@
+<div class="modal-body">
+     <div class="iphone6"></div>
+     <div class="preview-panel">
+         <div class="wrapper">
+            <div class="job">
+                <h4>{{job.title}}</h4>
+                <h6>
+                    工作地点 : {{ showLocations() }}
+                </h6>
+                <h6>
+                    经验要求 : {{ showExperience() }}
+                </h6>
+                <h6>
+                    学历要求 : {{ showDiploma(job.diploma) }}
+                </h6>
+                <div class="content">
+                    <p>
+                    <h6>职位简介</h6>
+                    {{job.introduction}}
+                    </p>
+                </div>
+                <div class="footer row">
+                    <div class="create-time col-xs-5">
+                        2014-08-06
+                    </div>
+                    <div class="toolbar col-xs-7">
+                        <a href="${pageContext.request.contextPath}/m/job/apply?id=2">申请</a>
+                        <a href="#">查看详情</a>
+                    </div>
+                </div>
+            </div>
+         </div>
+     </div>
+</div>

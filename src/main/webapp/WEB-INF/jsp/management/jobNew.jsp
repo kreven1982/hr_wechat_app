@@ -39,11 +39,7 @@
         <label for="diploma" class="col-sm-2 control-label">学历要求</label>
         <div class="col-sm-8">
           <select class="form-control" ng-model="job.diploma">
-            <option value="none">不限</option>
-            <option value="associate">大专</option>
-            <option value="bachelor">本科</option>
-            <option value="master">硕士</option>
-            <option value="doctor">博士</option>
+            <option value="{{ key }}" ng-repeat="key in notSorted(data.diploma)" ng-init="label = data.diploma[key]">{{ label }}</option>
           </select>
         </div>
       </div>
@@ -64,7 +60,7 @@
       <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
           <button type="submit" class="btn btn-default">保存</button>
-          <button class="btn btn-default" ng-disabled="jobForm.$invalid">预览</button>
+          <button type="button" class="btn btn-default" ng-disabled="jobForm.$invalid" ng-click="preview()">预览</button>
         </div>
       </div>
     </form>
