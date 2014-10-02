@@ -2,27 +2,34 @@ var weixinApp = angular.module('weixinApp', []);
 
 weixinApp.controller('weixinResumeController', ['$scope', '$http', function($scope, $http) {
     $scope.resume = {
-        name: "Jeff",
-        mobile: "18812345678",
-        experience: "3-5",
-        diploma : '硕士',
-        detail: "J2EE Specialist"
+        name: "",
+        mobile: "",
+        experience: "",
+        diploma : '',
+        detail: ""
     };
     
     $scope.submitResume = function(){
-    	var fd = new FormData();
-    	fd.append('file', $scope.resumeAttachment);
-    	fd.append('data', JSON.stringify($scope.resume))
-    	$http.post("/ROOT/m/resume/submit", fd, {
-    		transformRequest: angular.identity,
-    		headers: {'Content-Type': undefined}
-    	})
-    	.success(function(data, status, headers, config){
-    		console.log(data);
-    	})
-    	.error(function(data, status, headers, config){
-    		console.log(status);
-    	});
+    	$scope.validated = true;
+    	
+    	if($scope.form.$valid) {
+    		$('#loading').modal('show');
+    		
+    		var fd = new FormData();
+        	fd.append('file', $scope.resumeAttachment);
+        	fd.append('data', JSON.stringify($scope.resume))
+        	$http.post("/ROOT/m/resume/submit", fd, {
+        		transformRequest: angular.identity,
+        		headers: {'Content-Type': undefined}
+        	})
+        	.success(function(data, status, headers, config){
+        		console.log(data);
+        		$('#loading').modal('hide');
+        	})
+        	.error(function(data, status, headers, config){
+        		console.log(status);
+        	});
+    	}
     }
     
 }]);
