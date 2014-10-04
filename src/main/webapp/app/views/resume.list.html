@@ -1,0 +1,21 @@
+<div class="resume-container col-xs-12 col-lg-10 col-lg-offset-1">
+    <div class="resume" id="resume-{{ resume.id }}" ng-repeat="resume in resumes">
+        <h4><span>{{ resume.name }}</span></h4>
+        <h5><i class="fa fa-mobile fa-lg"></i>&nbsp; {{resume.mobile}}</h5>
+        <h5>最高学历：<span diploma="resume.diploma"></h5>
+        <h5>工作经验：{{resume.experience}} 年</h5>
+
+        <div class="content">
+            <p>个人简介：{{resume.detail}}</p>
+        </div>
+        <div class="footer row">
+            <div class="create-time col-xs-6">
+                2014-08-06 12:00:00
+            </div>
+            <div class="toolbar col-xs-6">
+                <a data-toggle="lightbox" href="javascript:void;">查看附件</a>
+                <a>删除</a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -3,7 +3,7 @@
     <div class="job" id="job-${job.id}" ng-repeat="job in jobs">
         <h4>{{job.title}}</h4>
         <h6>
-            <span job-locations locations="job.locations"></span> · <span job-experience from="job.experienceFrom" to="job.experienceTo"></span>
+            <span job-locations="job.locations"></span> · <span job-experience from="job.experienceFrom" to="job.experienceTo"></span>
         </h6>
         <div class="content">
             <p>{{job.introduction}}</p>

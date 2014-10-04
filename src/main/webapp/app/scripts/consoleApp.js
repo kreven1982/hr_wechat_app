@@ -16,9 +16,9 @@ consoleApp.config(function($routeProvider) {
         }).when('/job/:jobId', {
             templateUrl : 'app/views/job.edit.html',
             controller  : 'jobController'
-        }).when('/job/:jobId', {
-                            templateUrl : 'app/views/job.edit.html',
-                            controller  : 'jobController'
+        }).when('/resumes', {
+            templateUrl : 'app/views/resume.list.html',
+            controller  : 'resumeListController'
         });
 });
 
@@ -187,19 +187,19 @@ consoleApp.directive('jobLocations', function(){
      return {
         restrict: "AE",
         scope: {
-           locations : "="
+           jobLocations : "="
         },
         link : function(scope, element, attrs) {
 
-            scope.$watch("locations", function(){
-                 element.text(scope.locations.join(","));
+            scope.$watch("jobLocations", function(){
+                 element.text(scope.jobLocations.join(","));
             });
         }
      }
 });
 
 
-consoleApp.directive('jobDiploma', function(diplomas){
+consoleApp.directive('diploma', function(diplomas){
      return {
         restrict: "AE",
         scope: {
@@ -234,6 +234,12 @@ consoleApp.directive('formRequired', function(){
         }
      }
 });
+
+consoleApp.controller('resumeListController', ['$scope','$http', function($scope, $http) {
+     $http.get('api/resume/all').success(function(data, status, headers, config){
+          $scope.resumes = data.result;
+     });
+}]);
 
 consoleApp.controller('resumeSearchController', ['$scope','$modal', function($scope, $modal) {
 
