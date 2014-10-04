@@ -16,6 +16,9 @@ consoleApp.config(function($routeProvider) {
         }).when('/job/:jobId', {
             templateUrl : 'app/views/job.edit.html',
             controller  : 'jobController'
+        }).when('/job/:jobId', {
+                            templateUrl : 'app/views/job.edit.html',
+                            controller  : 'jobController'
         });
 });
 
@@ -48,7 +51,7 @@ consoleApp.controller('jobController', ['$scope', '$http', '$modal', '$routePara
     };
 
     //Initialize locations
-    $http.get('m/management/job/locations').success(function(data, status, headers, config){
+    $http.get('api/job/locations').success(function(data, status, headers, config){
          _.each(data.locations, function(location) {
               $scope.data.locations[location] = false;
          });
@@ -58,7 +61,7 @@ consoleApp.controller('jobController', ['$scope', '$http', '$modal', '$routePara
         $scope.validated = true;
         if($scope.jobForm.$valid) {
             showConfirmDialog();
-            $http.post('m/management/job/' + $scope.jobId, $scope.job).success(function(data, status, headers, config){
+            $http.post('api/job/' + $scope.jobId, $scope.job).success(function(data, status, headers, config){
                  console.log(data);
             });
 
@@ -80,7 +83,7 @@ consoleApp.controller('jobController', ['$scope', '$http', '$modal', '$routePara
     $scope.$watch( "jobId" ,function() {
         var jobId = $scope.jobId;
         if(jobId != undefined && jobId != 0) {
-           $http.get('m/management/job/' + jobId).success(function(data, status, headers, config){
+           $http.get('api/job/' + jobId).success(function(data, status, headers, config){
                 $scope.job = data.result;
                 $scope.data.experience = [$scope.job.experienceFrom, $scope.job.experienceTo];
 
@@ -143,7 +146,7 @@ consoleApp.controller('jobController', ['$scope', '$http', '$modal', '$routePara
 
 consoleApp.controller('jobListController', ['$scope', '$http', function($scope, $http) {
 
-       $http.get('m/management/job/all').success(function(data, status, headers, config){
+       $http.get('api/job/all').success(function(data, status, headers, config){
             $scope.jobs = data.result;
        });
 
@@ -258,11 +261,11 @@ consoleApp.controller('resumeSearchController', ['$scope','$modal', function($sc
 		};
 
 		$scope.search = function () {
-			/*$http.get('m/management/resume/search', $scope.searchForm).success(function(data, status, headers, config){
+			/*$http.get('api/resume/search', $scope.searchForm).success(function(data, status, headers, config){
 				console.log(data);
 			});*/
 			
-			$window.location.href = 'm/management/resume/list';
+			$window.location.href = 'api/resume/list';
 			//$modalInstance.close($scope.searchForm);
 		};
 
