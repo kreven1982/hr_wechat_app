@@ -1,27 +1,6 @@
-var consoleApp = angular.module('consoleApp', ['ngRoute','ui.bootstrap','ui.bootstrap-slider','simditor']);
+var consoleApp = angular.module('consoleApp');
 
-consoleApp.value("diplomas", {
-                             none : "不限",
-                             associate : "大专",
-                             bachelor : "本科",
-                             master : "硕士",
-                             doctor : "博士"
-                          });
-
-consoleApp.config(function($routeProvider) {
-    $routeProvider.when('/', {
-            templateUrl : 'app/views/job.list.html',
-            controller  : 'jobListController'
-        }).when('/job/:jobId', {
-            templateUrl : 'app/views/job.edit.html',
-            controller  : 'jobController'
-        }).when('/resumes', {
-            templateUrl : 'app/views/resume.list.html',
-            controller  : 'resumeListController'
-        });
-});
-
-consoleApp.controller('jobController', ['$scope', '$http', '$modal', '$routeParams', '$window', 'jobService', 'diplomas', function($scope, $http, $modal, $routeParams, $window, jobService, diplomas) {
+consoleApp.controller('jobController', ['$scope', '$http', '$modal', '$routeParams', '$window', 'diplomas', function($scope, $http, $modal, $routeParams, $window, diplomas) {
 
     $scope.jobId = $routeParams.jobId;
 
@@ -114,7 +93,7 @@ consoleApp.controller('jobController', ['$scope', '$http', '$modal', '$routePara
 
     $scope.preview = function() {
          $modal.open({
-            templateUrl: 'app/views/job.preview.html',
+            templateUrl: 'app/console/views/job.preview.html',
             scope: $scope,
             windowClass: "preview",
             size : 'sm'
@@ -123,7 +102,7 @@ consoleApp.controller('jobController', ['$scope', '$http', '$modal', '$routePara
 
     function showConfirmDialog() {
          $scope.confirmDialog = $modal.open({
-            templateUrl: 'app/views/job.confirm.dialog.html',
+            templateUrl: 'app/console/views/job.confirm.dialog.html',
             scope: $scope,
             size : 'sm'
          });
@@ -145,94 +124,21 @@ consoleApp.controller('jobController', ['$scope', '$http', '$modal', '$routePara
 
 consoleApp.controller('jobListController', ['$scope', '$http', function($scope, $http) {
 
-       $http.get('api/job/all').success(function(data, status, headers, config){
-            $scope.jobs = data.result;
-       });
+    $scope.deleteJob = function(job) {
+         if(confirm("你想删除该职位信息吗?\n" + job.title)) {
+            $scope.jobs.splice(  $scope.jobs.indexOf(job), 1 );
+         }
+    };
+
+    $http.get('api/job/all').success(function(data, status, headers, config){
+        $scope.jobs = data.result;
+    });
 
 }]);
 
 consoleApp.controller('bannerController', ['$scope', function($scope) {
        $scope.isCollapsed = true;
 }]);
-
-consoleApp.directive('jobExperience', function(){
-     return {
-        restrict: "AE",
-        scope: {
-           from : "=",
-           to : "="
-        },
-        link : function(scope, element, attrs) {
-
-            scope.$watchCollection("[from, to]", function(){
-
-                var from =  scope.from;
-                var to = scope.to;
-                var experienceText = from + " - " + to + " 年";
-
-                if(to == 16) {
-                   experienceText = from + "+ 年"
-                } else if (from == to) {
-                   experienceText = from + " 年"
-                }
-
-                element.text(experienceText);
-            });
-        }
-     }
-});
-
-consoleApp.directive('jobLocations', function(){
-     return {
-        restrict: "AE",
-        scope: {
-           jobLocations : "="
-        },
-        link : function(scope, element, attrs) {
-
-            scope.$watch("jobLocations", function(){
-                 element.text(scope.jobLocations.join(","));
-            });
-        }
-     }
-});
-
-
-consoleApp.directive('diploma', function(diplomas){
-     return {
-        restrict: "AE",
-        scope: {
-           diploma : "="
-        },
-        link : function(scope, element, attrs) {
-
-            scope.$watch("diploma", function(){
-                 element.text(diplomas[scope.diploma]);
-            });
-        }
-     }
-});
-
-consoleApp.directive('formRequired', function(){
-     return {
-        restrict: "AE",
-        require: '?ngModel',
-        scope: {
-           ngModel : "="
-        },
-        link : function(scope, element, attrs, ngModel) {
-            scope.$watch("ngModel", function(){
-
-                if(_.isEmpty(scope.ngModel)) {
-                    ngModel.$setValidity("required", false);
-                } else {
-                    ngModel.$setValidity("required", true);
-                }
-
-            }, true);
-        }
-     }
-});
 
 consoleApp.controller('resumeListController', ['$scope','$http', function($scope, $http) {
      $http.get('api/resume/all').success(function(data, status, headers, config){
@@ -244,7 +150,7 @@ consoleApp.controller('resumeSearchController', ['$scope','$modal', function($sc
 
 	$scope.openSearchResume = function(){
 		var modalInstance = $modal.open({
-			templateUrl: 'app/views/resume.search.dialog.html',
+			templateUrl: 'app/console/views/resume.search.dialog.html',
 		    size : 'md',
 		    controller: resumeSearchModalController
 		});
@@ -269,7 +175,7 @@ consoleApp.controller('resumeSearchController', ['$scope','$modal', function($sc
 			/*$http.get('api/resume/search', $scope.searchForm).success(function(data, status, headers, config){
 				console.log(data);
 			});*/
-			
+
 			$window.location.href = 'api/resume/list';
 			//$modalInstance.close($scope.searchForm);
 		};
@@ -279,4 +185,3 @@ consoleApp.controller('resumeSearchController', ['$scope','$modal', function($sc
 		};
 	};
 }]);
-

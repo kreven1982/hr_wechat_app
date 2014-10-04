@@ -33,10 +33,14 @@
     <script src="libs/ui-bootstrap.min.js"></script>
     <script src="libs/ui-bootstrap-tpls.min.js"></script>
 
-     <script src="app/scripts/consoleApp.js"></script>
-     <script src="app/scripts/services/jobService.js"></script>
-     <script src="app/scripts/vendor/slider.js"></script>
-     <script src="app/scripts/vendor/editor.js"></script>
+     <script src="app/common/scripts/directives.js"></script>
+
+     <script src="app/console/scripts/app.js"></script>
+     <script src="app/console/scripts/controllers.js"></script>
+     <script src="app/console/scripts/services.js"></script>
+
+     <script src="app/console/scripts/vendor/slider.js"></script>
+     <script src="app/console/scripts/vendor/editor.js"></script>
 
   </head>
   <body>

@@ -1,6 +1,6 @@
 <div class="job-container col-xs-12 col-lg-10 col-lg-offset-1">
 
-    <div class="job" id="job-${job.id}" ng-repeat="job in jobs">
+    <div class="job animated fadeIn" ng-repeat="job in jobs">
         <h4>{{job.title}}</h4>
         <h6>
             <span job-locations="job.locations"></span> · <span job-experience from="job.experienceFrom" to="job.experienceTo"></span>
@@ -15,7 +15,7 @@
             <div class="toolbar col-xs-8">
                 <a>查看简历(0)</a>
                 <a href="{{baseUrl}}#/job/{{job.id}}">编辑</a>
-                <a>撤下</a>
+                <a ng-click="deleteJob(job)">删除</a>
             </div>
         </div>
     </div>
