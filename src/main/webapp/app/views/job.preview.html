@@ -1,17 +1,31 @@
 <div class="modal-body">
      <div class="iphone6"></div>
+     <img class="weixin-header" src="images/weixin_header.png" />
      <div class="preview-panel">
          <div class="wrapper">
+             <nav class="navbar navbar-default" role="navigation">
+                 <div class="container-fluid">
+                     <div class="navbar-header">
+                         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#banner-menu">
+                             <span class="sr-only">Toggle navigation</span>
+                             <span class="icon-bar"></span>
+                             <span class="icon-bar"></span>
+                             <span class="icon-bar"></span>
+                         </button>
+                         <a class="navbar-brand" href="#">高知特微招聘</a>
+                     </div>
+                 </div>
+             </nav>
             <div class="job">
                 <h4>{{job.title}}</h4>
                 <h6>
-                    工作地点 : {{ showLocations() }}
+                    工作地点 : <span job-locations locations="job.locations"></span>
                 </h6>
                 <h6>
-                    经验要求 : {{ showExperience() }}
+                    经验要求 : <span job-experience from="job.experienceFrom" to="job.experienceTo"></span>
                 </h6>
                 <h6>
-                    学历要求 : {{ showDiploma(job.diploma) }}
+                    学历要求 : <span job-diploma diploma="job.diploma"></span>
                 </h6>
                 <div class="content">
                     <p>

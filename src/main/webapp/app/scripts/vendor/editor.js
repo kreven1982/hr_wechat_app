@@ -7,6 +7,9 @@ angular.module('simditor',[]).directive('simditor', function ($window) {
       require: "?^ngModel",
       link: function (scope, element, attrs, ngModel) {
         var placeholder = attrs.placeholder;
+        if(placeholder == undefined) {
+            placeholder = "";
+        }
         element.append("<div style='height:300px;' placeholder='" + placeholder + "'></div>");
 
         scope.simditor = new Simditor({

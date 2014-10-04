@@ -22,7 +22,7 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">职位管理<span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
-            <li><a href="<%= contextPath %>/m/management/job?new=true">发布职位</a></li>
+            <li><a href="<%= contextPath %>/m/management/job?id=0">发布职位</a></li>
             <li><a href="<%= contextPath %>/m/management/job">所有职位</a></li>
             <li class="divider"></li>
             <li><a href="#">搜索职位</a></li>

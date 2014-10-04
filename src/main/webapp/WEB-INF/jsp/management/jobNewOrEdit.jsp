@@ -3,10 +3,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
-<t:console title="发布新职位">
+<t:console>
 
     <form name="jobForm" class="form-horizontal new-job col-lg-10 col-lg-offset-1" role="form" ng-controller="jobController" ng-submit="submitJob()" novalidate>
-      <h4>发布新职位</h4>
+      <h4>{{ showTitle() }}</h4>
       <div class="form-group">
         <label for="title" class="col-sm-2 control-label">职位名称</label>
         <div class="col-sm-8">
@@ -25,7 +25,7 @@
         <label class="col-sm-2 control-label">经验要求</label>
         <div class="col-sm-8" style="margin-top: 6px;">
           <span slider ng-model="data.experience" min="0" max="16" range="true" tooltip="hide"></span>
-          <span style="margin-left: 16px"><b>{{ showExperience() }}</b></span>
+          <span style="margin-left: 16px"><b job-experience from="job.experienceFrom" to="job.experienceTo"></b></span>
         </div>
       </div>
       <div class="form-group">
@@ -53,7 +53,7 @@
       <div class="form-group">
         <label for="detail" class="col-sm-2 control-label">职责介绍</label>
         <div class="col-sm-8">
-          <div simditor name="content" ng-model="job.content" placeholder="职责介绍"  form-required="true"></div>
+          <div simditor name="content" ng-model="job.content" form-required="true"></div>
           <span ng-show="jobForm.content.$error.required && validated" class="error">职责介绍不能为空</span>
         </div>
       </div>

@@ -54,20 +54,4 @@ class Job implements Entity<Job>{
         this.totalOfResumes= map.totalOfResumes ?: 0
         this.createTime= createTime
     }
-
-    String getExperiences() {
-        if(experienceFrom) {
-            if(experienceTo) {
-                return "$experienceFrom-$experienceTo"
-            } else {
-                return "$experienceFrom+"
-            }
-        } else {
-            return null
-        }
-    }
-
-    String getJobLocations() {
-        locations?.join(",")
-    }
 }

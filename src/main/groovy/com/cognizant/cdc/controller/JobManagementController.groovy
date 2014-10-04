@@ -19,18 +19,12 @@ class JobManagementController {
     @Autowired
     JobService jobService
 
-    @RequestMapping(value="template/{templateName}",method = RequestMethod.GET)
-    public ModelAndView templates(@PathVariable String templateName) {
-        ModelAndView modelAndView = new ModelAndView("management/" + templateName)
-        return modelAndView
-    }
-
     @RequestMapping(method = RequestMethod.GET)
-    public ModelAndView jobs(@RequestParam(value = "new", required = false) Boolean newFlag) {
+    public ModelAndView jobPages(@RequestParam(value = "id", required = false) Integer jobId) {
 
-        if(newFlag) {
-            ModelAndView modelAndView = new ModelAndView("management/jobNew")
-            modelAndView.addObject("job", new Job())
+        if(jobId != null) {
+            ModelAndView modelAndView = new ModelAndView("management/jobNewOrEdit")
+            modelAndView.addObject("jobId", jobId)
             return modelAndView
 
         } else {
@@ -43,10 +37,26 @@ class JobManagementController {
         }
     }
 
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(value = "all", method = RequestMethod.GET)
     @ResponseBody
-    public Map newJob(@RequestBody Job job) {
-        jobService.newJob(job)
+    public Map allJobs() {
+        [result: jobService.listJobs()]
+    }
+
+    @RequestMapping(value = "{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public Map jobs(@PathVariable("id") Integer jobId) {
+        [result: jobService.getJob(jobId)]
+    }
+
+    @RequestMapping(value = "{id}", method = RequestMethod.POST)
+    @ResponseBody
+    public Map updateJob(@PathVariable("id") Integer jobId, @RequestBody Job job) {
+        if(jobId == 0) {
+            jobService.newJob(job)
+        } else {
+            jobService.updateJob(job)
+        }
         return [ success: true ]
     }
 

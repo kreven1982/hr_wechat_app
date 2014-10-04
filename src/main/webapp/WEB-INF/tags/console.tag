@@ -1,5 +1,4 @@
 <%@tag description="Simple Wrapper Tag" pageEncoding="UTF-8"%>
-<%@attribute name="title" required="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
@@ -15,7 +14,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>${title}</title>
+    <title>高志特微招聘</title>
 
     <link rel="stylesheet" href="css/font-awesome.min.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -40,7 +39,7 @@
     <script src="libs/ui-bootstrap.min.js"></script>
     <script src="libs/ui-bootstrap-tpls.min.js"></script>
 
-     <script src="app/scripts/app.js"></script>
+     <script src="app/scripts/consoleApp.js"></script>
      <script src="app/scripts/services/jobService.js"></script>
      <script src="app/scripts/vendor/slider.js"></script>
      <script src="app/scripts/vendor/editor.js"></script>

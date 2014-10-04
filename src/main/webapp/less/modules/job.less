@@ -46,6 +46,8 @@
     }
 }
 
+@preview-height: 402px;
+@preview-width: 255px;
 
 .preview {
 
@@ -66,20 +68,31 @@
                 background-image: url("../images/iphone6.png");
             }
 
+            .weixin-header {
+                position: absolute;
+                left: 17px;
+                top: 71px;
+                width: @preview-width;
+            }
+
             .preview-panel {
                 position: absolute;
                 left: 18px;
-                top: 72px;
+                top: 120px;
                 background-color: white;
-                width: 255px;
-                height: 450px;
+                width: @preview-width;
+                height: @preview-height;
                 border-bottom: 1px solid lightblue;
                 overflow: hidden;
 
+                nav {
+                    margin-bottom: 0px;
+                }
+
                 .wrapper {
-                    width: 273px;
+                    width: @preview-width + 18px;
                     overflow-y: scroll;
-                    height: 450px;
+                    height: @preview-height;
 
                     .job {
                         overflow: hidden;

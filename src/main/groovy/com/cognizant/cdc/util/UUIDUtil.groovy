@@ -7,7 +7,7 @@ class UUIDUtil {
 	}
 	
 	public static void main(args) {
-		for(i in 1..10){
+        (1..10).each{
 			println getUUID()
 		}
 	}

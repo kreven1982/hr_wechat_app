@@ -15,13 +15,21 @@ class JobService {
     @Autowired
     SequenceRepository sequenceRepository
 
+    public Job getJob(id) {
+        jobRepository.get(id)
+    }
+
     public void newJob(Job job) {
         job.id = sequenceRepository.getNextID("JOB_SEQ")
         job.createTime = System.currentTimeMillis()
-        jobRepository.newJob(job)
+        jobRepository.save(job)
+    }
+
+    public void updateJob(Job job) {
+        jobRepository.save(job);
     }
 
     public List<Job> listJobs() {
-        jobRepository.listJobs()
+        jobRepository.list()
     }
 }
