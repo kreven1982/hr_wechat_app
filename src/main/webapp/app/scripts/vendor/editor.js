@@ -15,7 +15,7 @@ angular.module('simditor',[]).directive('simditor', function ($window) {
         scope.simditor = new Simditor({
           textarea: element.children()[0],
           pasteImage: true,
-          toolbar: ['title', 'bold', 'italic', 'underline', 'strikethrough', 'ol', 'ul', 'blockquote', 'link', 'image', 'hr', 'indent', 'outdent'],
+          toolbar: ['title', 'bold', 'italic', 'underline', 'strikethrough', 'ol', 'ul', 'blockquote', 'link', 'hr', 'indent', 'outdent'],
           defaultImage: 'assets/images/image.png',
           upload: location.search === '?upload' ? {
             url: '/upload'

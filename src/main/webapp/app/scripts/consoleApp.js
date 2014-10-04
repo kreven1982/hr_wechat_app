@@ -1,6 +1,5 @@
 var consoleApp = angular.module('consoleApp', ['ngRoute','ui.bootstrap','ui.bootstrap-slider','simditor']);
 
-consoleApp.value("baseUrl", "./");
 consoleApp.value("diplomas", {
                              none : "不限",
                              associate : "大专",
@@ -124,7 +123,7 @@ consoleApp.controller('jobController', ['$scope', '$http', '$modal', '$routePara
 
     function showConfirmDialog() {
          $scope.confirmDialog = $modal.open({
-            templateUrl: 'app/views/confirm.dialog.html',
+            templateUrl: 'app/views/job.confirm.dialog.html',
             scope: $scope,
             size : 'sm'
          });
@@ -245,7 +244,7 @@ consoleApp.controller('resumeSearchController', ['$scope','$modal', function($sc
 
 	$scope.openSearchResume = function(){
 		var modalInstance = $modal.open({
-			templateUrl: 'app/views/searchResume.dialog.html',
+			templateUrl: 'app/views/resume.search.dialog.html',
 		    size : 'md',
 		    controller: resumeSearchModalController
 		});

@@ -10,10 +10,10 @@
             <div class="job" id="job-${job.id}">
                 <h4>${job.title}</h4>
                 <h6>
-                    工作地点 : ${job.jobLocations}
+                    工作地点 : ${job.locations}
                 </h6>
                 <h6>
-                    经验要求 : ${job.experiences}年
+                    经验要求 : ${job.experienceFrom} - ${job.experienceTo}
                 </h6>
                 <h6>
                     学历要求 : 大专
