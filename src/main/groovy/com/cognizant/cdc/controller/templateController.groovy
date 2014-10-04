@@ -7,12 +7,10 @@ import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.servlet.ModelAndView
 
 @Controller
-@RequestMapping(value = "/template")
 class templateController {
 
-    @RequestMapping(value="{path}/{templateName}",method = RequestMethod.GET)
-    public ModelAndView templates(@PathVariable String path, @PathVariable String templateName) {
-        ModelAndView modelAndView = new ModelAndView(path + "/" + templateName)
-        return modelAndView
+    @RequestMapping(value="/console")
+    public String console() {
+        return "console"
     }
 }

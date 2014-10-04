@@ -2,12 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-<%
-  String contextPath = request.getContextPath() ;
-%>
-
 <!DOCTYPE html>
-<html ng-app="jobApp">
+<html ng-app="consoleApp">
   <head>
     <c:set var="url">${pageContext.request.requestURL}</c:set>
     <base href="${fn:substring(url, 0, fn:length(url) - fn:length(pageContext.request.requestURI))}${pageContext.request.contextPath}/" />
@@ -36,6 +32,7 @@
     <script src="libs/bootstrap-slider.min.js"></script>
 
     <script src="libs/angular.min.js"></script>
+    <script src="libs/angular-route.min.js"></script>
     <script src="libs/ui-bootstrap.min.js"></script>
     <script src="libs/ui-bootstrap-tpls.min.js"></script>
 

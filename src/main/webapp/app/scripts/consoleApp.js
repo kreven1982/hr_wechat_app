@@ -1,7 +1,7 @@
-var jobApp = angular.module('jobApp', ['ui.bootstrap','ui.bootstrap-slider','simditor']);
+var consoleApp = angular.module('consoleApp', ['ngRoute','ui.bootstrap','ui.bootstrap-slider','simditor']);
 
-jobApp.value("baseUrl", $("base").attr("href"));
-jobApp.value("diplomas", {
+consoleApp.value("baseUrl", "./");
+consoleApp.value("diplomas", {
                              none : "不限",
                              associate : "大专",
                              bachelor : "本科",
@@ -9,19 +9,19 @@ jobApp.value("diplomas", {
                              doctor : "博士"
                           });
 
-//jobApp.config(function($routeProvider) {
-//    $routeProvider.when('/', {
-//            templateUrl : 'app/views/job.list.html',
-//            controller  : 'jobListController'
-//        }).when('/job/:jobId', {
-//            templateUrl : 'app/views/job.edit.html',
-//            controller  : 'jobController'
-//        });
-//});
+consoleApp.config(function($routeProvider) {
+    $routeProvider.when('/', {
+            templateUrl : 'app/views/job.list.html',
+            controller  : 'jobListController'
+        }).when('/job/:jobId', {
+            templateUrl : 'app/views/job.edit.html',
+            controller  : 'jobController'
+        });
+});
 
-jobApp.controller('jobController', ['$scope', '$http', '$modal', '$location', '$window', 'jobService', 'baseUrl', 'diplomas', function($scope, $http, $modal, $location, $window, jobService, baseUrl, diplomas) {
+consoleApp.controller('jobController', ['$scope', '$http', '$modal', '$routeParams', '$window', 'jobService', 'diplomas', function($scope, $http, $modal, $routeParams, $window, jobService, diplomas) {
 
-    $scope.jobId = $location.search().id;
+    $scope.jobId = $routeParams.jobId;
 
     $scope.job = {
         title: "",
@@ -48,7 +48,7 @@ jobApp.controller('jobController', ['$scope', '$http', '$modal', '$location', '$
     };
 
     //Initialize locations
-    $http.get(baseUrl + 'm/management/job/locations').success(function(data, status, headers, config){
+    $http.get('m/management/job/locations').success(function(data, status, headers, config){
          _.each(data.locations, function(location) {
               $scope.data.locations[location] = false;
          });
@@ -58,7 +58,7 @@ jobApp.controller('jobController', ['$scope', '$http', '$modal', '$location', '$
         $scope.validated = true;
         if($scope.jobForm.$valid) {
             showConfirmDialog();
-            $http.post(baseUrl + 'm/management/job/' + $scope.jobId, $scope.job).success(function(data, status, headers, config){
+            $http.post('m/management/job/' + $scope.jobId, $scope.job).success(function(data, status, headers, config){
                  console.log(data);
             });
 
@@ -79,8 +79,8 @@ jobApp.controller('jobController', ['$scope', '$http', '$modal', '$location', '$
 
     $scope.$watch( "jobId" ,function() {
         var jobId = $scope.jobId;
-        if(jobId) {
-           $http.get(baseUrl + 'm/management/job/' + jobId).success(function(data, status, headers, config){
+        if(jobId != undefined && jobId != 0) {
+           $http.get('m/management/job/' + jobId).success(function(data, status, headers, config){
                 $scope.job = data.result;
                 $scope.data.experience = [$scope.job.experienceFrom, $scope.job.experienceTo];
 
@@ -101,16 +101,18 @@ jobApp.controller('jobController', ['$scope', '$http', '$modal', '$location', '$
     }, true);
 
     $scope.newJob = function() {
-         $window.location.href = baseUrl + 'm/management/job?id=0';
+         $window.location.href = '#/job/0';
+         $scope.confirmDialog.dismiss();
     };
 
     $scope.goToList = function() {
-        $window.location.href = baseUrl + 'm/management/job';
+        $window.location.href = '#/';
+        $scope.confirmDialog.dismiss();
     };
 
     $scope.preview = function() {
          $modal.open({
-            templateUrl: baseUrl + 'app/views/job.preview.html',
+            templateUrl: 'app/views/job.preview.html',
             scope: $scope,
             windowClass: "preview",
             size : 'sm'
@@ -118,8 +120,8 @@ jobApp.controller('jobController', ['$scope', '$http', '$modal', '$location', '$
     };
 
     function showConfirmDialog() {
-         $modal.open({
-            templateUrl: baseUrl + 'app/views/confirm.dialog.html',
+         $scope.confirmDialog = $modal.open({
+            templateUrl: 'app/views/confirm.dialog.html',
             scope: $scope,
             size : 'sm'
          });
@@ -139,19 +141,19 @@ jobApp.controller('jobController', ['$scope', '$http', '$modal', '$location', '$
 
 }]);
 
-jobApp.controller('jobListController', ['$scope', '$http', 'baseUrl', function($scope, $http,  baseUrl) {
+consoleApp.controller('jobListController', ['$scope', '$http', function($scope, $http) {
 
-       $http.get(baseUrl + 'm/management/job/all').success(function(data, status, headers, config){
+       $http.get('m/management/job/all').success(function(data, status, headers, config){
             $scope.jobs = data.result;
        });
 
 }]);
 
-jobApp.controller('bannerController', ['$scope', function($scope) {
+consoleApp.controller('bannerController', ['$scope', function($scope) {
        $scope.isCollapsed = true;
 }]);
 
-jobApp.directive('jobExperience', function(){
+consoleApp.directive('jobExperience', function(){
      return {
         restrict: "AE",
         scope: {
@@ -178,7 +180,7 @@ jobApp.directive('jobExperience', function(){
      }
 });
 
-jobApp.directive('jobLocations', function(){
+consoleApp.directive('jobLocations', function(){
      return {
         restrict: "AE",
         scope: {
@@ -194,7 +196,7 @@ jobApp.directive('jobLocations', function(){
 });
 
 
-jobApp.directive('jobDiploma', function(diplomas){
+consoleApp.directive('jobDiploma', function(diplomas){
      return {
         restrict: "AE",
         scope: {
@@ -209,7 +211,7 @@ jobApp.directive('jobDiploma', function(diplomas){
      }
 });
 
-jobApp.directive('formRequired', function(){
+consoleApp.directive('formRequired', function(){
      return {
         restrict: "AE",
         require: '?ngModel',
@@ -230,11 +232,11 @@ jobApp.directive('formRequired', function(){
      }
 });
 
-jobApp.controller('resumeSearchController', ['$scope','$modal','baseUrl', function($scope, $modal, baseUrl) {
+consoleApp.controller('resumeSearchController', ['$scope','$modal', function($scope, $modal) {
 
 	$scope.openSearchResume = function(){
 		var modalInstance = $modal.open({
-			templateUrl: baseUrl + 'app/views/searchResume.dialog.html',
+			templateUrl: 'app/views/searchResume.dialog.html',
 		    size : 'md',
 		    controller: resumeSearchModalController
 		});
@@ -256,11 +258,11 @@ jobApp.controller('resumeSearchController', ['$scope','$modal','baseUrl', functi
 		};
 
 		$scope.search = function () {
-			/*$http.get(baseUrl + 'm/management/resume/search', $scope.searchForm).success(function(data, status, headers, config){
+			/*$http.get('m/management/resume/search', $scope.searchForm).success(function(data, status, headers, config){
 				console.log(data);
 			});*/
 			
-			$window.location.href = baseUrl + 'm/management/resume/list';
+			$window.location.href = 'm/management/resume/list';
 			//$modalInstance.close($scope.searchForm);
 		};
 

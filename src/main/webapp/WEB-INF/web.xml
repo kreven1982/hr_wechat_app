@@ -16,6 +16,7 @@
 
     <servlet-mapping>
         <servlet-name>SpringMVC</servlet-name>
+        <url-pattern>/console</url-pattern>
         <url-pattern>/m/*</url-pattern>
     </servlet-mapping>
 

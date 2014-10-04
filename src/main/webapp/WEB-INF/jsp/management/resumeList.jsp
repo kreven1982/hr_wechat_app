@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
-<t:console title="简历列表">
+<t:console>
 
 <div class="resume-container col-xs-12 col-lg-10 col-lg-offset-1">
      <c:forEach items="${resumeList}" var="resume">

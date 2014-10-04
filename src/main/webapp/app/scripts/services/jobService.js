@@ -1,4 +1,4 @@
-angular.module('jobApp').service('jobService', function($http){
+angular.module('consoleApp').service('jobService', function($http){
 
       this.getJobLocations = function() {
 

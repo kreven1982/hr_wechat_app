@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
-<t:console title="搜索简历">
+<t:console>
 
 	<form role="form" class="form-horizontal col-lg-10 col-lg-offset-1">
 		<h4 class="text-center">搜索简历</h4>
