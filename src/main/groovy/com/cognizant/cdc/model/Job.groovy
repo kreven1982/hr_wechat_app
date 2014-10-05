@@ -35,7 +35,8 @@ class Job implements Entity<Job>{
                 diploma: diploma.toString(),
                 locations: locations,
                 experienceFrom : experienceFrom,
-                experienceTo : experienceTo
+                experienceTo : experienceTo,
+                createTime : createTime
         ]
     }
 
@@ -52,6 +53,6 @@ class Job implements Entity<Job>{
         this.experienceFrom = map.experienceFrom
         this.experienceTo = map.experienceTo
         this.totalOfResumes= map.totalOfResumes ?: 0
-        this.createTime= createTime
+        this.createTime= map.createTime ?: 0
     }
 }

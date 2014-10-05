@@ -50,7 +50,6 @@ commonModule.directive('jobLocations', function(){
      }
 });
 
-
 commonModule.directive('diploma', function(diplomas){
      return {
         restrict: "AE",
@@ -61,6 +60,30 @@ commonModule.directive('diploma', function(diplomas){
 
             scope.$watch("diploma", function(){
                  element.text(diplomas[scope.diploma]);
+            });
+        }
+     }
+});
+
+commonModule.directive('time', function(){
+     return {
+        restrict: "AE",
+        scope: {
+           time : "="
+        },
+        link : function(scope, element, attrs) {
+
+            scope.$watch("time", function(){
+
+                var currentTime = new Date(scope.time);
+                var hours = "0" + currentTime.getHours();
+                var minutes = "0" + currentTime.getMinutes();
+                var seconds = "0" + currentTime.getSeconds();
+
+                var timeString = currentTime.getFullYear() + "/" + (currentTime.getMonth() + 1) + "/" + currentTime.getDate()
+                                + " " + hours.slice(-2) + ":" + minutes.slice(-2);
+
+                element.text(timeString);
             });
         }
      }

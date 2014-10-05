@@ -10,6 +10,7 @@ class Resume implements Entity<Resume>{
 	String detail
 	Diploma diploma
 	String imgUrl
+    long createTime
 	
     @Override
     Map toDBMap() {

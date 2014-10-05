@@ -12,7 +12,8 @@ consoleApp.controller('jobController', ['$scope', '$http', '$modal', '$routePara
         experienceTo: 0,
         locations : [],
         introduction: "",
-        content: ""
+        content: "",
+        createTime: new Date().getTime()
     };
 
     $scope.data = {
