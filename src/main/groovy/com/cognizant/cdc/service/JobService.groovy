@@ -26,7 +26,7 @@ class JobService {
     }
 
     public void updateJob(Job job) {
-        jobRepository.save(job);
+        jobRepository.update(job);
     }
 
     public List<Job> listJobs() {
