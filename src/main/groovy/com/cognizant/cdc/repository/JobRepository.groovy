@@ -1,12 +1,17 @@
 package com.cognizant.cdc.repository
 
 import com.cognizant.cdc.model.Job
+import com.cognizant.cdc.repository.support.BaseRepository
 import com.mongodb.BasicDBObject
 import com.mongodb.DBCollection
 import com.mongodb.DBCursor
 import com.mongodb.DBObject
+import groovy.transform.CompileStatic
+import groovy.transform.TypeChecked
 import org.springframework.stereotype.Repository
 
+@CompileStatic
+@TypeChecked
 @Repository
 class JobRepository extends BaseRepository{
 

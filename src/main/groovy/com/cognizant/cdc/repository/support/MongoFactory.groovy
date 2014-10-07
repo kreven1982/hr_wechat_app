@@ -1,4 +1,4 @@
-package com.cognizant.cdc.repository
+package com.cognizant.cdc.repository.support
 
 import com.mongodb.DB
 import com.mongodb.Mongo

@@ -1,5 +1,6 @@
-package com.cognizant.cdc.repository
+package com.cognizant.cdc.repository.support
 
+import com.cognizant.cdc.repository.DocumentNames
 import com.mongodb.BasicDBObject
 import com.mongodb.DB
 import com.mongodb.DBCollection

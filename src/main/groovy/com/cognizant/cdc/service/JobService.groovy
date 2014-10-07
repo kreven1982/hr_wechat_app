@@ -3,9 +3,13 @@ package com.cognizant.cdc.service
 import com.cognizant.cdc.model.Job
 import com.cognizant.cdc.repository.JobRepository
 import com.cognizant.cdc.repository.SequenceRepository
+import groovy.transform.CompileStatic
+import groovy.transform.TypeChecked
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
+@CompileStatic
+@TypeChecked
 @Service
 class JobService {
 
@@ -15,7 +19,7 @@ class JobService {
     @Autowired
     SequenceRepository sequenceRepository
 
-    public Job getJob(id) {
+    public Job getJob(Integer id) {
         jobRepository.get(id)
     }
 
