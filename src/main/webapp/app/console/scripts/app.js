@@ -1,7 +1,7 @@
 var consoleApp = angular.module('consoleApp', ['common', 'ngRoute','ui.bootstrap','ui.bootstrap-slider','simditor']);
 
 consoleApp.config(function($routeProvider) {
-    $routeProvider.when('/', {
+    $routeProvider.when('/jobs/:page', {
             templateUrl : 'app/console/views/job.list.html',
             controller  : 'jobListController'
         }).when('/job/:jobId', {
@@ -10,6 +10,6 @@ consoleApp.config(function($routeProvider) {
         }).when('/resumes', {
             templateUrl : 'app/console/views/resume.list.html',
             controller  : 'resumeListController'
-        });
+        }).otherwise({redirectTo: '/jobs/1'});;
 });
 

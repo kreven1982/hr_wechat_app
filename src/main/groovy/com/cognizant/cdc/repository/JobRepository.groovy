@@ -27,10 +27,11 @@ class JobRepository extends BaseRepository{
         col.update(query, update)
     }
 
-    public List<Job> list() {
+    public List<Job> list(int page, int pageSize) {
         DBCollection col = getCollection(DocumentNames.JOB)
         BasicDBObject sort = new BasicDBObject([_id: 1])
-        DBCursor result = col.find().sort(sort);
+        int skip = (page - 1) * pageSize
+        DBCursor result = col.find().sort(sort).skip(skip).limit(pageSize);
 
         result.collect {
             DBObject record ->
@@ -52,5 +53,10 @@ class JobRepository extends BaseRepository{
         }
 
         null
+    }
+
+    public int getTotal() {
+        DBCollection col = getCollection(DocumentNames.JOB)
+        col.count()
     }
 }

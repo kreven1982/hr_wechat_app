@@ -19,10 +19,17 @@ class JobController {
     @Autowired
     JobService jobService
 
+    public static int PAGE_SIZE = 20
+
     @RequestMapping(value = "all", method = RequestMethod.GET)
     @ResponseBody
-    public Map allJobs() {
-        [result: jobService.listJobs()]
+    public Map allJobs(@RequestParam ("page") Integer page) {
+
+        [
+                result: jobService.listJobs(page ?: 1, PAGE_SIZE),
+                total : jobService.getTotal(),
+                pageSize : PAGE_SIZE
+        ]
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.GET)

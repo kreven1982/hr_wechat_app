@@ -29,7 +29,11 @@ class JobService {
         jobRepository.update(job);
     }
 
-    public List<Job> listJobs() {
-        jobRepository.list()
+    public List<Job> listJobs(int page, int pageSize) {
+        jobRepository.list(page, pageSize)
+    }
+
+    public int getTotal() {
+        jobRepository.getTotal()
     }
 }
