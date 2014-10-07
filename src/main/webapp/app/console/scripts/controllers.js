@@ -125,7 +125,7 @@ consoleApp.controller('jobController', ['$scope', '$http', '$modal', '$routePara
 
 consoleApp.controller('jobListController', ['$scope', '$http', '$location', '$routeParams', function($scope, $http, $location, $routeParams) {
 
-    $scope.currentPage = $routeParams.page ? $routeParams.page : 1;
+    $scope.currentPage = $routeParams.page != null ? $routeParams.page : 1;
 
     $scope.deleteJob = function(job) {
          if(confirm("你想删除该职位信息吗?\n" + job.title)) {
@@ -134,11 +134,13 @@ consoleApp.controller('jobListController', ['$scope', '$http', '$location', '$ro
     };
 
     $scope.$watch("currentPage", function(){
+           var currentPage = $scope.currentPage;
            $http.get('api/job/all?page=' + $scope.currentPage).success(function(data, status, headers, config){
                $scope.jobs = data.result;
                $scope.total = data.total;
                $scope.pageSize = data.pageSize;
                $scope.pageTotal = data.total % data.pageSize ?  (data.total / data.pageSize + 1) : (data.total / data.pageSize);
+               $location.search({page : currentPage});
            });
     },true);
 
