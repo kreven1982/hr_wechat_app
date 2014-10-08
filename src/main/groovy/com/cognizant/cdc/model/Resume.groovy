@@ -20,7 +20,7 @@ class Resume implements Entity<Resume>{
              mobile : mobile,
              experience : experience,
              detail : detail,
-             diploma : diploma,
+             diploma : diploma.toString(),
              imgUrl : imgUrl,
              createTime : createTime
         ]

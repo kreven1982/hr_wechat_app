@@ -27,7 +27,7 @@
     <script src="<%= contextPath %>/libs/jquery.js"></script>
     <script src="<%= contextPath %>/libs/bootstrap.min.js"></script>
     <script src="<%= contextPath %>/libs/angular.min.js"></script>
-    <script src="<%= contextPath %>/app/scripts/weixinApp.js"></script>
+    <script src="<%= contextPath %>/app/weixin/app.js"></script>
   </head>
   <body>
     <jsp:include page="/WEB-INF/jsp/weixin/banner.jsp" />

@@ -182,12 +182,12 @@ consoleApp.controller('resumeSearchController', ['$scope','$modal', function($sc
 		};
 
 		$scope.search = function () {
-			/*$http.get('api/resume/search', $scope.searchForm).success(function(data, status, headers, config){
-				console.log(data);
+			/*$http.get('api/resume/all', $scope.searchForm).success(function(data, status, headers, config){
+				$scope.resumes = data.result;
 			});*/
 
-			$window.location.href = 'api/resume/list';
-			//$modalInstance.close($scope.searchForm);
+			$window.location.href = '#/resumes';
+			$modalInstance.close($scope.searchForm);
 		};
 
 		$scope.close = function () {
