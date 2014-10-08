@@ -19,7 +19,7 @@ class JobController {
     @Autowired
     JobService jobService
 
-    public static int PAGE_SIZE = 20
+    public static int PAGE_SIZE = 15
 
     @RequestMapping(value = "all", method = RequestMethod.GET)
     @ResponseBody

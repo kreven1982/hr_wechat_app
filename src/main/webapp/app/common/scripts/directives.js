@@ -1,12 +1,4 @@
-var commonModule = angular.module('common', []);
-
-commonModule.value("diplomas", {
-                             none : "不限",
-                             associate : "大专",
-                             bachelor : "本科",
-                             master : "硕士",
-                             doctor : "博士"
-                          });
+var commonModule = angular.module('common');
 
 commonModule.directive('jobExperience', function(){
      return {
@@ -60,6 +52,21 @@ commonModule.directive('diploma', function(diplomas){
 
             scope.$watch("diploma", function(){
                  element.text(diplomas[scope.diploma]);
+            });
+        }
+     }
+});
+
+commonModule.directive('recruitTypes', function(recruitTypes){
+     return {
+        restrict: "AE",
+        scope: {
+           type : "="
+        },
+        link : function(scope, element, attrs) {
+
+            scope.$watch("type", function(){
+                 element.text(recruitTypes[scope.type]);
             });
         }
      }

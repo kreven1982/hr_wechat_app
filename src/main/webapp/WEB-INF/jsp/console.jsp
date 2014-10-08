@@ -33,7 +33,9 @@
     <script src="libs/ui-bootstrap.min.js"></script>
     <script src="libs/ui-bootstrap-tpls.min.js"></script>
 
+     <script src="app/common/scripts/app.js"></script>
      <script src="app/common/scripts/directives.js"></script>
+     <script src="app/common/scripts/filters.js"></script>
 
      <script src="app/console/scripts/app.js"></script>
      <script src="app/console/scripts/controllers.js"></script>
