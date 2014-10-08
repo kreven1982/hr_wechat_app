@@ -11,6 +11,9 @@ consoleApp.config(function($routeProvider) {
         }).when('/resumes', {
             templateUrl : 'app/console/views/resume.list.html',
             controller  : 'resumeListController'
+        }).when('/searchJob', {
+            templateUrl : 'app/console/views/job.list.html',
+            controller  : 'jobSearchController'
         }).otherwise({redirectTo: '/jobs'});;
 });
 

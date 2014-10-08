@@ -2,7 +2,7 @@
     <div class="resume" id="resume-{{ resume.id }}" ng-repeat="resume in resumes">
         <h4><span>{{ resume.name }}</span></h4>
         <h5><i class="fa fa-mobile fa-lg"></i>&nbsp; {{resume.mobile}}</h5>
-        <h5>最高学历：<span diploma="resume.diploma"></h5>
+        <h5>最高学历：{{resume.diploma | diplomaString}}</h5>
         <h5>工作经验：{{resume.experience}} 年</h5>
 
         <div class="content">
