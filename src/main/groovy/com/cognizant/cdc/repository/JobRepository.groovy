@@ -23,7 +23,7 @@ class JobRepository extends BaseRepository{
     public update(Job job) {
         DBCollection col = getCollection(DocumentNames.JOB)
         BasicDBObject query = new BasicDBObject([_id: job.id])
-        LinkedHashMap<String, Object> dataToUpdate = job.toDBMap()
+        Map dataToUpdate = job.toDBMap()
 
         dataToUpdate.remove("_id")
         dataToUpdate.remove("createTime")
