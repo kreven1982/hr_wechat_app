@@ -39,16 +39,10 @@ consoleApp.controller('jobController', ['$scope', '$http', '$modal', '$routePara
     $scope.submitJob = function() {
         $scope.validated = true;
         if($scope.jobForm.$valid) {
-            showConfirmDialog();
             $http.post('api/job/' + $scope.jobId, $scope.job).success(function(data, status, headers, config){
-                 console.log(data);
+                 showConfirmDialog();
             });
-
         }
-    };
-
-    $scope.showDiploma = function(key) {
-        return $scope.data.diploma[key];
     };
 
     $scope.showTitle = function() {

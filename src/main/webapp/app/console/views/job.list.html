@@ -8,20 +8,20 @@
     <div class="job animated fadeIn" ng-repeat="job in jobs">
         <h4>{{job.title}}</h4>
         <h6>
-            <span recruit-types type="job.type"></span> ·
-            <span job-locations="job.locations"></span> ·
-            <span diploma="job.diploma"></span> ·
+            <span>{{job.type | recruitTypeString}}</span> ·
+            <span>{{job.locations | locationString}}</span> ·
+            <span>{{job.diploma | diplomaString}}</span> ·
             <span job-experience from="job.experienceFrom" to="job.experienceTo"></span>
         </h6>
         <div class="content">
             <h6>简介</h6>
             <p>{{job.introduction}}</p>
             <h6>详细内容</h6>
-            <div ng-bind-html="job.content | to_trusted"></div>
+            <div ng-bind-html="job.content | trustAsHtml"></div>
         </div>
         <div class="footer row">
             <div class="create-time col-xs-4">
-                <span time="job.createTime"></span>
+                <span>{{job.createTime | timeString}}</span>
             </div>
             <div class="toolbar col-xs-8">
                 <a>查看简历(0)</a>
