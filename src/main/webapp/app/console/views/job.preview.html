@@ -32,6 +32,10 @@
                     <h6>职位简介</h6>
                     {{job.introduction}}
                     </p>
+                    <div ng-show="showContent">
+                        <h6>详细内容</h6>
+                        <div ng-bind-html="job.content | trustAsHtml"></div>
+                    </div>
                 </div>
                 <div class="footer row">
                     <div class="create-time col-xs-6">
@@ -39,7 +43,7 @@
                     </div>
                     <div class="toolbar col-xs-6">
                         <a href="javascript:void;">申请</a>
-                        <a href="javascript:void;">查看详情</a>
+                        <a href="" ng-click="showContent = !showContent">查看详情</a>
                     </div>
                 </div>
             </div>
