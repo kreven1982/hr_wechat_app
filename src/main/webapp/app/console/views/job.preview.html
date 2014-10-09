@@ -19,13 +19,13 @@
             <div class="job">
                 <h4>{{job.title}}</h4>
                 <h6>
-                    工作地点 : <span job-locations="job.locations"></span>
+                    工作地点 : <span>{{job.locations | locationString}}</span>
                 </h6>
                 <h6>
                     经验要求 : <span job-experience from="job.experienceFrom" to="job.experienceTo"></span>
                 </h6>
                 <h6>
-                    学历要求 : <span diploma="job.diploma"></span>
+                    学历要求 : <span>{{job.diploma | diplomaString}}</span>
                 </h6>
                 <div class="content">
                     <p>
@@ -35,7 +35,7 @@
                 </div>
                 <div class="footer row">
                     <div class="create-time col-xs-6">
-                        <span time="job.createTime"></span>
+                        <span>{{job.createTime | timeString}}</span>
                     </div>
                     <div class="toolbar col-xs-6">
                         <a href="javascript:void;">申请</a>
