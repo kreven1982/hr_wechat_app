@@ -39,8 +39,8 @@ angular.module('simditor',[]).directive('simditor', function ($window) {
           $target.prepend(ngModel.$viewValue);
         };
 
-        element.on('blur keyup change input', function () {
-          scope.$apply(readViewText);
+        scope.simditor.on('valuechanged', function(){
+           scope.$apply(readViewText);
         });
       }
     };
