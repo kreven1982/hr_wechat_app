@@ -58,7 +58,6 @@
 		</div>
 
 		<button type="submit" class="btn btn-default" ng-click="submitResume()">申请</button>
-		<a data-toggle="modal" data-target="#loading">Click me</a>
 	</form>
 	
 	<!-- Small modal -->

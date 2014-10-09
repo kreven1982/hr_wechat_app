@@ -18,6 +18,8 @@
         <servlet-name>SpringMVC</servlet-name>
         <url-pattern>/console</url-pattern>
         <url-pattern>/api/*</url-pattern>
+        <!-- For Weixin dev -->
+        <url-pattern>/m/*</url-pattern>
     </servlet-mapping>
 
 	<filter>
@@ -32,6 +34,8 @@
 	<filter-mapping>
 		<filter-name>CharacterEncodingFilter</filter-name>
 		<url-pattern>/api/*</url-pattern>
+		<!-- For Weixin dev -->
+		<url-pattern>/m/*</url-pattern>
 	</filter-mapping>
 
     <context-param>
