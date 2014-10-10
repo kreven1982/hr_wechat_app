@@ -10,4 +10,9 @@ class SimpleJSPController {
     public String console() {
         return "console"
     }
+
+    @RequestMapping(value="/weixin")
+    public String weixin() {
+        return "weixin"
+    }
 }

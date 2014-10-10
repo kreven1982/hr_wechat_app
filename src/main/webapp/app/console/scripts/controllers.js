@@ -36,6 +36,19 @@ consoleApp.controller('jobController', ['$scope', '$http', '$modal', '$routePara
          });
     });
 
+    //load job
+    var jobId = $scope.jobId;
+    if(jobId != undefined && jobId != 0) {
+        $http.get('api/job/' + jobId).success(function(data, status, headers, config){
+            $scope.job = data.result;
+            $scope.data.experience = [$scope.job.experienceFrom, $scope.job.experienceTo];
+
+            _.each($scope.job.locations, function(location) {
+               $scope.data.locations[location] = true;
+            });
+        });
+    }
+
     $scope.submitJob = function() {
         $scope.validated = true;
         if($scope.jobForm.$valid) {
@@ -53,20 +66,6 @@ consoleApp.controller('jobController', ['$scope', '$http', '$modal', '$routePara
         }
     };
 
-    $scope.$watch( "jobId" ,function() {
-        var jobId = $scope.jobId;
-        if(jobId != undefined && jobId != 0) {
-           $http.get('api/job/' + jobId).success(function(data, status, headers, config){
-                $scope.job = data.result;
-                $scope.data.experience = [$scope.job.experienceFrom, $scope.job.experienceTo];
-
-                _.each($scope.job.locations, function(location) {
-                   $scope.data.locations[location] = true;
-                });
-           });
-        }
-    }, true);
-
     $scope.$watch("data.locations", function(){
         $scope.job.locations = convertLocations($scope.data.locations);
     }, true);
@@ -76,6 +75,8 @@ consoleApp.controller('jobController', ['$scope', '$http', '$modal', '$routePara
         $scope.job.experienceTo = $scope.data.experience[1];
     }, true);
 
+
+    //For save success confirm dialog
     $scope.newJob = function() {
          $window.location.href = '#/job/0';
          $scope.confirmDialog.dismiss();
@@ -86,15 +87,6 @@ consoleApp.controller('jobController', ['$scope', '$http', '$modal', '$routePara
         $scope.confirmDialog.dismiss();
     };
 
-    $scope.preview = function() {
-         $modal.open({
-            templateUrl: 'app/console/views/job.preview.html',
-            scope: $scope,
-            windowClass: "preview",
-            size : 'sm'
-         });
-    };
-
     function showConfirmDialog() {
          $scope.confirmDialog = $modal.open({
             templateUrl: 'app/console/views/job.confirm.dialog.html',
@@ -103,6 +95,15 @@ consoleApp.controller('jobController', ['$scope', '$http', '$modal', '$routePara
             size : 'sm'
          });
     }
+
+    $scope.preview = function() {
+         $modal.open({
+            templateUrl: 'app/console/views/job.preview.html',
+            scope: $scope,
+            windowClass: "preview",
+            size : 'sm'
+         });
+    };
 
     function convertLocations(locations) {
 
@@ -120,7 +121,10 @@ consoleApp.controller('jobController', ['$scope', '$http', '$modal', '$routePara
 
 consoleApp.controller('jobListController', ['$scope', '$http', '$location', '$routeParams', function($scope, $http, $location, $routeParams) {
 
-    $scope.currentPage = $routeParams.page != null ? $routeParams.page : 1;
+    //When use ng-switch, we follow best practice to have a dot to avoid child scope issue.
+    $scope.page = {
+        currentPage : $routeParams.page != null ? $routeParams.page : 1
+    };
 
     $scope.deleteJob = function(job) {
          if(confirm("你想删除该职位信息吗?\n" + job.title)) {
@@ -128,9 +132,9 @@ consoleApp.controller('jobListController', ['$scope', '$http', '$location', '$ro
          }
     };
 
-    $scope.$watch("currentPage", function(){
-           var currentPage = $scope.currentPage;
-           $http.get('api/job/all?page=' + $scope.currentPage).success(function(data, status, headers, config){
+    $scope.$watch("page.currentPage", function(){
+           var currentPage = $scope.page.currentPage;
+           $http.get('api/job/all?page=' + currentPage).success(function(data, status, headers, config){
                $scope.jobs = data.result;
                $scope.total = data.total;
                $scope.pageSize = data.pageSize;

@@ -28,10 +28,8 @@
                     学历要求 : <span>{{job.diploma | diplomaString}}</span>
                 </h6>
                 <div class="content">
-                    <p>
                     <h6>职位简介</h6>
-                    {{job.introduction}}
-                    </p>
+                    <p>{{job.introduction}}</p>
                     <div ng-show="showContent">
                         <h6>详细内容</h6>
                         <div ng-bind-html="job.content | trustAsHtml"></div>

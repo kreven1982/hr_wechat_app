@@ -1,52 +1,16 @@
-var weixinApp = angular.module('weixinApp', []);
+var weixinApp = angular.module('weixinApp', ['common', 'ngRoute']);
 
-weixinApp.controller('weixinResumeController', ['$scope', '$http', function($scope, $http) {
-    $scope.resume = {
-        name: "",
-        mobile: "",
-        experience: "",
-        diploma : '',
-        detail: ""
-    };
-    
-    $scope.submitResume = function(){
-    	$scope.validated = true;
-    	
-    	if($scope.form.$valid) {
-    		$('#loading').modal('show');
-    		
-    		var fd = new FormData();
-        	fd.append('file', $scope.resumeAttachment);
-        	fd.append('data', JSON.stringify($scope.resume))
-        	$http.post("/ROOT/m/resume/submit", fd, {
-        		transformRequest: angular.identity,
-        		headers: {'Content-Type': undefined}
-        	})
-        	.success(function(data, status, headers, config){
-        		console.log(data);
-        		$('#loading').modal('hide');
-        	})
-        	.error(function(data, status, headers, config){
-        		console.log(status);
-        	});
-    	}
-    }
-    
-}]);
-
-weixinApp.directive('fileModel', ['$parse', function ($parse) {
-    return {
-        restrict: 'A',
-        link: function(scope, element, attrs) {
-            var model = $parse(attrs.fileModel);
-            var modelSetter = model.assign;
-            
-            element.bind('change', function(){
-                scope.$apply(function(){
-                    modelSetter(scope, element[0].files[0]);
-                });
-            });
-        }
-    };
-}]);
+weixinApp.config(function($routeProvider) {
+    $routeProvider.when('/jobs', {
+            templateUrl : 'app/weixin/views/job.list.html',
+            controller  : 'jobListController',
+            reloadOnSearch : false
+        }).when('/job/:jobId', {
+            templateUrl : 'app/weixin/views/job.detail.html',
+            controller  : 'jobController'
+        }).when('/resume/:jobId', {
+            templateUrl : 'app/weixin/views/resume.new.html',
+            controller  : 'weixinResumeController'
+        }).otherwise({redirectTo: '/jobs'});;
+});
 

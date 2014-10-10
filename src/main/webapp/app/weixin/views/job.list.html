@@ -1,6 +1,6 @@
 <div ng-switch on="jobs.length">
     <div class="job-container col-xs-12 col-lg-10 col-lg-offset-1" ng-switch-when="0">
-        <h4 class="no-data">还没有职位信息,请点击菜单新建一个</h4>
+        <h4 class="no-data">暂时没有职位信息,请耐心等待哦!</h4>
     </div>
 
     <div class="job-container col-xs-12 col-lg-10 col-lg-offset-1" ng-switch-default>
@@ -10,29 +10,28 @@
             previous-text="<" next-text=">" first-text="<<" last-text=">>" class="pagination-sm" boundary-links="true"></pagination>
         </div>
 
-        <div class="job animated fadeIn" ng-repeat="job in jobs">
+        <div class="job" ng-repeat="job in jobs">
             <h4>{{job.title}}</h4>
             <h6>
-                <span>{{job.type | recruitTypeString}}</span> ·
-                <span>{{job.locations | locationString}}</span> ·
-                <span>{{job.diploma | diplomaString}}</span> ·
-                <span job-experience from="job.experienceFrom" to="job.experienceTo"></span>
+                工作地点 : {{ job.locations | locationString }}
+            </h6>
+            <h6>
+                经验要求 : <span job-experience from="job.experienceFrom" to="job.experienceTo"></span>
+            </h6>
+            <h6>
+                学历要求 : {{job.diploma | diplomaString}}
             </h6>
             <div class="content">
-                <h6>简介</h6>
+                <h6>职位简介</h6>
                 <p>{{job.introduction}}</p>
-                <h6>详细内容</h6>
-                <div ng-bind-html="job.content | trustAsHtml"></div>
             </div>
             <div class="footer row">
-                <div class="create-time col-xs-4">
-                    <span>{{job.createTime | timeString}}</span>
+                <div class="create-time col-xs-6">
+                    {{job.createTime | timeString}}
                 </div>
-                <div class="toolbar col-xs-8">
-                    <a>查看简历(0)</a>
-                    <a href="#/job/{{job.id}}">编辑</a>
-                    <a ng-click="deleteJob(job)">删除</a>
-                    <a>已失效</a>
+                <div class="toolbar col-xs-6">
+                    <a href="#/resume/{{job.id}}">申请</a>
+                    <a href="#/job/{{job.id}}">查看详情</a>
                 </div>
             </div>
         </div>
