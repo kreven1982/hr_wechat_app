@@ -1,3 +1,5 @@
+"use strict";
+
 var weixinApp = angular.module('weixinApp');
 
 weixinApp.controller('jobListController', ['$scope', '$http', '$location', '$routeParams', function($scope, $http, $location, $routeParams) {
@@ -24,7 +26,7 @@ weixinApp.controller('jobController', ['$scope', '$http', '$routeParams', '$wind
 
     //load job
     var jobId = $routeParams.jobId;
-    console.log(jobId);
+
     if(jobId != undefined && jobId != 0) {
         $http.get('api/job/' + jobId).success(function(data, status, headers, config){
             $scope.job = data.result;

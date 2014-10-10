@@ -1,10 +1,11 @@
 var consoleApp = angular.module('consoleApp');
 
-consoleApp.service('resumeService', ['$http', 'baseUrl', function($http, baseUrl){
+consoleApp.service('resumeService', ['$http', function($http){
 
       this.getResumeList = function (searchForm) {
-    	  $http.get(baseUrl + 'api/resume/search', job).success(function(data, status, headers, config){
+    	  $http.get('api/resume/search', job).success(function(data, status, headers, config){
     		  console.log(data);
     	  });
       }
+
 }]);

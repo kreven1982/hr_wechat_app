@@ -1,3 +1,5 @@
+"use strict";
+
 var weixinApp = angular.module('weixinApp', ['common', 'ngRoute']);
 
 weixinApp.config(function($routeProvider) {

@@ -1,3 +1,5 @@
+"use strict";
+
 var weixinApp = angular.module('weixinApp');
 
 weixinApp.directive('fileModel', ['$parse', function ($parse) {
