@@ -126,6 +126,9 @@ consoleApp.controller('jobListController', ['$scope', '$http', '$location', '$ro
         currentPage : $routeParams.page != null ? $routeParams.page : 1
     };
 
+    var NO_JOB_INFO = "还没有职位信息,请点击菜单新建一个";
+    $scope.message = NO_JOB_INFO;
+
     $scope.deleteJob = function(job) {
          if(confirm("你想删除该职位信息吗?\n" + job.title)) {
             $scope.jobs.splice(  $scope.jobs.indexOf(job), 1 );
@@ -133,6 +136,7 @@ consoleApp.controller('jobListController', ['$scope', '$http', '$location', '$ro
     };
 
     $scope.$watch("page.currentPage", function(){
+           $scope.message = "正在加载中...";
            var currentPage = $scope.page.currentPage;
            $http.get('api/job/all?page=' + currentPage).success(function(data, status, headers, config){
                $scope.jobs = data.result;
@@ -140,9 +144,9 @@ consoleApp.controller('jobListController', ['$scope', '$http', '$location', '$ro
                $scope.pageSize = data.pageSize;
                $scope.pageTotal = data.total % data.pageSize ?  (data.total / data.pageSize + 1) : (data.total / data.pageSize);
                $location.search({page : currentPage});
+               $scope.message = NO_JOB_INFO;
            });
     },true);
-
 }]);
 
 consoleApp.controller('jobSearchController', ['$scope', '$http', '$location', '$routeParams', function($scope, $http, $location, $routeParams) {
