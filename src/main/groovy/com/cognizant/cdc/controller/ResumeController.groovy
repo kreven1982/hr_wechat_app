@@ -18,7 +18,7 @@ import com.cognizant.cdc.util.UUIDUtil
 import com.fasterxml.jackson.databind.ObjectMapper
 
 @Controller
-@RequestMapping(value = "/resume")
+@RequestMapping(value = "resume")
 class ResumeController {
 	public static final String[] ACCEPTED_CONTENT_TYPE = [
 		'image/jpeg',
@@ -48,12 +48,7 @@ class ResumeController {
     public Map allResumes() {
         [result: resumeService.listResumes()]
     }
-	
-	//TODO just for dev
-	@RequestMapping(value = "new", method = RequestMethod.GET)
-	public String apply() {
-		"weixin/applyJob"
-	}
+
 
 	@RequestMapping(value= "submit", method = RequestMethod.POST)
 	@ResponseBody

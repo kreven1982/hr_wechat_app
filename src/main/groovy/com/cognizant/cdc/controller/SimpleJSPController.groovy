@@ -6,12 +6,12 @@ import org.springframework.web.bind.annotation.RequestMapping
 @Controller
 class SimpleJSPController {
 
-    @RequestMapping(value="/console")
+    @RequestMapping(value="console")
     public String console() {
         return "console"
     }
 
-    @RequestMapping(value="/weixin")
+    @RequestMapping(value="weixin")
     public String weixin() {
         return "weixin"
     }

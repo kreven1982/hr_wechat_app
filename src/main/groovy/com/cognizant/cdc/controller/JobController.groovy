@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody
 import org.springframework.web.servlet.ModelAndView
 
 @Controller
-@RequestMapping(value = "/job")
+@RequestMapping(value = "job")
 class JobController {
 
     @Autowired
