@@ -1,5 +1,6 @@
 package com.cognizant.cdc.controller
 
+
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.ResponseBody
@@ -17,6 +18,8 @@ class LocalizationController {
         for(String key : labels.keys) {
             result.put(key, labels.getString(key))
         }
+
+        Thread.sleep(5000)
 
         result
     }

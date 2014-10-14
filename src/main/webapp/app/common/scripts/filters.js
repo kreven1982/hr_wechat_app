@@ -34,6 +34,19 @@ commonModule.filter('diplomaString', function(diplomas){
      }
 });
 
+commonModule.filter('localized', function(localeService){
+
+     var labels;
+     localeService.getLabels().then(function(result) {
+        console.log(result.data);
+        labels = result.data;
+     });
+
+     return function(key) {
+        return labels[key];
+     }
+});
+
 commonModule.filter('locationString', function(){
      return function(locations) {
         return locations.join(",");
