@@ -1,6 +1,6 @@
-<div ng-switch on="jobs.length">
-    <div class="job-container col-xs-12 col-lg-10 col-lg-offset-1" ng-switch-when="0">
-        <h4 class="no-data">还没有职位信息,请点击菜单新建一个</h4>
+<div ng-switch on="jobs == undefined || jobs.length == 0">
+    <div class="job-container col-xs-12 col-lg-10 col-lg-offset-1" ng-switch-when="true">
+        <h4 class="no-data">{{message}}</h4>
     </div>
 
     <div class="job-container col-xs-12 col-lg-10 col-lg-offset-1" ng-switch-default>
