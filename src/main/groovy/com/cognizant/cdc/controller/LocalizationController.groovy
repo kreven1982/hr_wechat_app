@@ -19,8 +19,6 @@ class LocalizationController {
             result.put(key, labels.getString(key))
         }
 
-        Thread.sleep(5000)
-
         result
     }
 }

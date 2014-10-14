@@ -19,13 +19,13 @@
             <div class="job">
                 <h4>{{job.title}}</h4>
                 <h6>
-                    工作地点 : <span>{{job.locations | locationString}}</span>
+                    工作地点 : <span>{{job.locations | localized}}</span>
                 </h6>
                 <h6>
                     经验要求 : <span job-experience from="job.experienceFrom" to="job.experienceTo"></span>
                 </h6>
                 <h6>
-                    学历要求 : <span>{{job.diploma | diplomaString}}</span>
+                    学历要求 : <span>{{job.diploma | localized}}</span>
                 </h6>
                 <div class="content">
                     <h6>职位简介</h6>

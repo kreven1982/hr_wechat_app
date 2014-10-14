@@ -21,30 +21,23 @@ commonModule.filter('timeString', function(){
     }
 });
 
-commonModule.filter('recruitTypeString', function(recruitTypes){
-     return function(type) {
-        return recruitTypes[type];
-     }
-});
+commonModule.filter('localized', function($timeout, localeService){
 
+     var labels = null;
+     var serviceInvoked = false;
 
-commonModule.filter('diplomaString', function(diplomas){
-     return function(diploma) {
-        return diplomas[diploma];
-     }
-});
-
-commonModule.filter('localized', function(localeService){
-
-     var labels;
-     localeService.getLabels().then(function(result) {
-        console.log(result.data);
-        labels = result.data;
-     });
-
-     return function(key) {
-        return labels[key];
-     }
+    return function(key) {
+        if( labels === null ) {
+            if( !serviceInvoked ) {
+                serviceInvoked = true;
+                localeService.getLabels().then(function(result) {
+                    labels = result.data;
+                });
+            }
+            return "-";
+        }
+        else return labels[key];
+    }
 });
 
 commonModule.filter('locationString', function(){

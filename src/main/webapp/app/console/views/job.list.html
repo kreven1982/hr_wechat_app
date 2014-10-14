@@ -13,9 +13,9 @@
         <div class="job animated fadeIn" ng-repeat="job in jobs">
             <h4>{{job.title}}</h4>
             <h6>
-                <span ng-cloak>{{job.type | localized}}</span> ·
-                <span>{{job.locations | locationString}}</span> ·
-                <span>{{job.diploma | localized}}</span> ·
+                <span ng-bind="job.type | localized"></span> ·
+                <span ng-bind="job.locations | locationString"></span> ·
+                <span ng-bind="job.diploma | localized"></span> ·
                 <span job-experience from="job.experienceFrom" to="job.experienceTo"></span>
             </h6>
             <div class="content">
