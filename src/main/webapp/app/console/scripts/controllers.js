@@ -168,8 +168,12 @@ angular.module('consoleApp').controller('jobSearchController', ['$scope', '$http
 
 }]);
 
-angular.module('consoleApp').controller('bannerController', ['$scope', function($scope) {
-       $scope.isCollapsed = true;
+angular.module('consoleApp').controller('bannerController', ['$scope','$window', function($scope, $window) {
+    $scope.isCollapsed = true;
+
+    $scope.logout = function() {
+        $window.location = "/login";
+    };
 }]);
 
 angular.module('consoleApp').controller('resumeListController', ['$scope','$http', function($scope, $http) {

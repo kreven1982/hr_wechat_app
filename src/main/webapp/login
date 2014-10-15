@@ -32,27 +32,30 @@
     <script src="libs/ui-bootstrap-tpls.min.js"></script>
 
     <script src="app/login/app.js"></script>
+    <script src="app/login/scripts/controllers.js"></script>
 
 </head>
 <body>
 
-    <div class="container">
+    <div class="container" ng-controller="loginController">
 
         <div id="login-wraper">
-            <form class="form login-form">
-                <legend>高知特 · 微招聘<span>管理系统</span></legend>
+            <form name="loginForm" class="form login-form" ng-submit="login()" novalidate>
+                <legend>高知特 · 微招聘<span>❊ 管理系统 ❊</span></legend>
 
                 <div class="body">
                     <div class="form-control">
-                        <label>用户名</label><input type="text" />
+                        <label>用户名</label><input name="userName" type="text" ng-model="userName" required />
+                        <span ng-show="loginForm.userName.$error.required && validated" class="error">用户名不能为空</span>
                     </div>
                     <div class="form-control">
-                        <label>密码</label><input type="password" />
+                        <label>密码</label><input name="password" type="password" ng-model="password" required />
+                        <span ng-show="loginForm.password.$error.required && validated" class="error">密码不能为空</span>
                     </div>
                 </div>
 
                 <div class="footer">
-                    <button type="submit" class="btn btn-success">Login</button>
+                    <button type="submit" class="btn btn-success" ng-disabled="!loginForm.$valid">登录</button>
                 </div>
 
             </form>
