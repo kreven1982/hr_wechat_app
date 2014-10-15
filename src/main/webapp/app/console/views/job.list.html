@@ -11,7 +11,7 @@
         </div>
 
         <div class="job animated fadeIn" ng-repeat="job in jobs">
-            <h4>{{job.title}}</h4>
+            <h4 ng-bind="job.title"></h4>
             <h6>
                 <span ng-bind="job.type | localized"></span> ·
                 <span ng-bind="job.locations | locationString"></span> ·
@@ -20,13 +20,13 @@
             </h6>
             <div class="content">
                 <h6>简介</h6>
-                <p>{{job.introduction}}</p>
+                <p ng-bind="job.introduction"></p>
                 <h6>详细内容</h6>
                 <div ng-bind-html="job.content | trustAsHtml"></div>
             </div>
             <div class="footer row">
                 <div class="create-time col-xs-4">
-                    <span>{{job.createTime | timeString}}</span>
+                    <span ng-bind="job.createTime | timeString"></span>
                 </div>
                 <div class="toolbar col-xs-8">
                     <a>查看简历(0)</a>

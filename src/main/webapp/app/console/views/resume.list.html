@@ -5,20 +5,20 @@
 
     <div class="resume-container col-xs-12 col-lg-10 col-lg-offset-1">
         <div class="resume" id="resume-{{ resume.id }}" ng-repeat="resume in resumes" ng-switch-default>
-            <h4><span>{{ resume.name }}</span></h4>
-            <h5><i class="fa fa-mobile fa-lg"></i>&nbsp; {{resume.mobile}}</h5>
-            <h5>最高学历：{{resume.diploma | diplomaString}}</h5>
-            <h5>工作经验：{{resume.experience}} 年</h5>
+            <h4><span ng-bind="resume.name"></span></h4>
+            <h5><i class="fa fa-mobile fa-lg"></i>&nbsp; <span ng-bind="resume.mobile"></span></h5>
+            <h5>最高学历：<span ng-bind="resume.diploma | localized"></span></h5>
+            <h5>工作经验：<span ng-bind="resume.experience"></span> 年</h5>
 
             <div class="content">
-                <p>个人简介：{{resume.detail}}</p>
+                <p>个人简介：<span ng-bind="resume.detail"></span></p>
             </div>
             <div class="footer row">
                 <div class="create-time col-xs-6">
-                    <span>{{resume.createTime | timeString}}</span>
+                    <span ng-bind="resume.createTime | timeString"></span>
                 </div>
                 <div class="toolbar col-xs-6">
-                    <a data-toggle="lightbox" href="{{resume.imgUrl}}" target="_blank">查看附件</a>
+                    <a data-toggle="lightbox" ng-href="{{resume.imgUrl}}" target="_blank">查看附件</a>
                     <a>删除</a>
                 </div>
             </div>

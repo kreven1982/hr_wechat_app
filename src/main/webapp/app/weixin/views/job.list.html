@@ -11,15 +11,15 @@
         </div>
 
         <div class="job" ng-repeat="job in jobs">
-            <h4>{{job.title}}</h4>
+            <h4 ng-bind="job.title"></h4>
             <h6>
-                工作地点 : {{ job.locations | locationString }}
+                工作地点 : <span ng-bind="job.locations | locationString"></span>
             </h6>
             <h6>
                 经验要求 : <span job-experience from="job.experienceFrom" to="job.experienceTo"></span>
             </h6>
             <h6>
-                学历要求 : {{job.diploma | diplomaString}}
+                学历要求 : <span ng-bind="job.diploma | localized"></span>
             </h6>
             <div class="content">
                 <h6>职位简介</h6>
@@ -27,7 +27,7 @@
             </div>
             <div class="footer row">
                 <div class="create-time col-xs-6">
-                    {{job.createTime | timeString}}
+                    <span ng-bind="job.createTime | timeString"></span>
                 </div>
                 <div class="toolbar col-xs-6">
                     <a href="#/resume/{{job.id}}">申请</a>

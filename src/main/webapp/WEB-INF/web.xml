@@ -16,8 +16,6 @@
 
     <servlet-mapping>
         <servlet-name>SpringMVC</servlet-name>
-        <url-pattern>/console</url-pattern>
-        <url-pattern>/weixin</url-pattern>
         <url-pattern>/api/*</url-pattern>
     </servlet-mapping>
 

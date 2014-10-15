@@ -1,6 +1,6 @@
-var consoleApp = angular.module('consoleApp');
+"use strict";
 
-consoleApp.controller('jobController', ['$scope', '$http', '$modal', '$routeParams', '$window', 'diplomas', function($scope, $http, $modal, $routeParams, $window, diplomas) {
+angular.module('consoleApp').controller('jobController', ['$scope', '$http', '$modal', '$routeParams', '$window', 'constantsService', function($scope, $http, $modal, $routeParams, $window, constantsService) {
 
     $scope.jobId = $routeParams.jobId;
 
@@ -17,23 +17,18 @@ consoleApp.controller('jobController', ['$scope', '$http', '$modal', '$routePara
     };
 
     $scope.data = {
-        diploma : diplomas,
         experience : [3, 8],
-        locations : {}
-    };
-
-    $scope.notSorted = function(obj){
-        if (!obj) {
-            return [];
-        }
-        return Object.keys(obj);
+        locations : {},
+        selectedLocations : {}
     };
 
     //Initialize locations
     $http.get('api/job/locations').success(function(data, status, headers, config){
-         _.each(data.locations, function(location) {
-              $scope.data.locations[location] = false;
-         });
+         $scope.data.locations = data.locations;
+    });
+
+    constantsService.getDiplomas().then(function(response) {
+        $scope.data.diploma = response.data.diplomas;
     });
 
     //load job
@@ -44,7 +39,7 @@ consoleApp.controller('jobController', ['$scope', '$http', '$modal', '$routePara
             $scope.data.experience = [$scope.job.experienceFrom, $scope.job.experienceTo];
 
             _.each($scope.job.locations, function(location) {
-               $scope.data.locations[location] = true;
+               $scope.data.selectedLocations[location] = true;
             });
         });
     }
@@ -66,8 +61,8 @@ consoleApp.controller('jobController', ['$scope', '$http', '$modal', '$routePara
         }
     };
 
-    $scope.$watch("data.locations", function(){
-        $scope.job.locations = convertLocations($scope.data.locations);
+    $scope.$watch("data.selectedLocations", function(){
+        $scope.job.locations = convertLocations($scope.data.selectedLocations);
     }, true);
 
     $scope.$watch("data.experience", function(){
@@ -92,6 +87,7 @@ consoleApp.controller('jobController', ['$scope', '$http', '$modal', '$routePara
             templateUrl: 'app/console/views/job.confirm.dialog.html',
             scope: $scope,
             backdrop : 'static',
+            keyboard : false,
             size : 'sm'
          });
     }
@@ -119,7 +115,7 @@ consoleApp.controller('jobController', ['$scope', '$http', '$modal', '$routePara
 
 }]);
 
-consoleApp.controller('jobListController', ['$scope', '$http', '$location', '$routeParams', function($scope, $http, $location, $routeParams) {
+angular.module('consoleApp').controller('jobListController', ['$scope', '$http', '$location', '$routeParams', function($scope, $http, $location, $routeParams) {
 
     //When use ng-switch, we follow best practice to have a dot to avoid child scope issue.
     $scope.page = {
@@ -149,7 +145,7 @@ consoleApp.controller('jobListController', ['$scope', '$http', '$location', '$ro
     },true);
 }]);
 
-consoleApp.controller('jobSearchController', ['$scope', '$http', '$location', '$routeParams', function($scope, $http, $location, $routeParams) {
+angular.module('consoleApp').controller('jobSearchController', ['$scope', '$http', '$location', '$routeParams', function($scope, $http, $location, $routeParams) {
 
     $scope.currentPage = $routeParams.page != null ? $routeParams.page : 1;
 
@@ -172,17 +168,17 @@ consoleApp.controller('jobSearchController', ['$scope', '$http', '$location', '$
 
 }]);
 
-consoleApp.controller('bannerController', ['$scope', function($scope) {
+angular.module('consoleApp').controller('bannerController', ['$scope', function($scope) {
        $scope.isCollapsed = true;
 }]);
 
-consoleApp.controller('resumeListController', ['$scope','$http', function($scope, $http) {
+angular.module('consoleApp').controller('resumeListController', ['$scope','$http', function($scope, $http) {
      $http.get('api/resume/all').success(function(data, status, headers, config){
           $scope.resumes = data.result;
      });
 }]);
 
-consoleApp.controller('resumeSearchController', ['$scope','$modal', function($scope, $modal) {
+angular.module('consoleApp').controller('resumeSearchController', ['$scope','$modal', function($scope, $modal) {
 
 	$scope.openSearchResume = function(){
 		var modalInstance = $modal.open({

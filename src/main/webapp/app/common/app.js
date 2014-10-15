@@ -1,12 +1,6 @@
-var commonModule = angular.module('common', []);
+"use strict";
 
-commonModule.value("diplomas", {
-                             none : "不限",
-                             associate : "大专",
-                             bachelor : "本科",
-                             master : "硕士",
-                             doctor : "博士"
-                          });
+var commonModule = angular.module('common', []);
 
 commonModule.value("recruitTypes", {
                              talent : "社会招聘",

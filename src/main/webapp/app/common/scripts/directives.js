@@ -1,6 +1,6 @@
-var commonModule = angular.module('common');
+"use strict";
 
-commonModule.directive('jobExperience', function(){
+angular.module('common').directive('jobExperience', function(){
      return {
         restrict: "AE",
         scope: {
@@ -27,7 +27,7 @@ commonModule.directive('jobExperience', function(){
      }
 });
 
-commonModule.directive('formRequired', function(){
+angular.module('common').directive('formRequired', function(){
      return {
         restrict: "AE",
         require: '?ngModel',

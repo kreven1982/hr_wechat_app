@@ -24,15 +24,15 @@
     <div class="form-group">
         <label class="col-sm-2 control-label">工作地点</label>
         <div name="locations" class="btn-group col-sm-8" form-required="true" ng-model="job.locations">
-            <label class="btn btn-default btn-sm" ng-model="data.locations[location]" btn-checkbox  ng-repeat="(location, selected) in data.locations">{{location}}</label>
+            <label class="btn btn-default btn-sm" ng-model="data.selectedLocations[location]" btn-checkbox  ng-repeat="location in data.locations">{{location}}</label>
             <span ng-show="jobForm.locations.$error.required && validated" class="error">至少选择一个工作地点</span>
         </div>
     </div>
     <div class="form-group">
-        <label for="diploma" class="col-sm-2 control-label">学历要求</label>
+        <label class="col-sm-2 control-label">学历要求</label>
         <div class="col-sm-8">
             <select class="form-control" ng-model="job.diploma">
-                <option value="{{ key }}" ng-repeat="key in notSorted(data.diploma)" ng-init="label = data.diploma[key]">{{ label }}</option>
+                <option value="{{diploma}}" ng-repeat="diploma in data.diploma">{{ diploma | localized }}</option>
             </select>
         </div>
     </div>

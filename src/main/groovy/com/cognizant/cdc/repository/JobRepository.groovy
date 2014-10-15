@@ -34,7 +34,7 @@ class JobRepository extends BaseRepository{
 
     public List<Job> list(int page, int pageSize) {
         DBCollection col = getCollection(DocumentNames.JOB)
-        BasicDBObject sort = new BasicDBObject([_id: 1])
+        BasicDBObject sort = new BasicDBObject([_id: -1])
         int skip = (page - 1) * pageSize
         DBCursor result = col.find().sort(sort).skip(skip).limit(pageSize);
 

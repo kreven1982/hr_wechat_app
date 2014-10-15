@@ -1,13 +1,13 @@
-var commonModule = angular.module('common');
+"use strict";
 
-commonModule.filter('trustAsHtml', ['$sce', function($sce){
+angular.module('common').filter('trustAsHtml', ['$sce', function($sce){
     return function(text) {
         return $sce.trustAsHtml(text);
     };
 }]);
 
 
-commonModule.filter('timeString', function(){
+angular.module('common').filter('timeString', function(){
      return function(time) {
         var currentTime = new Date(time);
         var hours = "0" + currentTime.getHours();
@@ -21,7 +21,7 @@ commonModule.filter('timeString', function(){
     }
 });
 
-commonModule.filter('localized', function($timeout, localeService){
+angular.module('common').filter('localized', function($timeout, localeService){
 
      var labels = null;
      var serviceInvoked = false;
@@ -40,7 +40,7 @@ commonModule.filter('localized', function($timeout, localeService){
     }
 });
 
-commonModule.filter('locationString', function(){
+angular.module('common').filter('locationString', function(){
      return function(locations) {
         return locations.join(",");
      }

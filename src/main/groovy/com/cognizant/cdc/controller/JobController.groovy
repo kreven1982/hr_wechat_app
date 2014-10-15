@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.ResponseBody
 import org.springframework.web.servlet.ModelAndView
+import com.cognizant.cdc.model.enums.Diploma
 
 @Controller
 @RequestMapping(value = "job")
@@ -57,4 +58,5 @@ class JobController {
                 "上海", "北京", "深圳", "大连", "天津"
         ]]
     }
+
 }
