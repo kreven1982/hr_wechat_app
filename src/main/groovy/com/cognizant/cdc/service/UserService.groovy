@@ -7,6 +7,7 @@ import groovy.transform.CompileStatic
 import groovy.transform.TypeChecked
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
+import org.bson.types.ObjectId
 
 @CompileStatic
 @TypeChecked
@@ -19,28 +20,34 @@ class UserService {
     @Autowired
     SequenceRepository  sequenceRepository
 
-    //Create an user
+//    //Create an user
     public void newUser(User user) {
-        null
+        userRepository.newUser(user)
     }
+//
+//    //Remove an user
+//    public void deleteUser(long userId) {
+//
+//    }
 
-    //Remove an user
-    public void deleteUser(long userId) {
-
+    public User getUserByName(String userName) {
+        userRepository.getUserByName(userName)
     }
 
     //Retrieve user by token
-    public User getUserByToken(String Token) {
-        null
+    public User getUserByToken(String token) {
+        userRepository.getUserByToken(token)
     }
 
     //Login and associate user with a token
-    public String login(long userId) {
-       null
+    public String newSession(long userId) {
+        String token = new ObjectId().toString()
+        userRepository.updateToken(userId, token)
+        token
     }
 
     //Logout session
     public void logout(long userId) {
-
+        userRepository.updateToken(userId, null)
     }
 }

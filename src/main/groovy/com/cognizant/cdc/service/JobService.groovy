@@ -33,6 +33,10 @@ class JobService {
         jobRepository.update(job);
     }
 
+    public void invalidateJob(long jobId) {
+        jobRepository.invalidateJob(jobId)
+    }
+
     public List<Job> listJobs(int page, int pageSize) {
         jobRepository.list(page, pageSize)
     }

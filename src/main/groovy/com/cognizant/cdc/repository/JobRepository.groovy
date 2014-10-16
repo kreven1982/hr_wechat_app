@@ -9,6 +9,7 @@ import com.mongodb.DBObject
 import groovy.transform.CompileStatic
 import groovy.transform.TypeChecked
 import org.springframework.stereotype.Repository
+import com.mongodb.BasicDBList
 
 @CompileStatic
 @TypeChecked
@@ -63,5 +64,12 @@ class JobRepository extends BaseRepository{
     public int getTotal() {
         DBCollection col = getCollection(DocumentNames.JOB)
         col.count()
+    }
+
+    void invalidateJob(long jobId) {
+        DBCollection col = getCollection(DocumentNames.JOB)
+        DBObject query = new BasicDBObject([_id: jobId])
+        DBObject update = new BasicDBObject([ $set: [ invalid: true ] ])
+        col.update(query, update)
     }
 }

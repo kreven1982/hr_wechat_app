@@ -10,8 +10,7 @@ angular.module('loginApp').controller('loginController', ['$scope','$http','$win
                  if(data.result == true) {
                      $window.location = "/console";
                  } else {
-                     //fail to login!
-                     alert("Fail to login");
+                     $scope.authenticationError = true;
                  }
             });
         }

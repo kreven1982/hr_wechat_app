@@ -51,6 +51,7 @@
                     <div class="form-control">
                         <label>密码</label><input name="password" type="password" ng-model="password" required />
                         <span ng-show="loginForm.password.$error.required && validated" class="error">密码不能为空</span>
+                        <span ng-show="authenticationError" class="error">登录失败,请检查后重试</span>
                     </div>
                 </div>
 

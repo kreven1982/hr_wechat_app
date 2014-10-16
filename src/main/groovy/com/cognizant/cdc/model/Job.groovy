@@ -40,6 +40,7 @@ class Job implements Entity<Job>{
         ]
     }
 
+    @SuppressWarnings("GroovyAssignabilityCheck")
     @Override
     public void fromDBMap(Map map) {
         this.id = map._id
@@ -47,8 +48,8 @@ class Job implements Entity<Job>{
         this.title = map.title
         this.introduction= map.introduction
         this.content= map.content
-        this.type= RecruitmentType.valueOf(map.type)
-        this.diploma= Diploma.valueOf(map.diploma)
+        this.type= RecruitmentType.valueOf(map.type) as RecruitmentType
+        this.diploma= Diploma.valueOf(map.diploma) as Diploma
         this.locations= map.locations
         this.experienceFrom = map.experienceFrom
         this.experienceTo = map.experienceTo

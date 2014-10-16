@@ -8,6 +8,7 @@ import groovy.transform.TypeChecked
 enum DocumentNames {
 
     JOB("job"),
+    USER("user"),
     SEQUENCE("sequence"),
 	RESUME("resume")
 

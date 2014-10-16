@@ -20,6 +20,7 @@ consoleApp.config(function($routeProvider, $httpProvider) {
         }).otherwise({redirectTo: '/jobs'});
 
 
+    //Register a global interceptor to detect if any permission denied event, then should force user go back to login page.
     $httpProvider.interceptors.push('authInterceptor');
 
 });

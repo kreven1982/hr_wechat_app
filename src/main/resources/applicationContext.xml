@@ -19,7 +19,30 @@
         <property name="ignoreResourceNotFound" value="false"/>
         <property name="location" value="classpath:app.properties"/>
 	</bean>
-	
-	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
+
+    <bean id="SecurityFilter" class="com.cognizant.cdc.filter.SecurityFilter">
+        <property name="statusCode" value="401"/>
+        <property name="includedPaths">
+            <list>
+                <map>
+                    <entry key="path" value="api/user/info" />
+                    <entry key="method" value="get" />
+                </map>
+                <map>
+                    <entry key="path" value="api/job/" />
+                    <entry key="method" value="post" />
+                </map>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="ReferrerCheckFilter" class="com.cognizant.cdc.filter.ReferrerCheckFilter">
+        <property name="excludedPaths">
+            <list value-type="java.lang.String">
+                <value>weixin/interface</value>
+                <value>weixin/oauth2</value>
+            </list>
+        </property>
+    </bean>
 
 </beans>

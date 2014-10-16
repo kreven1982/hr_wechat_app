@@ -168,11 +168,19 @@ angular.module('consoleApp').controller('jobSearchController', ['$scope', '$http
 
 }]);
 
-angular.module('consoleApp').controller('bannerController', ['$scope','$window', function($scope, $window) {
+angular.module('consoleApp').controller('bannerController', ['$scope', '$http', '$window', function($scope, $http, $window) {
     $scope.isCollapsed = true;
 
+    $http.get("api/user/info").success(function(data, status, headers, config){
+        $scope.userName = data.result.userName;
+    });
+
     $scope.logout = function() {
-        $window.location = "/login";
+
+        $http.get("api/user/logout").success(function(data, status, headers, config){
+            $window.location = "/login";
+        });
+
     };
 }]);
 
