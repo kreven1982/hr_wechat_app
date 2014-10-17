@@ -10,7 +10,7 @@ enum DocumentNames {
     JOB("job"),
     USER("user"),
     SEQUENCE("sequence"),
-	RESUME("resume")
+    PROFILE("profile")
 
     private String collectionName
     private Map options

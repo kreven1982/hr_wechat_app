@@ -42,6 +42,10 @@ angular.module('common').filter('localized', function($timeout, localeService){
 
 angular.module('common').filter('locationString', function(){
      return function(locations) {
-        return locations.join(",");
+        if(locations) {
+            return locations.join(",");
+        } else {
+            return "";
+        }
      }
 });

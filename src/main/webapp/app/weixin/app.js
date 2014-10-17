@@ -12,7 +12,7 @@ weixinApp.config(function($routeProvider) {
             controller  : 'jobController'
         }).when('/resume/:jobId', {
             templateUrl : 'app/weixin/views/resume.new.html',
-            controller  : 'weixinResumeController'
-        }).otherwise({redirectTo: '/jobs'});;
+            controller  : 'resumeController'
+        }).otherwise({redirectTo: '/jobs'});
 });
 

@@ -3,8 +3,8 @@
         <h4 class="no-data">还没有简历信息</h4>
     </div>
 
-    <div class="resume-container col-xs-12 col-lg-10 col-lg-offset-1">
-        <div class="resume" id="resume-{{ resume.id }}" ng-repeat="resume in resumes" ng-switch-default>
+    <div class="resume-container col-xs-12 col-lg-10 col-lg-offset-1" ng-switch-default>
+        <div class="resume" ng-repeat="resume in resumes">
             <h4><span ng-bind="resume.name"></span></h4>
             <h5><i class="fa fa-mobile fa-lg"></i>&nbsp; <span ng-bind="resume.mobile"></span></h5>
             <h5>最高学历：<span ng-bind="resume.diploma | localized"></span></h5>
@@ -18,7 +18,8 @@
                     <span ng-bind="resume.createTime | timeString"></span>
                 </div>
                 <div class="toolbar col-xs-6">
-                    <a data-toggle="lightbox" ng-href="{{resume.imgUrl}}" target="_blank">查看附件</a>
+                    <a ng-href="{{resume.imgUrl}}" target="_blank" ng-show="resume.imgUrl">有附件</a>
+                    <a ng-href="#job/{{resume.jobId}}">关联的职位</a>
                     <a>删除</a>
                 </div>
             </div>

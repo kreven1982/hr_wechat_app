@@ -185,7 +185,7 @@ angular.module('consoleApp').controller('bannerController', ['$scope', '$http', 
 }]);
 
 angular.module('consoleApp').controller('resumeListController', ['$scope','$http', function($scope, $http) {
-     $http.get('api/resume/all').success(function(data, status, headers, config){
+     $http.get('api/profile/all').success(function(data, status, headers, config){
           $scope.resumes = data.result;
      });
 }]);

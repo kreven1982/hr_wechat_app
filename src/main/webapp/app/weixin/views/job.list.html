@@ -5,11 +5,6 @@
 
     <div class="job-container col-xs-12 col-lg-10 col-lg-offset-1" ng-switch-default>
 
-        <div class="pagination-container">
-            <pagination total-items="total" items-per-page="pageSize" ng-model="page.currentPage" max-size="5"
-            previous-text="<" next-text=">" first-text="<<" last-text=">>" class="pagination-sm" boundary-links="true"></pagination>
-        </div>
-
         <div class="job" ng-repeat="job in jobs">
             <h4 ng-bind="job.title"></h4>
             <h6>
@@ -34,11 +29,6 @@
                     <a href="#/job/{{job.id}}">查看详情</a>
                 </div>
             </div>
-        </div>
-
-        <div class="pagination-container">
-            <pagination total-items="total" items-per-page="pageSize" ng-model="page.currentPage" max-size="5"
-            previous-text="<" next-text=">" first-text="<<" last-text=">>" class="pagination-sm" boundary-links="true"></pagination>
         </div>
     </div>
 </div>

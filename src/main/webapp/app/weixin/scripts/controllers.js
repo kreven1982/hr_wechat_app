@@ -34,7 +34,12 @@ weixinApp.controller('jobController', ['$scope', '$http', '$routeParams', '$wind
     }
 }]);
 
-weixinApp.controller('weixinResumeController', ['$scope', '$http', function($scope, $http) {
+weixinApp.controller('resumeController', [
+    '$scope', '$http', '$routeParams', '$location', '$window', 'constantsService', 'multiFormService',
+    function($scope, $http, $routeParams, $location, $window, constantsService, multiFormService) {
+
+    $scope.validated = false;
+
     $scope.resume = {
         name: "",
         mobile: "",
@@ -43,27 +48,40 @@ weixinApp.controller('weixinResumeController', ['$scope', '$http', function($sco
         detail: ""
     };
 
+    $scope.data = {
+        experiences: [
+            "1-2",
+            "2-3",
+            "3-5",
+            "5-7",
+            "8+"
+        ],
+        diploma : []
+    };
+
+    constantsService.getDiplomas().then(function(response) {
+        var diplomas = response.data.diplomas;
+        diplomas.shift(); //remove the first item which is "none"
+        $scope.data.diploma = diplomas;
+    });
+
     $scope.submitResume = function(){
     	$scope.validated = true;
+        
 
-    	if($scope.form.$valid) {
+    	if($scope.resumeForm.$valid) {
     		$('#loading').modal('show');
 
-    		var fd = new FormData();
-        	fd.append('file', $scope.resumeAttachment);
-        	fd.append('data', JSON.stringify($scope.resume))
-        	$http.post("api/resume/submit", fd, {
-        		transformRequest: angular.identity,
-        		headers: {'Content-Type': undefined}
-        	})
-        	.success(function(data, status, headers, config){
-        		console.log(data);
+            var jobId = $scope.resume.jobId;
+            multiFormService.submitMultiFormWithFile($scope.resumeAttachment, "api/profile/" + jobId, JSON.stringify($scope.resume), function(data, status, headers, config){
         		$('#loading').modal('hide');
-        	})
-        	.error(function(data, status, headers, config){
-        		console.log(status);
-        	});
+                $location.path("#/job/" + jobId);
+            });
     	}
-    }
+    };
+
+    $scope.goBack = function() {
+        $window.history.back();
+    };
 
 }]);

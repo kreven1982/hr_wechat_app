@@ -4,10 +4,6 @@
     margin: 8px;
     border-bottom: 1px solid lightblue;
 
-    &:last-child {
-         border-bottom: none;
-    }
-
     .content {
         margin-top: 8px;
 
@@ -31,6 +27,10 @@
 }
 
 .job-container {
+
+    .job:last-of-type {
+        border-bottom: none;
+    }
 
     .pagination-container {
         text-align: center;
@@ -108,10 +108,7 @@
                         }
                     }
                 }
-
             }
-
-
         }
     }
 }

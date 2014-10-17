@@ -11,15 +11,15 @@ import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.ResponseBody
 import org.springframework.web.multipart.MultipartFile
 
-import com.cognizant.cdc.model.Resume
-import com.cognizant.cdc.model.enums.Diploma
-import com.cognizant.cdc.service.ResumeService
+import com.cognizant.cdc.service.ProfileService
 import com.cognizant.cdc.util.UUIDUtil
 import com.fasterxml.jackson.databind.ObjectMapper
+import org.springframework.web.bind.annotation.PathVariable
+import com.cognizant.cdc.model.Profile
 
 @Controller
-@RequestMapping(value = "resume")
-class ResumeController {
+@RequestMapping(value = "profile")
+class ProfileController {
 	public static final String[] ACCEPTED_CONTENT_TYPE = [
 		'image/jpeg',
 		'image/gif',
@@ -31,21 +31,22 @@ class ResumeController {
 	public static final long MAX_UPLOAD_FILE_SIZE = 2048*1024 //2M
 
 	@Autowired
-	ResumeService resumeService
+	ProfileService profileService
 
     @RequestMapping(value = "all", method = RequestMethod.GET)
     @ResponseBody
-    public Map allResumes() {
-        [result: resumeService.listResumes()]
+    public Map allProfiles() {
+        [result: profileService.listProfiles()]
     }
 
 
-	@RequestMapping(value= "submit", method = RequestMethod.POST)
+	@RequestMapping(value="{jobId}", method = RequestMethod.POST)
 	@ResponseBody
-	public Map submitResume(@RequestParam(value = "file", required = false) MultipartFile file,
+	public Map submit(@PathVariable String jobId, @RequestParam(value = "file", required = false) MultipartFile file,
 			@RequestParam(value = "data") String data, HttpServletRequest request, HttpServletResponse response) {
 		
 		String uploadPath = request.getSession().getServletContext().getRealPath("upload")
+
 		String fileName
 		String fileURL
 		if(file != null){
@@ -88,10 +89,10 @@ class ResumeController {
 		//def map =  request.getParameterMap();
 		//println data
 		ObjectMapper mapper = new ObjectMapper()
-		Resume resume = mapper.readValue(data, Resume.class)
-		resume.imgUrl = fileURL
+		Profile profile = mapper.readValue(data, Profile.class)
+		profile.imgUrl = fileURL
 		
-		resumeService.newResume(resume)
+		profileService.newProfile(profile)
 		
 		return ["success" : true]
 	}

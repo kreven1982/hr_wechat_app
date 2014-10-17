@@ -1,5 +1,14 @@
 "use strict";
 
+
+
+angular.module('consoleApp').service('jobService', ['$http', function($http){
+
+      this.getJobList = $http.get('api/job/all');
+
+}]);
+
+
 angular.module('consoleApp').service('resumeService', ['$http', function($http){
 
       this.getResumeList = function (searchForm) {

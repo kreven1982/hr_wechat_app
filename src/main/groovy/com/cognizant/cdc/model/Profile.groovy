@@ -2,7 +2,7 @@ package com.cognizant.cdc.model
 
 import com.cognizant.cdc.model.enums.Diploma
 
-class Resume implements Entity<Resume>{
+class Profile implements Entity<Profile>{
 	long id
 	String name
 	String mobile

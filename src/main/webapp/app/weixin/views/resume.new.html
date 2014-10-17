@@ -1,43 +1,30 @@
-<form name="form" role="form" class="new-resume" novalidate>
-    <!-- <span>{{resume}}</span> -->
+<form name="resumeForm" role="form" class="new-resume" ng-submit="submitResume()" novalidate>
     <div class="form-group">
         <label for="name">姓名*</label>
         <input name="name" type="text" class="form-control" id="name" placeholder="姓名" ng-model="resume.name" ng-required="true">
-        <span ng-show="form.name.$error.required && validated" class="error">请填写您的姓名</span>
+        <span ng-show="resumeForm.name.$error.required && validated" class="error">请填写您的姓名</span>
     </div>
     <div class="form-group">
         <label for="mobile">手机*</label>
         <input name="mobile" type="text" class="form-control" id="mobile" placeholder="手机" ng-model="resume.mobile" ng-required="true" ng-pattern="/^[0-9\-]{11,20}$/">
-        <span ng-show="form.mobile.$error.required && validated" class="error">请填写您的手机号码</span>
-        <span ng-show="form.mobile.$error.pattern && validated" class="error">您输入的电话号码不正确，只接受数字和“-”。例：021-12345678</span>
+        <span ng-show="resumeForm.mobile.$error.required && validated" class="error">请填写您的手机号码</span>
+        <span ng-show="resumeForm.mobile.$error.pattern && validated" class="error">您输入的电话号码不正确，只接受数字和“-”。例：021-12345678</span>
     </div>
     <div class="form-group">
         <label for="experience">工作经验*</label>
         <select id="experience" name="experience" class="form-control" ng-model="resume.experience" ng-required="true">
             <option value="">请选择</option>
-            <option value="1-2">1-2</option>
-            <option value="2-3">2-3</option>
-            <option value="3-5">3-5</option>
-            <option value="5-7">5-7</option>
-            <option value="8+">8+</option>
+            <option value="{{experience}}" ng-repeat="experience in data.experiences">{{ experience }} 年</option>
         </select>
-        <span ng-show="form.experience.$error.required && validated" class="error">请选择您相应的工作经验</span>
+        <span ng-show="resumeForm.experience.$error.required && validated" class="error">请选择您相应的工作经验</span>
     </div>
     <div class="form-group">
         <label for="diploma">最高学历*</label>
         <select name="diploma" class="form-control" ng-model="resume.diploma" ng-required="true">
             <option value="">请选择</option>
-            <optgroup label="--------------">
-                <option value="associate">大专</option>
-                <option value="bachelor">本科</option>
-                <option value="master">硕士</option>
-                <option value="doctor">博士</option>
-            </optgroup>
-            <optgroup label="--------------">
-                <option value="mba">MBA</option>
-            </optgroup>
+            <option value="{{diploma}}" ng-repeat="diploma in data.diploma">{{ diploma | localized }}</option>
         </select>
-        <span ng-show="form.diploma.$error.required && validated" class="error">请选择您的最高学历</span>
+        <span ng-show="resumeForm.diploma.$error.required && validated" class="error">请选择您的最高学历</span>
     </div>
     <div class="form-group">
         <label for="detail">个人简单介绍</label>
@@ -50,7 +37,8 @@
         <p class="help-block">你可以用手机拍摄纸质的简历,然后将照片作为附件一并上传. 你也可以在电脑上打开此页面来编辑并上传word版本简历.</p>
     </div>
 
-    <button type="submit" class="btn btn-default" ng-click="submitResume()">申请</button>
+    <button type="submit" class="btn btn-default">申请</button>
+    <button type="button" class="btn btn-default" ng-click="goBack()">返回</button>
 </form>
 
 <!-- Small modal -->
