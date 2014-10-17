@@ -1,16 +1,16 @@
 package com.cognizant.cdc.filter
 
 import com.cognizant.cdc.model.User
+import com.cognizant.cdc.service.UserService
+import com.cognizant.cdc.util.UserSession
 import groovy.transform.CompileStatic
 import groovy.transform.TypeChecked
 import org.springframework.beans.factory.annotation.Autowired
 
+import javax.servlet.*
 import javax.servlet.http.Cookie
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
-import javax.servlet.*
-import com.cognizant.cdc.service.UserService
-import com.cognizant.cdc.util.UserSession
 
 @CompileStatic
 @TypeChecked
@@ -23,7 +23,7 @@ class SecurityFilter implements Filter {
     UserService userService
 
     @Override
-    void init(javax.servlet.FilterConfig filterConfig) {}
+    void init(FilterConfig filterConfig) {}
 
     public void doFilter(ServletRequest request, ServletResponse response,
                          FilterChain chain) throws IOException, ServletException {
@@ -71,7 +71,7 @@ class SecurityFilter implements Filter {
 
         authIncludedPaths.each {
             Map pathConfig ->
-            if (requestURI.contains(pathConfig['path'] as String) && reqMethod.equalsIgnoreCase(pathConfig.method)) {
+            if (requestURI.contains(pathConfig['path'] as String) && reqMethod.equalsIgnoreCase(pathConfig['method'] as String)) {
                 requireAuth = true
                 return
             }
