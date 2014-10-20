@@ -7,7 +7,15 @@ import groovy.transform.TypeChecked
 @TypeChecked
 enum DocumentNames {
 
-    JOB("job"),
+    JOB("job", [
+                [[locations: 1]],
+                [[experienceFrom: 1]],
+                [[experienceTo: 1]],
+                [[type: 1]],
+                [[diploma: 1]],
+                [[keywords: 1]]
+    ]),
+
     USER("user"),
     SEQUENCE("sequence"),
     PROFILE("profile")

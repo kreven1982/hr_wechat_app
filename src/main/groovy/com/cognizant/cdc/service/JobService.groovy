@@ -7,6 +7,8 @@ import groovy.transform.CompileStatic
 import groovy.transform.TypeChecked
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
+import com.cognizant.cdc.model.enums.Diploma
+import com.cognizant.cdc.model.enums.RecruitmentType
 
 @CompileStatic
 @TypeChecked
@@ -43,5 +45,9 @@ class JobService {
 
     public int getTotal() {
         jobRepository.getTotal()
+    }
+
+    public List<Job> search(String keyword, RecruitmentType type, Integer experienceFrom, Integer experienceTo, Diploma diploma, String location) {
+        jobRepository.search(keyword, type, experienceFrom, experienceTo, diploma, location)
     }
 }

@@ -48,7 +48,7 @@ class ProfileController {
 		String uploadPath = request.getSession().getServletContext().getRealPath("upload")
 
 		String fileName
-		String fileURL
+		String fileURL = null
 		if(file != null){
 			boolean isAccepted = false
 			String fileType = file.getContentType()
@@ -79,15 +79,11 @@ class ProfileController {
 				}
 				
 				fileURL = request.getContextPath() + "/upload/" + fileName
-				//println 'fileURL: ' + fileURL
-				
 			} else {
 				return ['error':'附件类型只接受图片和word文档']
 			}
 		}
 		
-		//def map =  request.getParameterMap();
-		//println data
 		ObjectMapper mapper = new ObjectMapper()
 		Profile profile = mapper.readValue(data, Profile.class)
 		profile.imgUrl = fileURL

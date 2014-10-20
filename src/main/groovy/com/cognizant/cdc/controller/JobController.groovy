@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.ResponseBody
 import org.springframework.web.servlet.ModelAndView
 import com.cognizant.cdc.model.enums.Diploma
+import com.cognizant.cdc.model.enums.RecruitmentType
 
 @Controller
 @RequestMapping(value = "job")
@@ -31,6 +32,18 @@ class JobController {
                 total : jobService.getTotal(),
                 pageSize : PAGE_SIZE
         ]
+    }
+
+    @RequestMapping(value = "search", method = RequestMethod.GET)
+    @ResponseBody
+    public Map search(@RequestParam(value = "keyword", required = false) String keyword,
+                      @RequestParam(value = "type", required = false) RecruitmentType type,
+                      @RequestParam(value = "from", required = false) Integer experienceFrom,
+                      @RequestParam(value = "to", required = false) Integer experienceTo,
+                      @RequestParam(value = "diploma", required = false) Diploma diploma,
+                      @RequestParam(value = "location", required = false) String location) {
+
+        [result: jobService.search(keyword, type, experienceFrom, experienceTo, diploma, location) ]
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
