@@ -5,8 +5,7 @@ var weixinApp = angular.module('weixinApp', ['common', 'ngRoute']);
 weixinApp.config(function($routeProvider) {
     $routeProvider.when('/jobs', {
             templateUrl : 'app/weixin/views/job.list.html',
-            controller  : 'jobListController',
-            reloadOnSearch : false
+            controller  : 'jobListController'
         }).when('/job/:jobId', {
             templateUrl : 'app/weixin/views/job.detail.html',
             controller  : 'jobController'

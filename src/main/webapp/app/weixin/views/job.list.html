@@ -1,40 +1,40 @@
+
+<div class="filter-toggle" ng-click="searchOpen = true" ng-show="!searchOpen">筛选工作</div>
+
+<div class="panel panel-default" ng-show="searchOpen">
+    <div class="panel-body">
+
+        <div class="form-group">
+            <label for="keyword">关键字</label>
+            <input id="keyword" name="keyword" type="text" class="form-control" placeholder="关键字" ng-model="search.keyword" />
+        </div>
+        <div class="form-group">
+            <label for="experienceFrom">经验要求</label>
+            <select id="experienceFrom" name="experienceFrom" class="form-control" ng-model="search.from">
+                <option value="">不限</option>
+                <option value="{{experience}}" ng-repeat="experience in [1,2,3,4,5,6,7,8]">{{ experience }} 年及以上</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="diploma">学历要求</label>
+            <select class="form-control" ng-model="search.diploma">
+                <option value="">不限</option>
+                <option value="{{diploma}}" ng-repeat="diploma in data.diploma">{{ diploma | localized }}</option>
+            </select>
+        </div>
+    </div>
+    <div class="panel-footer">
+        <button class="btn btn-success" ng-click="searchJob()">搜索</button><button class="btn btn-default" ng-click="searchOpen = false">关闭</button>
+    </div>
+</div>
+
 <div ng-switch on="jobs == undefined || jobs.length == 0">
+
     <div class="job-container col-xs-12 col-lg-10 col-lg-offset-1" ng-switch-when="true">
         <h4 class="no-data">暂时没有职位信息,请耐心等待哦!</h4>
     </div>
 
     <div class="job-container col-xs-12 col-lg-10 col-lg-offset-1" ng-switch-default>
-
-        <div class="search" ng-show="searchOpen">
-            <div class="form-group">
-                <label for="keyword">关键字</label>
-                <input id="keyword" name="keyword" type="text" class="form-control" placeholder="关键字" ng-model="search.keyword" />
-            </div>
-            <div class="form-group">
-                <label for="experienceFrom">经验要求</label>
-                <select id="experienceFrom" name="experienceFrom" class="form-control" ng-model="search.experienceFrom">
-                    <option value="">请选择</option>
-                    <option value="{{experience}}" ng-repeat="experience in [1,2,3,4,5,6,7,8]">{{ experience }} 年及以上</option>
-                </select>
-                <span ng-show="resumeForm.experience.$error.required && validated" class="error">请选择您相应的工作经验</span>
-            </div>
-            <div class="form-group">
-                <label for="diploma">学历要求</label>
-                <select id="diploma" name="diploma" class="form-control" ng-model="resume.diploma" ng-required="true">
-                    <option value="">请选择</option>
-                    <option value="{{diploma}}" ng-repeat="diploma in data.diploma">{{ diploma | localized }}</option>
-                </select>
-                <span ng-show="resumeForm.diploma.$error.required && validated" class="error">请选择您的最高学历</span>
-            </div>
-            <div class="form-group">
-                <label for="detail">个人简单介绍</label>
-                <textarea class="form-control" id="detail" ng-model="resume.detail"></textarea>
-            </div>
-        </div>
-
-        <div>
-            <button class="btn btn-default" ng-click="searchOpen = !searchOpen"><span class="glyphicon glyphicon-search"></span> 搜索</button>
-        </div>
 
         <div class="job" ng-repeat="job in jobs">
             <h4 ng-bind="job.title"></h4>

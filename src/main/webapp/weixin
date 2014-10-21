@@ -46,7 +46,6 @@
         <div class="collapse navbar-collapse" id="banner-menu">
             <ul class="nav navbar-nav">
               <li><a href="#/jobs">最新招聘信息</a></li>
-              <li><a href="#">搜索职位</a></li>
               <li><a href="#/about">关于高知特</a></li>
             </ul>
         </div>

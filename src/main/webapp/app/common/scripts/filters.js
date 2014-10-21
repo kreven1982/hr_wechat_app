@@ -2,10 +2,14 @@
 
 angular.module('common').filter('trustAsHtml', ['$sce', function($sce){
     return function(text) {
-        return $sce.trustAsHtml(text);
+        if(text) {
+            return $sce.trustAsHtml(text);
+        } else {
+            return "";
+        }
+
     };
 }]);
-
 
 angular.module('common').filter('timeString', function(){
      return function(time) {
