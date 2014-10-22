@@ -4,3 +4,25 @@
     margin-top: 10%;
     color: lightgray;
 }
+
+button.btn {
+    min-width: 80px;
+}
+
+.fix-width-8px {
+    margin-left: 8px;
+}
+
+.transition-linear(@delay : 0.5s) {
+    -webkit-transition:all linear @delay;
+    -moz-transition:all linear @delay;
+    -o-transition:all linear @delay;
+    transition:all linear @delay;
+}
+
+.transition-ease-in-out(@delay: 0.5s) {
+    -webkit-transition: all @delay ease-in-out;
+    -moz-transition: all @delay ease-in-out;
+    -o-transition: all @delay ease-in-out;
+    transition: all @delay ease-in-out;
+}

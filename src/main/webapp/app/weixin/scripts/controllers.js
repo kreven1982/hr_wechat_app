@@ -6,6 +6,9 @@ weixinApp.controller('jobListController', ['$scope', '$http', '$location', '$rou
 
     $scope.data = {};
     $scope.search = $location.search();
+    var NO_JOB_RESULT = "没有符合的职位信息,请重新搜索";
+    var LOADING = "正在搜索中,请耐心等待...";
+    $scope.message = LOADING;
 
     constantsService.getDiplomas().then(function(response) {
         var diplomas = response.data.diplomas;
@@ -21,6 +24,7 @@ weixinApp.controller('jobListController', ['$scope', '$http', '$location', '$rou
 
     $http.get(url).success(function(data, status, headers, config){
        $scope.jobs = data.result;
+       $scope.message = NO_JOB_RESULT;
     });
 
     $scope.searchJob = function() {
