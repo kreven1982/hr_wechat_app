@@ -16,34 +16,40 @@
                      </div>
                  </div>
              </nav>
-            <div class="job">
-                <h4>{{job.title}}</h4>
-                <h6>
-                    工作地点 : <span ng-bind="job.locations | locationString"></span>
-                </h6>
-                <h6>
-                    经验要求 : <span job-experience from="job.experienceFrom" to="job.experienceTo"></span>
-                </h6>
-                <h6>
-                    学历要求 : <span ng-bind="job.diploma | localized"></span>
-                </h6>
-                <div class="content">
-                    <h6>职位简介</h6>
-                    <p ng-bind="job.introduction"></p>
-                    <div ng-show="showContent">
-                        <h6>详细内容</h6>
-                        <div ng-bind-html="job.content | trustAsHtml"></div>
+            <div class="job-container">
+                <div class="job">
+                    <h3 ng-bind="job.title"></h3>
+                    <h6>
+                        类型 : <span ng-bind="job.type | localized"></span>
+                    </h6>
+                    <h6>
+                        工作地点 : <span ng-bind="job.locations | locationString"></span>
+                    </h6>
+                    <h6>
+                        经验要求 : <span job-experience from="job.experienceFrom" to="job.experienceTo"></span>
+                    </h6>
+                    <h6>
+                        学历要求 : <span ng-bind="job.diploma | localized"></span>
+                    </h6>
+                    <div class="content">
+                        <h6>职位简介</h6>
+                        <p ng-bind="job.introduction"></p>
+                        <div ng-show="showContent">
+                            <h6>详细内容</h6>
+                            <div ng-bind-html="job.content | trustAsHtml"></div>
+                        </div>
+                    </div>
+                    <div class="footer row">
+                        <div class="create-time col-xs-6">
+                            <span ng-bind="job.createTime | timeString"></span>
+                        </div>
+                        <div class="toolbar col-xs-6">
+                            <a href="javascript:void;">申请</a>
+                            <a href="" ng-click="showContent = !showContent">查看详情</a>
+                        </div>
                     </div>
                 </div>
-                <div class="footer row">
-                    <div class="create-time col-xs-6">
-                        <span ng-bind="job.createTime | timeString"></span>
-                    </div>
-                    <div class="toolbar col-xs-6">
-                        <a href="javascript:void;">申请</a>
-                        <a href="" ng-click="showContent = !showContent">查看详情</a>
-                    </div>
-                </div>
+
             </div>
          </div>
      </div>

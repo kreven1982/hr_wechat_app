@@ -1,8 +1,8 @@
 .job {
     text-align: left;
-    padding: 8px;
-    margin: 8px;
-    border-bottom: 1px solid lightblue;
+    padding-bottom: 12px;
+    padding-top: 8px;
+    border-bottom: 1px dashed lightblue;
 
     .content {
         margin-top: 8px;
@@ -24,15 +24,14 @@
             margin-left: 8px;
         }
     }
+
+    &:last-of-type {
+        border-bottom: none;
+    }
 }
 
 .job-container {
-
     text-align: center;
-
-    .job:last-of-type {
-        border-bottom: none;
-    }
 }
 
 .new-job {
@@ -52,6 +51,10 @@
 @preview-width: 255px;
 
 .preview {
+
+    .job-container {
+        padding: 8px;
+    }
 
     .modal-content {
         box-shadow: none;
@@ -119,7 +122,8 @@
 
 
 .panel {
-
+    box-shadow: rgba(0, 0, 0, 0.247059) 0px 3px 8px 0px;
+    border-radius: 0px;
     .panel-footer {
         text-align: center;
     }

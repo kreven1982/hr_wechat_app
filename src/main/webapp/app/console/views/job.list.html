@@ -1,38 +1,40 @@
 <div ng-switch on="jobs == undefined || jobs.length == 0">
-    <div class="job-container col-xs-12 col-lg-10 col-lg-offset-1" ng-switch-when="true">
+    <div class="col-xs-12 col-lg-10 col-lg-offset-1" ng-switch-when="true">
         <h4 class="no-data">{{message}}</h4>
     </div>
 
-    <div class="job-container col-xs-12 col-lg-10 col-lg-offset-1" ng-switch-default>
+    <div class="job-container col-xs-12 col-lg-10 col-lg-offset-1 animated fadeInLeft" ng-switch-default>
 
         <div class="pagination-container">
             <pagination total-items="total" items-per-page="pageSize" ng-model="page.currentPage" max-size="5"
             previous-text="<" next-text=">" first-text="<<" last-text=">>" class="pagination-sm" boundary-links="true"></pagination>
         </div>
 
-        <div class="job animated fadeIn" ng-repeat="job in jobs">
-            <h4 ng-bind="job.title"></h4>
-            <h6>
-                <span ng-bind="job.type | localized"></span> ·
-                <span ng-bind="job.locations | locationString"></span> ·
-                <span ng-bind="job.diploma | localized"></span> ·
-                <span job-experience from="job.experienceFrom" to="job.experienceTo"></span>
-            </h6>
-            <div class="content">
-                <h6>简介</h6>
-                <p ng-bind="job.introduction"></p>
-                <h6>详细内容</h6>
-                <div ng-bind-html="job.content | trustAsHtml"></div>
-            </div>
-            <div class="footer row">
-                <div class="create-time col-xs-4">
-                    <span ng-bind="job.createTime | timeString"></span>
+        <div class="job-container">
+            <div class="job" ng-repeat="job in jobs">
+                <h3 ng-bind="job.title"></h3>
+                <h6>
+                    <span ng-bind="job.type | localized"></span> ·
+                    <span ng-bind="job.locations | locationString"></span> ·
+                    <span ng-bind="job.diploma | localized"></span> ·
+                    <span job-experience from="job.experienceFrom" to="job.experienceTo"></span>
+                </h6>
+                <div class="content">
+                    <h6>简介</h6>
+                    <p ng-bind="job.introduction"></p>
+                    <h6>详细内容</h6>
+                    <div ng-bind-html="job.content | trustAsHtml"></div>
                 </div>
-                <div class="toolbar col-xs-8">
-                    <a>查看简历(0)</a>
-                    <a href="#/job/{{job.id}}">编辑</a>
-                    <a ng-click="deleteJob(job)">删除</a>
-                    <a>已失效</a>
+                <div class="footer row">
+                    <div class="create-time col-xs-4">
+                        <span ng-bind="job.createTime | timeString"></span>
+                    </div>
+                    <div class="toolbar col-xs-8">
+                        <a>查看简历(0)</a>
+                        <a href="#/job/{{job.id}}">编辑</a>
+                        <a ng-click="deleteJob(job)">删除</a>
+                        <a>已失效</a>
+                    </div>
                 </div>
             </div>
         </div>

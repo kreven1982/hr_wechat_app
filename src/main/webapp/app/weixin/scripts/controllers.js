@@ -33,7 +33,7 @@ weixinApp.controller('jobListController', ['$scope', '$http', '$location', '$rou
     };
 }]);
 
-weixinApp.controller('jobController', ['$scope', '$http', '$routeParams', '$window', function($scope, $http, $routeParams, $window) {
+weixinApp.controller('jobController', ['$scope', '$http', '$routeParams','$rootScope', function($scope, $http, $routeParams, $rootScope) {
 
     //load job
     var jobId = $routeParams.jobId;
@@ -79,12 +79,11 @@ weixinApp.controller('resumeController', [
     $scope.submitResume = function(){
     	$scope.validated = true;
         
-
     	if($scope.resumeForm.$valid) {
     		$('#loading').modal('show');
 
-            var jobId = $scope.resume.jobId;
-            multiFormService.submitMultiFormWithFile($scope.resumeAttachment, "api/profile/" + jobId, JSON.stringify($scope.resume), function(data, status, headers, config){
+            var jobId = $routeParams.jobId;
+            multiFormService.submitMultiFormWithFile($scope.resumeAttachment, "api/profile/" + $routeParams.jobId, JSON.stringify($scope.resume), function(data, status, headers, config){
         		$('#loading').modal('hide');
                 $location.path("#/job/" + jobId);
             });
