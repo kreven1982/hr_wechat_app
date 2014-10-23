@@ -3,6 +3,7 @@ package com.cognizant.cdc.repository
 import com.cognizant.cdc.model.Job
 import com.cognizant.cdc.model.enums.Diploma
 import com.cognizant.cdc.model.enums.RecruitmentType
+import com.cognizant.cdc.model.vo.JobSearchResult
 import com.cognizant.cdc.repository.support.BaseRepository
 import com.mongodb.BasicDBObject
 import com.mongodb.DBCollection
@@ -18,6 +19,8 @@ import java.util.regex.Pattern
 @TypeChecked
 @Repository
 class JobRepository extends BaseRepository{
+
+    private static DBObject fields = new BasicDBObject([ keywords: 0 ])
 
     public save(Job job) {
         DBCollection col = getCollection(DocumentNames.JOB)
@@ -40,7 +43,7 @@ class JobRepository extends BaseRepository{
         DBCollection col = getCollection(DocumentNames.JOB)
         BasicDBObject sort = new BasicDBObject([_id: -1])
         int skip = (page - 1) * pageSize
-        DBCursor result = col.find().sort(sort).skip(skip).limit(pageSize);
+        DBCursor result = col.find(null, fields).sort(sort).skip(skip).limit(pageSize);
 
         result.collect {
             DBObject record ->
@@ -53,7 +56,7 @@ class JobRepository extends BaseRepository{
     public Job get(Integer id) {
         DBCollection col = getCollection(DocumentNames.JOB)
         BasicDBObject query = new BasicDBObject([_id: id])
-        DBObject result = col.findOne(query)
+        DBObject result = col.findOne(query, fields)
 
         if(result) {
             Job job = new Job()
@@ -89,7 +92,7 @@ class JobRepository extends BaseRepository{
      * 1) Use Solr/Lucene/ElasticSearch Solution
      * 2) Wait for chinese full text search in MongoDB
      */
-    public List<Job> search(String keyword, RecruitmentType type, Integer experienceFrom, Integer experienceTo, Diploma diploma, String location) {
+    public JobSearchResult search(String keyword, RecruitmentType type, Integer experienceFrom, Integer experienceTo, Diploma diploma, String location) {
         DBCollection col = getCollection(DocumentNames.JOB)
 
         Map keywordQuery = keyword ? [
@@ -125,16 +128,19 @@ class JobRepository extends BaseRepository{
         queryMap.putAll(diplomaQuery)
         queryMap.putAll(locationQuery)
 
-        println queryMap
-
         DBObject query = new BasicDBObject(queryMap)
-        DBCursor dbCursor = col.find(query).limit(50)
+        DBCursor dbCursor = col.find(query, fields).limit(50)
 
-        dbCursor.collect {
+        JobSearchResult result = new JobSearchResult()
+        result.total = dbCursor.count()
+        result.jobs = dbCursor.collect {
             DBObject record ->
+            println record.toMap()
             Job job = new Job()
             job.fromDBMap(record.toMap())
             job
         }
+
+        result
     }
 }

@@ -1,6 +1,7 @@
 package com.cognizant.cdc.service
 
 import com.cognizant.cdc.model.Job
+import com.cognizant.cdc.model.vo.JobSearchResult
 import com.cognizant.cdc.repository.JobRepository
 import com.cognizant.cdc.repository.SequenceRepository
 import groovy.transform.CompileStatic
@@ -47,7 +48,7 @@ class JobService {
         jobRepository.getTotal()
     }
 
-    public List<Job> search(String keyword, RecruitmentType type, Integer experienceFrom, Integer experienceTo, Diploma diploma, String location) {
+    public JobSearchResult search(String keyword, RecruitmentType type, Integer experienceFrom, Integer experienceTo, Diploma diploma, String location) {
         jobRepository.search(keyword, type, experienceFrom, experienceTo, diploma, location)
     }
 }
