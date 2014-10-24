@@ -135,7 +135,6 @@ class JobRepository extends BaseRepository{
         result.total = dbCursor.count()
         result.jobs = dbCursor.collect {
             DBObject record ->
-            println record.toMap()
             Job job = new Job()
             job.fromDBMap(record.toMap())
             job
