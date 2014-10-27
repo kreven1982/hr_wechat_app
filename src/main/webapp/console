@@ -47,7 +47,7 @@
     <script src="app/console/scripts/vendor/editor.js"></script>
 
 </head>
-<body>
+<body ng-show="hasPermission">
 <nav class="navbar navbar-default" role="navigation" ng-controller="bannerController">
     <div class="container-fluid">
         <div class="navbar-header">

@@ -1,11 +1,18 @@
 "use strict";
 
+angular.module('consoleApp').service('userService', ['$http', function($http){
 
+      this.getUserInfo = function() {
+           return $http.get("api/user/info").then(function(response){
+                                return response.data.result;
+                         });
+      };
 
-angular.module('consoleApp').service('jobService', ['$http', function($http){
-
-      this.getJobList = $http.get('api/job/all');
-
+      this.logout = function() {
+        return $http.get("api/user/logout").success(function(){
+            console.log("logout");
+        });
+      }
 }]);
 
 

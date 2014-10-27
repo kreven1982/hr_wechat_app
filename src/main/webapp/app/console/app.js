@@ -7,7 +7,13 @@ consoleApp.config(function($routeProvider, $httpProvider) {
     $routeProvider.when('/jobs', {
             templateUrl : viewPath + 'job.list.html',
             controller  : 'jobListController',
-            reloadOnSearch : false
+            reloadOnSearch : false,
+            resolve : {
+                userInfo : function(userService) {
+                    console.log("i am here");
+                    return userService.getUserInfo();
+                }
+            }
         }).when('/job/:jobId', {
             templateUrl : viewPath + 'job.edit.html',
             controller  : 'jobController'

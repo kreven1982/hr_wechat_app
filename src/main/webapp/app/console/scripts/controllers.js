@@ -115,12 +115,16 @@ angular.module('consoleApp').controller('jobController', ['$scope', '$http', '$m
 
 }]);
 
-angular.module('consoleApp').controller('jobListController', ['$scope', '$http', '$location', '$routeParams', function($scope, $http, $location, $routeParams) {
+angular.module('consoleApp').controller('jobListController',
+ ['$scope', '$http', '$location', '$routeParams', '$rootScope', 'userInfo', function($scope, $http, $location, $routeParams, $rootScope, userInfo) {
 
     //When use ng-switch, we follow best practice to have a dot to avoid child scope issue.
     $scope.page = {
         currentPage : $routeParams.page != null ? $routeParams.page : 1
     };
+
+    console.log(userInfo);
+    $rootScope.hasPermission = userInfo;
 
     var NO_JOB_INFO = "还没有职位信息,请点击菜单新建一个";
     $scope.message = NO_JOB_INFO;
@@ -168,19 +172,19 @@ angular.module('consoleApp').controller('jobSearchController', ['$scope', '$http
 
 }]);
 
-angular.module('consoleApp').controller('bannerController', ['$scope', '$http', '$window', function($scope, $http, $window) {
-    $scope.isCollapsed = true;
+angular.module('consoleApp').controller('bannerController',
+ ['$scope', '$http', '$window', 'userService', function($scope, $http, $window, userService) {
 
-    $http.get("api/user/info").success(function(data, status, headers, config){
-        $scope.userName = data.result.userName;
+    $scope.isCollapsed = true;
+    userService.getUserInfo().then(function(userInfo) {
+        $scope.userName = userInfo.userName;
     });
+    console.log($scope.userName);
 
     $scope.logout = function() {
-
-        $http.get("api/user/logout").success(function(data, status, headers, config){
-            $window.location = "/login";
+        userService.logout().then(function(){
+            $window.location = "login";
         });
-
     };
 }]);
 
