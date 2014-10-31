@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody
 
 import javax.servlet.http.Cookie
 import javax.servlet.http.HttpServletResponse
+import com.cognizant.cdc.model.enums.LoginStatus
 
 @Controller
 @RequestMapping(value="user")
@@ -29,32 +30,22 @@ class UserController {
         String userName = request.userName
         String password = request.password
 
-        if( userName == null || password == null) {
+        if(LoginStatus.Success != userService.checkCredential(userName, password)) {
             return [
                     result: false,
                     error : "authetication error"
             ]
         }
 
-        User user = userService.getUserByName(userName)
+        String token = userService.newSession(userName)
 
-        if(user) {
+        Cookie cookie = new Cookie("token", token)
+        cookie.setMaxAge(MAX_COOKIE_AGE)
+        cookie.setPath("/")
 
-            String token = userService.newSession(user.id)
+        response.addCookie(cookie)
 
-            Cookie cookie = new Cookie("token", token)
-            cookie.setMaxAge(MAX_COOKIE_AGE)
-            cookie.setPath("/")
-
-            response.addCookie(cookie)
-
-            return [result : true]
-        }
-
-        [
-            result: false,
-            error : "user doesn't exist"
-        ]
+        return [result : true]
     }
 
     @RequestMapping(value="logout", method= RequestMethod.GET)
@@ -62,7 +53,7 @@ class UserController {
     public Map logout() {
         User user = UserSession.getUser()
         if(user) {
-            userService.logout(user.id)
+            userService.logout(user.userName)
         }
 
         [result: true]
@@ -71,6 +62,6 @@ class UserController {
     @RequestMapping(value="info", method= RequestMethod.GET)
     @ResponseBody
     public Map info() {
-        [result:  UserSession.getUser().toDBMap()]
+        [result:  UserSession.getUser().toRepresentationMap()]
     }
 }

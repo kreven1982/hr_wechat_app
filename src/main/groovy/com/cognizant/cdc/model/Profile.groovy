@@ -37,4 +37,18 @@ class Profile implements Entity<Profile>{
         this.imgUrl = map.imgUrl
         this.createTime = map.createTime
     }
+
+    @Override
+    Map toRepresentationMap() {
+        [
+                id : id,
+                name : name,
+                mobile : mobile,
+                experience : experience,
+                detail : detail,
+                diploma : diploma.toString(),
+                imgUrl : imgUrl,
+                createTime : createTime
+        ]
+    }
 }

@@ -10,7 +10,6 @@ consoleApp.config(function($routeProvider, $httpProvider) {
             reloadOnSearch : false,
             resolve : {
                 userInfo : function(userService) {
-                    console.log("i am here");
                     return userService.getUserInfo();
                 }
             }

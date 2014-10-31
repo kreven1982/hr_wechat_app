@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody
 import org.springframework.web.servlet.ModelAndView
 import com.cognizant.cdc.model.enums.Diploma
 import com.cognizant.cdc.model.enums.RecruitmentType
+import com.cognizant.cdc.model.vo.JobSearchResult
 
 @Controller
 @RequestMapping(value = "job")
@@ -43,13 +44,20 @@ class JobController {
                       @RequestParam(value = "diploma", required = false) Diploma diploma,
                       @RequestParam(value = "location", required = false) String location) {
 
-        [result: jobService.search(keyword, type, experienceFrom, experienceTo, diploma, location) ]
+        final JobSearchResult result = jobService.search(keyword, type, experienceFrom, experienceTo, diploma, location)
+
+        [
+                result: [
+                        total : result.total,
+                        jobs : result.jobs*.toRepresentationMap()
+                ]
+        ]
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
     @ResponseBody
     public Map jobs(@PathVariable("id") Integer jobId) {
-        [result: jobService.getJob(jobId)]
+        [result: jobService.getJob(jobId).toRepresentationMap()]
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.POST)

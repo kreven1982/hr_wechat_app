@@ -12,8 +12,8 @@ import com.mongodb.DBObject
 import groovy.transform.CompileStatic
 import groovy.transform.TypeChecked
 import org.springframework.stereotype.Repository
-import com.cognizant.cdc.util.TextParserUtil
-import java.util.regex.Pattern
+
+import com.cognizant.cdc.util.Utils
 
 @CompileStatic
 @TypeChecked
@@ -96,7 +96,7 @@ class JobRepository extends BaseRepository{
         DBCollection col = getCollection(DocumentNames.JOB)
 
         Map keywordQuery = keyword ? [
-            keywords : [ $in: TextParserUtil.parseKeywords(keyword)]
+            keywords : [ $in: Utils.parseKeywords(keyword)]
         ] : [:]
 
         Map typeQuery = type ? [

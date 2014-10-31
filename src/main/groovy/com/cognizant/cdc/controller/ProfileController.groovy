@@ -36,7 +36,7 @@ class ProfileController {
     @RequestMapping(value = "all", method = RequestMethod.GET)
     @ResponseBody
     public Map allProfiles() {
-        [result: profileService.listProfiles()]
+        [result: profileService.listProfiles()*.toRepresentationMap()]
     }
 
 

@@ -9,7 +9,7 @@ angular.module('consoleApp').service('userService', ['$http', function($http){
       };
 
       this.logout = function() {
-        return $http.get("api/user/logout").success(function(){
+        return $http.get("api/user/logout").then(function(){
             console.log("logout");
         });
       }

@@ -8,6 +8,8 @@ import groovy.transform.TypeChecked
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import org.bson.types.ObjectId
+import com.cognizant.cdc.model.enums.LoginStatus
+import com.cognizant.cdc.util.Utils
 
 @CompileStatic
 @TypeChecked
@@ -20,18 +22,28 @@ class UserService {
     @Autowired
     SequenceRepository  sequenceRepository
 
-//    //Create an user
+    //Create an user
     public void newUser(User user) {
         userRepository.newUser(user)
     }
-//
-//    //Remove an user
-//    public void deleteUser(long userId) {
-//
-//    }
 
-    public User getUserByName(String userName) {
-        userRepository.getUserByName(userName)
+    //Remove an user
+    public void deleteUser(long userId) {
+        userRepository.removeUser(userId)
+    }
+
+    public LoginStatus checkCredential(String userName, String password) {
+        User user = userRepository.getUserByName(userName)
+
+        if(!user) {
+            return LoginStatus.UserNotExist
+        }
+
+        if(!obfuscatePassword(password, userName).equals(user.password)) {
+            return LoginStatus.WrongPassword
+        }
+
+        LoginStatus.Success
     }
 
     //Retrieve user by token
@@ -40,14 +52,20 @@ class UserService {
     }
 
     //Login and associate user with a token
-    public String newSession(long userId) {
+    public String newSession(String userName) {
         String token = new ObjectId().toString()
-        userRepository.updateToken(userId, token)
+        userRepository.updateToken(userName, token)
         token
     }
 
     //Logout session
-    public void logout(long userId) {
-        userRepository.updateToken(userId, null)
+    public void logout(String userName) {
+        userRepository.updateToken(userName, null)
+    }
+
+    private static String PASS_KEY = "COGNIZANT_HR_APP"
+    protected String obfuscatePassword(String password, String username) {
+        String obfuscatedString = PASS_KEY + password + username
+        return Utils.sha1(obfuscatedString)
     }
 }

@@ -7,7 +7,7 @@
         </button>
     </div>
 
-    <div class="panel panel-default animated fadeInDown" ng-show="searchOpen">
+    <div class="panel panel-default animated bounceInDown" ng-class="" ng-show="searchOpen">
         <div class="panel-body">
 
             <div class="form-group">
@@ -41,7 +41,7 @@
         <h4 class="no-data">{{message}}</h4>
     </div>
 
-    <div class="job-container col-xs-12 col-lg-10 col-lg-offset-1 animated fadeInRightBig" ng-switch-default>
+    <div class="job-container col-xs-12 col-lg-10 col-lg-offset-1 animated slideInRight" ng-switch-default>
 
         <div class="job" ng-repeat="job in jobs">
             <h3 ng-bind="job.title"></h3>

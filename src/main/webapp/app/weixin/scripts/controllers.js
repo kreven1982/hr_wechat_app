@@ -38,6 +38,7 @@ weixinApp.controller('jobListController', ['$scope', '$http', '$location', '$rou
 
     $scope.searchJob = function() {
         var toSearch = angular.copy($scope.search);
+        $scope.searchOpen = false;
         $location.search(toSearch);
     };
 

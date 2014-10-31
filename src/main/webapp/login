@@ -45,11 +45,11 @@
 
                 <div class="body">
                     <div class="form-control">
-                        <label>用户名</label><input name="userName" type="text" ng-model="userName" required />
+                        <label>用户名</label><input name="userName" type="text" ng-model="userName" required autofocus placeholder="User Name"/>
                         <span ng-show="loginForm.userName.$error.required && validated" class="error">用户名不能为空</span>
                     </div>
                     <div class="form-control">
-                        <label>密码</label><input name="password" type="password" ng-model="password" required />
+                        <label>密码</label><input name="password" type="password" ng-model="password" required placeholder="Password"/>
                         <span ng-show="loginForm.password.$error.required && validated" class="error">密码不能为空</span>
                         <span ng-show="authenticationError" class="error">登录失败,请检查后重试</span>
                     </div>

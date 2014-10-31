@@ -1,12 +1,11 @@
 package com.cognizant.cdc.model
 
-import com.cognizant.cdc.model.enums.Diploma
-
 class User implements Entity<User>{
 
     long id
     String userName
     String contact
+    String password
     long createTime
 
     @Override
@@ -15,6 +14,7 @@ class User implements Entity<User>{
                 _id : id,
                 userName : userName,
                 contact: contact,
+                password: password,
                 createTime: createTime
         ]
     }
@@ -24,6 +24,17 @@ class User implements Entity<User>{
         this.id = map._id
         this.userName = map.userName
         this.contact = map.contact
+        this.password = map.password
         this.createTime = map.createTime
+    }
+
+    @Override
+    Map toRepresentationMap() {
+        [
+                id : id,
+                userName : userName,
+                contact: contact,
+                createTime: createTime
+        ]
     }
 }

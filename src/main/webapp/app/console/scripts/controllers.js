@@ -182,9 +182,11 @@ angular.module('consoleApp').controller('bannerController',
     console.log($scope.userName);
 
     $scope.logout = function() {
-        userService.logout().then(function(){
-            $window.location = "login";
-        });
+        userService.logout();
+//        $window.location = "login";
+//        userService.logout().then(function(){
+//
+//        });
     };
 }]);
 

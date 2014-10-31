@@ -2,7 +2,7 @@ package com.cognizant.cdc.model
 
 import com.cognizant.cdc.model.enums.Diploma
 import com.cognizant.cdc.model.enums.RecruitmentType
-import com.cognizant.cdc.util.TextParserUtil
+import com.cognizant.cdc.util.Utils
 
 class Job implements Entity<Job>{
 
@@ -27,9 +27,9 @@ class Job implements Entity<Job>{
     @Override
     public Map toDBMap() {
 
-        Set<String> keywords = TextParserUtil.parseKeywords(title)
-        keywords += TextParserUtil.parseKeywords(introduction)
-        keywords += TextParserUtil.parseKeywords(TextParserUtil.html2text(content))
+        Set<String> keywords = Utils.parseKeywords(title)
+        keywords += Utils.parseKeywords(introduction)
+        keywords += Utils.parseKeywords(Utils.html2text(content))
 
         return [
                 _id: id,
@@ -62,5 +62,23 @@ class Job implements Entity<Job>{
         this.experienceTo = map.experienceTo
         this.totalOfResumes= map.totalOfResumes ?: 0
         this.createTime= map.createTime ?: 0
+    }
+
+    @Override
+    Map toRepresentationMap() {
+        return [
+                id: id,
+                userId: userId,
+                title : title,
+                introduction: introduction,
+                content: content,
+                type: type.toString(),
+                diploma: diploma.toString(),
+                locations: locations,
+                experienceFrom : experienceFrom,
+                experienceTo : experienceTo,
+                totalOfResumes : totalOfResumes,
+                createTime : createTime
+        ]
     }
 }

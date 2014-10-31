@@ -16,7 +16,10 @@ enum DocumentNames {
                 [[keywords: 1]]
     ]),
 
-    USER("user"),
+    USER("user", [
+            [[ userName: 1 ], [ unique: true ]],
+            [[ token: 1 ]]
+    ]),
     SEQUENCE("sequence"),
     PROFILE("profile")
 

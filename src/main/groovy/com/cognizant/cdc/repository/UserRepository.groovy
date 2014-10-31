@@ -29,10 +29,10 @@ class UserRepository extends BaseRepository{
         user
     }
 
-    void updateToken(long userId, String token) {
+    void updateToken(String userName, String token) {
         DBCollection collection = getCollection(DocumentNames.USER)
 
-        DBObject query = new BasicDBObject([ _id : userId ])
+        DBObject query = new BasicDBObject([ userName : userName ])
         DBObject update = new BasicDBObject([ $set: [ token: token ]])
         collection.update(query, update)
     }
@@ -57,5 +57,12 @@ class UserRepository extends BaseRepository{
         User user = new User()
         user.fromDBMap(result.toMap())
         user
+    }
+
+    void removeUser(long userId) {
+        DBCollection collection = getCollection(DocumentNames.USER)
+        DBObject toBeRemoved = new BasicDBObject([ _id: userId ])
+
+        collection.remove(toBeRemoved)
     }
 }
