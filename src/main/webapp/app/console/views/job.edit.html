@@ -31,8 +31,7 @@
     <div class="form-group">
         <label class="col-sm-2 control-label">学历要求</label>
         <div class="col-sm-8">
-            <select class="form-control" ng-model="job.diploma">
-                <option value="{{diploma}}" ng-repeat="diploma in data.diploma">{{ diploma | localized }}</option>
+            <select class="form-control" ng-model="job.diploma" ng-options="(diploma | localized) for diploma in data.diploma">
             </select>
         </div>
     </div>

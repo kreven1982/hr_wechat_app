@@ -179,14 +179,10 @@ angular.module('consoleApp').controller('bannerController',
     userService.getUserInfo().then(function(userInfo) {
         $scope.userName = userInfo.userName;
     });
-    console.log($scope.userName);
 
     $scope.logout = function() {
         userService.logout();
-//        $window.location = "login";
-//        userService.logout().then(function(){
-//
-//        });
+        $window.location = "login";
     };
 }]);
 
