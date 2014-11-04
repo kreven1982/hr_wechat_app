@@ -1,0 +1,10 @@
+{
+    "name": "hr_wechat_app",
+    "version": "0.0.1",
+    "description": "HR WeChat App",
+    "dependencies": {
+        "angular": "1.2.x",
+        "angular-route": "1.2.x",
+        "angular-mocks": "~1.2.x"
+    }
+}
