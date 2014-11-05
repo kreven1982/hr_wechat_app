@@ -5,6 +5,10 @@
     "dependencies": {
         "angular": "1.2.x",
         "angular-route": "1.2.x",
+        "angular-animate": "1.2.x",
+        "bootstrap": "3.2.x",
+        "simditor": "2.x",
+        "angular-editor": "https://github.com/wanming/angular-editor.git",
         "angular-mocks": "~1.2.x"
     }
 }
