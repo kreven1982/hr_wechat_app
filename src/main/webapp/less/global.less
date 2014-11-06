@@ -1,3 +1,14 @@
+.ng-view {
+    &.ng-enter {
+        -webkit-animation-name: slideInRight;
+        animation-name: slideInRight;
+    }
+
+    &.ng-leave {
+        -webkit-animation-duration: 0s;
+        animation-duration: 0s;
+    }
+}
 
 .no-data {
     text-align: center;

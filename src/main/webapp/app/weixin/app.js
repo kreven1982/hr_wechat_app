@@ -1,6 +1,6 @@
 "use strict";
 
-var weixinApp = angular.module('weixinApp', ['common', 'ngRoute']);
+var weixinApp = angular.module('weixinApp', ['common', 'ngRoute', 'ngAnimate']);
 
 weixinApp.config(function($routeProvider) {
     $routeProvider.when('/jobs', {
