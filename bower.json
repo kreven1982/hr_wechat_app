@@ -1,14 +1,20 @@
 {
-    "name": "hr_wechat_app",
-    "version": "0.0.1",
-    "description": "HR WeChat App",
-    "dependencies": {
-        "angular": "1.2.x",
-        "angular-route": "1.2.x",
-        "angular-animate": "1.2.x",
-        "bootstrap": "3.3.0",
-        "simditor": "2.x",
-        "angular-editor": "https://github.com/wanming/angular-editor.git",
-        "angular-mocks": "~1.2.x"
-    }
+  "name": "hr_wechat_app",
+  "version": "0.0.1",
+  "description": "HR WeChat App",
+  "dependencies": {
+    "jquery": "1.11.x",
+    "angular": "1.2.x",
+    "angular-route": "1.2.x",
+    "angular-animate": "1.2.x",
+    "angular-editor": "https://github.com/wanming/angular-editor.git",
+    "angular-bootstrap-slider": "~0.0.8",
+    "angular-bootstrap": "~0.11.2"
+  },
+  "devDependencies": {
+    "angular-mocks": "~1.2.x"
+  },
+  "resolutions": {
+    "jquery": "~1.11.1"
+  }
 }

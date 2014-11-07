@@ -38,7 +38,7 @@ angular.module('consoleApp').controller('jobController', ['$scope', '$http', '$m
             $scope.job = data.result;
             $scope.data.experience = [$scope.job.experienceFrom, $scope.job.experienceTo];
 
-            _.each($scope.job.locations, function(location) {
+            angular.forEach($scope.job.locations, function(location) {
                $scope.data.selectedLocations[location] = true;
             });
         });
@@ -104,7 +104,7 @@ angular.module('consoleApp').controller('jobController', ['$scope', '$http', '$m
     function convertLocations(locations) {
 
         var selectedLocations = [];
-        _.each( locations, function( val, key ) {
+        angular.forEach( locations, function( val, key ) {
           if ( val ) {
             selectedLocations.push(key);
           }
