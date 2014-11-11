@@ -18,7 +18,7 @@
                     <span ng-bind="resume.createTime | timeString"></span>
                 </div>
                 <div class="toolbar col-xs-6">
-                    <a ng-href="{{resume.imgUrl}}" target="_blank" ng-show="resume.imgUrl">有附件</a>
+                    <a ng-href="api/attachment/{{resume.attachmentId}}" target="_blank" ng-show="resume.attachmentId">有附件</a>
                     <a ng-href="#job/{{resume.jobId}}">关联的职位</a>
                     <a>删除</a>
                 </div>

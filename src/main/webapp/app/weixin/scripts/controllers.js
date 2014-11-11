@@ -38,8 +38,17 @@ weixinApp.controller('jobListController', ['$scope', '$http', '$location', '$rou
 
     $scope.searchJob = function() {
         var toSearch = angular.copy($scope.search);
+
+        if(!toSearch.keyword) {
+            delete toSearch.keyword;
+        }
+
         $scope.searchOpen = false;
         $location.search(toSearch);
+    };
+
+    $scope.clearSearch = function() {
+        $scope.search = {}
     };
 
     function isEmpty(obj) {
@@ -94,11 +103,8 @@ weixinApp.controller('resumeController', [
     	$scope.validated = true;
         
     	if($scope.resumeForm.$valid) {
-    		$('#loading').modal('show');
-
             var jobId = $routeParams.jobId;
             multiFormService.submitMultiFormWithFile($scope.resumeAttachment, "api/profile/" + $routeParams.jobId, JSON.stringify($scope.resume), function(data, status, headers, config){
-        		$('#loading').modal('hide');
                 $location.path("#/job/" + jobId);
             });
     	}

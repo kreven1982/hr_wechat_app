@@ -1,6 +1,6 @@
 package com.cognizant.cdc.model
 
-class User implements Entity<User>{
+class User implements Entity<User> {
 
     long id
     String userName

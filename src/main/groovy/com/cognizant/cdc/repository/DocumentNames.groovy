@@ -21,7 +21,10 @@ enum DocumentNames {
             [[ token: 1 ]]
     ]),
     SEQUENCE("sequence"),
-    PROFILE("profile")
+    PROFILE("profile", [
+            [[ name: 1, mobile: 1 ], [ unique:  true ]]
+    ]),
+    ATTACHMENT("attachment")
 
     private String collectionName
     private Map options

@@ -30,12 +30,8 @@ class JobRepository extends BaseRepository{
     public update(Job job) {
         DBCollection col = getCollection(DocumentNames.JOB)
         BasicDBObject query = new BasicDBObject([_id: job.id])
-        Map dataToUpdate = job.toDBMap()
 
-        dataToUpdate.remove("_id")
-        dataToUpdate.remove("createTime")
-
-        BasicDBObject update = new BasicDBObject([$set : dataToUpdate])
+        BasicDBObject update = new BasicDBObject([$set : job.toDBUpdateMap()])
         col.update(query, update)
     }
 

@@ -16,10 +16,15 @@ import com.cognizant.cdc.util.UUIDUtil
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.springframework.web.bind.annotation.PathVariable
 import com.cognizant.cdc.model.Profile
+import com.cognizant.cdc.service.AttachmentService
+import org.apache.commons.io.IOUtils
+import com.cognizant.cdc.util.Utils
+import org.springframework.beans.factory.annotation.Value
 
 @Controller
 @RequestMapping(value = "profile")
 class ProfileController {
+
 	public static final String[] ACCEPTED_CONTENT_TYPE = [
 		'image/jpeg',
 		'image/gif',
@@ -27,11 +32,16 @@ class ProfileController {
 		'application/msword',
 		'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
 		]
-	
-	public static final long MAX_UPLOAD_FILE_SIZE = 2048*1024 //2M
+
+    @Value('${max.file.size}')
+	private long MAX_UPLOAD_FILE_SIZE
 
 	@Autowired
 	ProfileService profileService
+
+    @Autowired
+    AttachmentService attachmentService
+
 
     @RequestMapping(value = "all", method = RequestMethod.GET)
     @ResponseBody
@@ -39,46 +49,32 @@ class ProfileController {
         [result: profileService.listProfiles()*.toRepresentationMap()]
     }
 
+    final String EXCEED_MAXIMAL_FILE_SIZE = '附件尺寸不能大于3M'
 
 	@RequestMapping(value="{jobId}", method = RequestMethod.POST)
 	@ResponseBody
 	public Map submit(@PathVariable String jobId, @RequestParam(value = "file", required = false) MultipartFile file,
 			@RequestParam(value = "data") String data, HttpServletRequest request, HttpServletResponse response) {
 		
-		String uploadPath = request.getSession().getServletContext().getRealPath("upload")
+        String attachmentId = null
 
-		String fileName
-		String fileURL = null
 		if(file != null){
-			boolean isAccepted = false
-			String fileType = file.getContentType()
-			for(it in ACCEPTED_CONTENT_TYPE){
-				println it
-				if(it == fileType){
-					isAccepted = true
-					break
+
+			if(Utils.getContentType(Utils.getSuffix(file.originalFilename))){
+
+			    if(file.getSize() > MAX_UPLOAD_FILE_SIZE) {
+
+                    return ['error': EXCEED_MAXIMAL_FILE_SIZE]
 				}
-			}
-			if(isAccepted){
-				if(file.getSize() > MAX_UPLOAD_FILE_SIZE){
-					return ['error':'附件尺寸不能大于2M']
-				}
-				try {
-					fileName = file.getOriginalFilename()
-					fileName = UUIDUtil.getUUID() + fileName.substring(fileName.lastIndexOf("."))
-					println fileName
-					
-					def targetFile = new File(uploadPath, fileName)
-					if(!targetFile.exists()) {
-						targetFile.mkdirs()
-					}
-					file.transferTo(targetFile)
-				} catch (Exception e) {
-					e.printStackTrace()
-					return ['error':'文件上传发生异常']
-				}
-				
-				fileURL = request.getContextPath() + "/upload/" + fileName
+
+                byte[] fileContent = IOUtils.toByteArray(file.getInputStream())
+
+                if(fileContent.size() > MAX_UPLOAD_FILE_SIZE) {
+                    return ['error': EXCEED_MAXIMAL_FILE_SIZE]
+                }
+
+                attachmentId = attachmentService.newAttachment(file.originalFilename, fileContent)
+
 			} else {
 				return ['error':'附件类型只接受图片和word文档']
 			}
@@ -86,10 +82,10 @@ class ProfileController {
 		
 		ObjectMapper mapper = new ObjectMapper()
 		Profile profile = mapper.readValue(data, Profile.class)
-		profile.imgUrl = fileURL
-		
+		profile.attachmentId = attachmentId
+
 		profileService.newProfile(profile)
-		
+
 		return ["success" : true]
 	}
 }

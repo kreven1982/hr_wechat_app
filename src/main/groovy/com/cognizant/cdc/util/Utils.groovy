@@ -4,6 +4,7 @@ import org.ansj.domain.Term
 import org.ansj.splitWord.analysis.IndexAnalysis
 import org.jsoup.Jsoup
 import java.security.MessageDigest
+import org.springframework.http.MediaType
 
 class Utils {
 
@@ -67,5 +68,48 @@ class Utils {
         }
 
         return hexString.toString()
+    }
+
+    /**
+     * 获取文件名的suffix
+     * 例如 example.jpg  获取后应该返回 jpg
+     * */
+    public static String getSuffix(String filename) {
+        if(filename == null || filename.trim().length() == 0)
+            return null
+
+        int i = filename.lastIndexOf('.')
+
+        if (i > 0 && i < filename.length() - 1) {
+            return filename.substring(i + 1, filename.length()).toLowerCase()
+        }
+
+        return ""
+    }
+
+    public static MediaType getContentType(String suffix) {
+
+        switch (suffix.toLowerCase()) {
+            case "gif":
+                return MediaType.IMAGE_GIF
+
+            case "jpg":
+            case "jpeg":
+                return MediaType.IMAGE_JPEG
+
+            case "png":
+                return MediaType.IMAGE_PNG
+
+            case "txt":
+                return MediaType.TEXT_PLAIN
+
+            case "pdf":
+            case "doc":
+            case "docx":
+                return MediaType.APPLICATION_OCTET_STREAM
+
+        }
+
+        return null
     }
 }

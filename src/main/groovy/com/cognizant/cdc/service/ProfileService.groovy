@@ -21,12 +21,18 @@ class ProfileService {
 	ProfileRepository profileRepository
 	
 	public void newProfile(Profile profile) {
-		profile.id = sequenceRepository.getNextID("PROFILE_SEQ")
+		profile.id = getNextProfileId()
 		profile.createTime = System.currentTimeMillis()
 		profileRepository.save(profile)
 	}
-	
-	public List<Profile> listProfiles() {
+
+
+    public List<Profile> listProfiles() {
 		profileRepository.listAll()
 	}
+
+
+    private long getNextProfileId() {
+        sequenceRepository.getNextID("PROFILE_SEQ")
+    }
 }

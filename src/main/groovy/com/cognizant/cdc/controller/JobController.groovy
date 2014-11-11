@@ -44,7 +44,7 @@ class JobController {
                       @RequestParam(value = "diploma", required = false) Diploma diploma,
                       @RequestParam(value = "location", required = false) String location) {
 
-        final JobSearchResult result = jobService.search(keyword, type, experienceFrom, experienceTo, diploma, location)
+        JobSearchResult result = jobService.search(keyword, type, experienceFrom, experienceTo, diploma, location)
 
         [
                 result: [

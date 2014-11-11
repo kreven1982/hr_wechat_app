@@ -2,14 +2,15 @@ package com.cognizant.cdc.model
 
 import com.cognizant.cdc.model.enums.Diploma
 
-class Profile implements Entity<Profile>{
+class Profile implements Entity<Profile> {
+
 	long id
 	String name
 	String mobile
 	String experience
 	String detail
 	Diploma diploma
-	String imgUrl
+	String attachmentId
     long createTime
 	
     @Override
@@ -21,11 +22,12 @@ class Profile implements Entity<Profile>{
              experience : experience,
              detail : detail,
              diploma : diploma.toString(),
-             imgUrl : imgUrl,
+             attachmentId : attachmentId,
              createTime : createTime
         ]
     }
 
+    @SuppressWarnings("GroovyAssignabilityCheck")
     @Override
     public void fromDBMap(Map map) {
         this.id = map._id
@@ -33,8 +35,8 @@ class Profile implements Entity<Profile>{
         this.mobile = map.mobile
         this.experience = map.experience
         this.detail = map.detail
-        this.diploma = Diploma.valueOf(map.diploma)
-        this.imgUrl = map.imgUrl
+        this.diploma = Diploma.valueOf(map.diploma) as Diploma
+        this.attachmentId = map.attachmentId
         this.createTime = map.createTime
     }
 
@@ -47,7 +49,7 @@ class Profile implements Entity<Profile>{
                 experience : experience,
                 detail : detail,
                 diploma : diploma.toString(),
-                imgUrl : imgUrl,
+                attachmentId : attachmentId,
                 createTime : createTime
         ]
     }

@@ -4,7 +4,7 @@ import com.cognizant.cdc.model.enums.Diploma
 import com.cognizant.cdc.model.enums.RecruitmentType
 import com.cognizant.cdc.util.Utils
 
-class Job implements Entity<Job>{
+class Job implements Entity<Job> {
 
     long id
     Long userId
@@ -22,6 +22,8 @@ class Job implements Entity<Job>{
     Integer experienceTo
 
     int totalOfResumes = 0
+
+
     long createTime
 
     @Override
@@ -45,6 +47,17 @@ class Job implements Entity<Job>{
                 createTime : createTime,
                 keywords : keywords
         ]
+    }
+
+    public Map toDBUpdateMap() {
+
+        Map dataToUpdate = toDBMap()
+
+        //should not override createTime
+        dataToUpdate.remove("_id")
+        dataToUpdate.remove("createTime")
+
+        dataToUpdate
     }
 
     @SuppressWarnings("GroovyAssignabilityCheck")

@@ -118,7 +118,8 @@ angular.module('consoleApp').controller('jobController', ['$scope', '$http', '$m
 angular.module('consoleApp').controller('jobListController',
  ['$scope', '$http', '$location', '$routeParams', '$rootScope', 'userInfo', function($scope, $http, $location, $routeParams, $rootScope, userInfo) {
 
-    //When use ng-switch, we follow best practice to have a dot to avoid child scope issue.
+    $scope.total = 1000; //given pagination control a chance to allow actual page selected
+    $scope.pageSize = 10;
     $scope.page = {
         currentPage : $routeParams.page != null ? $routeParams.page : 1
     };
