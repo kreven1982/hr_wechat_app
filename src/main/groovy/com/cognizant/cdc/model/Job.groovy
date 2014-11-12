@@ -23,7 +23,7 @@ class Job implements Entity<Job> {
 
     boolean activated = true
     int totalOfResumes = 0
-
+    List<Long> profiles
 
     long createTime
 

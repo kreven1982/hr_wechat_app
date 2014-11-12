@@ -20,10 +20,12 @@ class ProfileService {
 	@Autowired
 	ProfileRepository profileRepository
 	
-	public void newProfile(Profile profile) {
+	public long newProfile(Profile profile) {
 		profile.id = getNextProfileId()
 		profile.createTime = System.currentTimeMillis()
 		profileRepository.save(profile)
+
+        profile.id
 	}
 
 

@@ -35,20 +35,6 @@ class JobRepository extends BaseRepository{
         col.update(query, update)
     }
 
-    public List<Job> list(int page, int pageSize) {
-        DBCollection col = getCollection(DocumentNames.JOB)
-        BasicDBObject sort = new BasicDBObject([_id: -1])
-        int skip = (page - 1) * pageSize
-        DBCursor result = col.find(null, fields).sort(sort).skip(skip).limit(pageSize);
-
-        result.collect {
-            DBObject record ->
-                Job job = new Job()
-                job.fromDBMap(record.toMap())
-                job
-        }
-    }
-
     public Job get(Integer id) {
         DBCollection col = getCollection(DocumentNames.JOB)
         BasicDBObject query = new BasicDBObject([_id: id])
@@ -88,8 +74,10 @@ class JobRepository extends BaseRepository{
      * 1) Use Solr/Lucene/ElasticSearch Solution
      * 2) Wait for chinese full text search in MongoDB
      */
-    public JobSearchResult search(String keyword, RecruitmentType type, Integer experienceFrom, Integer experienceTo, Diploma diploma, String location) {
+    public JobSearchResult search(String keyword, RecruitmentType type, Integer experienceFrom, Integer experienceTo, Diploma diploma, String location, int page, int pageSize) {
         DBCollection col = getCollection(DocumentNames.JOB)
+
+        int skip = (page - 1) * pageSize
 
         Map keywordQuery = keyword ? [
             keywords : [ $in: Utils.parseKeywords(keyword)]
@@ -125,11 +113,11 @@ class JobRepository extends BaseRepository{
         queryMap.putAll(locationQuery)
 
         DBObject query = new BasicDBObject(queryMap)
-        DBCursor dbCursor = col.find(query, fields).limit(50)
+        DBCursor dbCursor = col.find(query, fields)
 
         JobSearchResult result = new JobSearchResult()
         result.total = dbCursor.count()
-        result.jobs = dbCursor.collect {
+        result.jobs = dbCursor.skip(skip).limit(pageSize).collect {
             DBObject record ->
             Job job = new Job()
             job.fromDBMap(record.toMap())
@@ -137,5 +125,14 @@ class JobRepository extends BaseRepository{
         }
 
         result
+    }
+
+    void applyJob(long jobId, long profileId) {
+        DBCollection col = getCollection(DocumentNames.JOB)
+        DBObject query = new BasicDBObject([ _id: jobId])
+        DBObject update = new BasicDBObject([ $addToSet: [ profiles : profileId ]])
+
+        //TODO not completed.
+        col.findAndModify(query, update)
     }
 }

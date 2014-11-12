@@ -36,12 +36,13 @@ class JobService {
         jobRepository.update(job);
     }
 
-    public void invalidateJob(long jobId) {
-        jobRepository.invalidateJob(jobId)
+    public void applyJob(long jobId, long profileId) {
+        jobRepository.applyJob(jobId, profileId)
     }
 
     public List<Job> listJobs(int page, int pageSize) {
-        jobRepository.list(page, pageSize)
+        JobSearchResult jobSearchResult = jobRepository.search(null, null, null, null, null, null, page, pageSize)
+        jobSearchResult.jobs
     }
 
     public int getTotal() {
@@ -49,6 +50,7 @@ class JobService {
     }
 
     public JobSearchResult search(String keyword, RecruitmentType type, Integer experienceFrom, Integer experienceTo, Diploma diploma, String location) {
-        jobRepository.search(keyword, type, experienceFrom, experienceTo, diploma, location)
+
+        jobRepository.search(keyword, type, experienceFrom, experienceTo, diploma, location, 1, 50)
     }
 }

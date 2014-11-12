@@ -20,6 +20,7 @@ import com.cognizant.cdc.service.AttachmentService
 import org.apache.commons.io.IOUtils
 import com.cognizant.cdc.util.Utils
 import org.springframework.beans.factory.annotation.Value
+import com.cognizant.cdc.service.JobService
 
 @Controller
 @RequestMapping(value = "profile")
@@ -35,6 +36,9 @@ class ProfileController {
 
     @Value('${max.file.size}')
 	private long MAX_UPLOAD_FILE_SIZE
+
+    @Autowired
+    JobService jobService
 
 	@Autowired
 	ProfileService profileService
@@ -53,7 +57,7 @@ class ProfileController {
 
 	@RequestMapping(value="{jobId}", method = RequestMethod.POST)
 	@ResponseBody
-	public Map submit(@PathVariable String jobId, @RequestParam(value = "file", required = false) MultipartFile file,
+	public Map submit(@PathVariable Long jobId, @RequestParam(value = "file", required = false) MultipartFile file,
 			@RequestParam(value = "data") String data, HttpServletRequest request, HttpServletResponse response) {
 		
         String attachmentId = null
@@ -84,7 +88,8 @@ class ProfileController {
 		Profile profile = mapper.readValue(data, Profile.class)
 		profile.attachmentId = attachmentId
 
-		profileService.newProfile(profile)
+		long profileId = profileService.newProfile(profile)
+        jobService.applyJob(jobId, profileId)
 
 		return ["success" : true]
 	}
