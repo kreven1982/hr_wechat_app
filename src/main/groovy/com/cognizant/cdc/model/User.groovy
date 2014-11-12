@@ -20,12 +20,18 @@ class User implements Entity<User> {
     }
 
     @Override
-    public void fromDBMap(Map map) {
+    public User fromDBMap(Map map) {
+        if(map == null) {
+            return null
+        }
+
         this.id = map._id
         this.userName = map.userName
         this.contact = map.contact
         this.password = map.password
         this.createTime = map.createTime
+
+        this
     }
 
     @Override

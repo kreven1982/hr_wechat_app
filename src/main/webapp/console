@@ -68,15 +68,12 @@
                     <ul class="dropdown-menu" role="menu">
                         <li><a href="#/job/0">发布职位</a></li>
                         <li><a href="#/">所有职位</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#">搜索职位</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">简历管理<span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
                         <li><a href="#/resumes">相关的简历</a></li>
-                        <li ng-controller="resumeSearchController"><a href="javascript:void(0)" ng-click="openSearchResume()">搜索简历</a></li>
                     </ul>
                 </li>
             </ul>

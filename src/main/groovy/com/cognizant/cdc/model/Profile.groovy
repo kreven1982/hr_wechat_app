@@ -29,7 +29,11 @@ class Profile implements Entity<Profile> {
 
     @SuppressWarnings("GroovyAssignabilityCheck")
     @Override
-    public void fromDBMap(Map map) {
+    public Profile fromDBMap(Map map) {
+        if(map == null) {
+            return null
+        }
+
         this.id = map._id
         this.name = map.name
         this.mobile = map.mobile
@@ -38,6 +42,7 @@ class Profile implements Entity<Profile> {
         this.diploma = Diploma.valueOf(map.diploma) as Diploma
         this.attachmentId = map.attachmentId
         this.createTime = map.createTime
+        this
     }
 
     @Override

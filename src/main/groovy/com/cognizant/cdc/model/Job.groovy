@@ -21,6 +21,7 @@ class Job implements Entity<Job> {
     Integer experienceFrom
     Integer experienceTo
 
+    boolean activated = true
     int totalOfResumes = 0
 
 
@@ -45,6 +46,8 @@ class Job implements Entity<Job> {
                 experienceFrom : experienceFrom,
                 experienceTo : experienceTo,
                 createTime : createTime,
+                totalOfResumes : totalOfResumes,
+                activated : activated,
                 keywords : keywords
         ]
     }
@@ -53,28 +56,37 @@ class Job implements Entity<Job> {
 
         Map dataToUpdate = toDBMap()
 
-        //should not override createTime
+        //should not override below fields
         dataToUpdate.remove("_id")
         dataToUpdate.remove("createTime")
+        dataToUpdate.remove("totalOfResumes")
+        dataToUpdate.remove("activated")
 
         dataToUpdate
     }
 
     @SuppressWarnings("GroovyAssignabilityCheck")
     @Override
-    public void fromDBMap(Map map) {
+    public Job fromDBMap(Map map) {
+        if(map == null) {
+            return null
+        }
+
         this.id = map._id
         this.userId = map.userId
         this.title = map.title
-        this.introduction= map.introduction
-        this.content= map.content
-        this.type= RecruitmentType.valueOf(map.type) as RecruitmentType
-        this.diploma= Diploma.valueOf(map.diploma) as Diploma
-        this.locations= map.locations
+        this.introduction = map.introduction
+        this.content = map.content
+        this.type = RecruitmentType.valueOf(map.type) as RecruitmentType
+        this.diploma = Diploma.valueOf(map.diploma) as Diploma
+        this.locations = map.locations
         this.experienceFrom = map.experienceFrom
         this.experienceTo = map.experienceTo
-        this.totalOfResumes= map.totalOfResumes ?: 0
-        this.createTime= map.createTime ?: 0
+        this.totalOfResumes = map.totalOfResumes ?: 0
+        this.createTime = map.createTime ?: 0
+        this.activated = map.activated
+
+        this
     }
 
     @Override

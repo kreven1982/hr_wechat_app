@@ -23,12 +23,18 @@ class Attachment implements Entity<Attachment>{
     }
 
     @Override
-    void fromDBMap(Map map) {
+    public Attachment fromDBMap(Map map) {
+        if(map == null) {
+            return null
+        }
+
         this.id = map._id
         this.createTime = map.createTime
         this.size = map.size
         this.content = map.content
         this.originalName = map.originalName
+
+        this
     }
 
     @Override
