@@ -24,6 +24,12 @@ angular.module('consoleApp').service('jobService', ['$http', function($http){
               return response.data;
           });
       };
+
+      this.getJob = function(jobId) {
+          return $http.get('api/job/' + jobId).then(function(response){
+              return response.data.result;
+          });
+      }
 }]);
 
 angular.module('consoleApp').service('resumeService', ['$http', function($http){

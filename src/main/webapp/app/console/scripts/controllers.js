@@ -1,6 +1,8 @@
 "use strict";
 
-angular.module('consoleApp').controller('jobController', ['$scope', '$http', '$modal', '$routeParams', '$window', 'constantsService', function($scope, $http, $modal, $routeParams, $window, constantsService) {
+angular.module('consoleApp').controller('jobController',[
+'$scope', '$http', '$modal', '$routeParams', '$window', 'constantsService', "jobService",
+function($scope, $http, $modal, $routeParams, $window, constantsService, jobService) {
 
     $scope.jobId = $routeParams.jobId;
 
@@ -34,8 +36,8 @@ angular.module('consoleApp').controller('jobController', ['$scope', '$http', '$m
     //load job
     var jobId = $scope.jobId;
     if(jobId != undefined && jobId != 0) {
-        $http.get('api/job/' + jobId).success(function(data, status, headers, config){
-            $scope.job = data.result;
+        jobService.getJob(jobId).then(function(data){
+            $scope.job = data;
             $scope.data.experience = [$scope.job.experienceFrom, $scope.job.experienceTo];
 
             angular.forEach($scope.job.locations, function(location) {
