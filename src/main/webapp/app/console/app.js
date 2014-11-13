@@ -16,9 +16,9 @@ consoleApp.config(function($routeProvider, $httpProvider) {
         }).when('/job/:jobId', {
             templateUrl : viewPath + 'job.edit.html',
             controller  : 'jobController'
-        }).when('/resumes', {
-            templateUrl : viewPath + 'resume.list.html',
-            controller  : 'resumeListController'
+        }).when('/profiles', {
+            templateUrl : viewPath + 'profile.list.html',
+            controller  : 'profileListController'
         }).when('/searchJob', {
             templateUrl : viewPath + 'job.list.html',
             controller  : 'jobSearchController'

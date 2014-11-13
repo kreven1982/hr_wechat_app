@@ -2,7 +2,13 @@
 
 var commonModule = angular.module('common', []);
 
-commonModule.constant("recruitTypes", {
-                             talent : "社会招聘",
-                             graduate : "校园招聘"
-                          });
+commonModule.constant("labelTranslation", {
+    "none" : "不限",
+    "associate" : "大专",
+    "bachelor" : "本科",
+    "master" : "硕士",
+    "doctor" : "博士",
+    "mba" : "MBA",
+    "talent" : "社会招聘",
+    "graduate" : "校园招聘"
+});

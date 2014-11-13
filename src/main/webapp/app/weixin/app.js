@@ -9,9 +9,9 @@ weixinApp.config(function($routeProvider) {
         }).when('/job/:jobId', {
             templateUrl : 'app/weixin/views/job.detail.html',
             controller  : 'jobController'
-        }).when('/resume/:jobId', {
-            templateUrl : 'app/weixin/views/resume.new.html',
-            controller  : 'resumeController'
+        }).when('/profile/:jobId', {
+            templateUrl : 'app/weixin/views/profile.new.html',
+            controller  : 'profileController'
         }).otherwise({redirectTo: '/jobs'});
 });
 

@@ -5,7 +5,7 @@
             类型 : <span ng-bind="::job.type | localized"></span>
         </h6>
         <h6>
-            工作地点 : <span ng-bind="::job.locations | locationString"></span>
+            工作地点 : <span ng-bind="job.locations | locationString"></span>
         </h6>
         <h6>
             经验要求 : <span job-experience from="::job.experienceFrom" to="::job.experienceTo"></span>
@@ -15,14 +15,14 @@
         </h6>
         <div class="content">
             <h6>详细内容</h6>
-            <div ng-bind-html="::job.content | trustAsHtml"></div>
+            <div ng-bind-html="job.content | trustAsHtml"></div>
         </div>
         <div class="footer row">
             <div class="create-time col-xs-6">
-                <span ng-bind="::job.createTime | timeString"></span>
+                <span ng-bind="job.createTime | timeString"></span>
             </div>
             <div class="toolbar col-xs-6">
-                <a href="#/resume/{{::job.id}}">申请</a>
+                <a href="#/profile/{{::job.id}}">申请</a>
                 <a href="#/jobs">返回列表</a>
             </div>
         </div>

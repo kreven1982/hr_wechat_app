@@ -18,29 +18,14 @@ angular.module('common').filter('timeString', function(){
         var minutes = "0" + currentTime.getMinutes();
         var seconds = "0" + currentTime.getSeconds();
 
-        var timeString = currentTime.getFullYear() + "/" + (currentTime.getMonth() + 1) + "/" + currentTime.getDate()
+        return currentTime.getFullYear() + "/" + (currentTime.getMonth() + 1) + "/" + currentTime.getDate()
                         + " " + hours.slice(-2) + ":" + minutes.slice(-2);
-
-        return timeString;
     }
 });
 
-angular.module('common').filter('localized', function($timeout, localeService){
-
-     var labels = null;
-     var serviceInvoked = false;
-
+angular.module('common').filter('localized', function(labelTranslation){
     return function(key) {
-        if( labels === null ) {
-            if( !serviceInvoked ) {
-                serviceInvoked = true;
-                localeService.getLabels().then(function(result) {
-                    labels = result.data;
-                });
-            }
-            return "-";
-        }
-        else return labels[key];
+        return labelTranslation[key];
     }
 });
 

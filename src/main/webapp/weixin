@@ -8,7 +8,7 @@
     <div id='wx_pic' style='margin:0 auto;display:none;'>
       <img src='images/cognizant.jpg' />
     </div>
-    <title ng-bind="title || '高知特微招聘'"></title>
+    <title ng-bind="'高知特微招聘' + title"></title>
 
     <link rel="stylesheet" href="css/bootstrap.min.css" />
     <link rel="stylesheet" href="css/animate.css" />

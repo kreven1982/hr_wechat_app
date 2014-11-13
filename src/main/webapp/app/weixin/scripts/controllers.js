@@ -2,10 +2,13 @@
 
 var weixinApp = angular.module('weixinApp');
 
-weixinApp.controller('jobListController', ['$scope', '$http', '$location', '$routeParams', 'constantsService', function($scope, $http, $location, $routeParams, constantsService) {
+weixinApp.controller('jobListController', [
+    '$scope', '$rootScope', '$http', '$location', '$routeParams', 'constantsService',
+    function($scope, $rootScope, $http, $location, $routeParams, constantsService) {
 
     $scope.data = {};
     $scope.search = $location.search();
+    $rootScope.title = "";
 
     $scope.hasSearchCriteria = Object.keys( $scope.search ).length != 0;
 
@@ -54,7 +57,9 @@ weixinApp.controller('jobListController', ['$scope', '$http', '$location', '$rou
     }
 }]);
 
-weixinApp.controller('jobController', ['$scope', '$http', '$routeParams','$rootScope', function($scope, $http, $routeParams, $rootScope) {
+weixinApp.controller('jobController', [
+    '$scope', '$http', '$routeParams','$rootScope',
+    function($scope, $http, $routeParams, $rootScope) {
 
     //load job
     var jobId = $routeParams.jobId;
@@ -62,17 +67,18 @@ weixinApp.controller('jobController', ['$scope', '$http', '$routeParams','$rootS
     if(jobId != undefined && jobId != 0) {
         $http.get('api/job/' + jobId).success(function(data, status, headers, config){
             $scope.job = data.result;
+            $rootScope.title = " - " + $scope.job.title;
         });
     }
 }]);
 
-weixinApp.controller('resumeController', [
+weixinApp.controller('profileController', [
     '$scope', '$http', '$routeParams', '$location', '$window', 'constantsService', 'multiFormService',
     function($scope, $http, $routeParams, $location, $window, constantsService, multiFormService) {
 
     $scope.validated = false;
 
-    $scope.resume = {
+    $scope.profile = {
         name: "",
         mobile: "",
         experience: "",
@@ -97,12 +103,12 @@ weixinApp.controller('resumeController', [
         $scope.data.diploma = diplomas;
     });
 
-    $scope.submitResume = function(){
+    $scope.submitProfile = function(){
     	$scope.validated = true;
         
-    	if($scope.resumeForm.$valid) {
+    	if($scope.profileForm.$valid) {
             var jobId = $routeParams.jobId;
-            multiFormService.submitMultiFormWithFile($scope.resumeAttachment, "api/profile/" + $routeParams.jobId, JSON.stringify($scope.resume), function(data, status, headers, config){
+            multiFormService.submitMultiFormWithFile($scope.profileAttachment, "api/profile/" + $routeParams.jobId, JSON.stringify($scope.profile), function(data, status, headers, config){
                 $location.path("#/job/" + jobId);
             });
     	}

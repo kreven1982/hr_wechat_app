@@ -1,0 +1,41 @@
+<form name="profileForm" role="form" class="new-profile" ng-submit="submitProfile()" novalidate>
+    <div class="form-group">
+        <label for="name">姓名*</label>
+        <input name="name" type="text" class="form-control" id="name" placeholder="姓名" ng-model="profile.name" ng-required="true">
+        <span ng-show="profileForm.name.$error.required && validated" class="error">请填写您的姓名</span>
+    </div>
+    <div class="form-group">
+        <label for="mobile">手机*</label>
+        <input name="mobile" type="text" class="form-control" id="mobile" placeholder="手机" ng-model="profile.mobile" ng-required="true" ng-pattern="/^[0-9\-]{11,20}$/">
+        <span ng-show="profileForm.mobile.$error.required && validated" class="error">请填写您的手机号码</span>
+        <span ng-show="profileForm.mobile.$error.pattern && validated" class="error">您输入的电话号码不正确，只接受数字和“-”。例：021-12345678</span>
+    </div>
+    <div class="form-group">
+        <label for="experience">工作经验*</label>
+        <select id="experience" name="experience" class="form-control" ng-model="profile.experience" ng-options="(experience + ' 年') for experience in data.experiences" ng-required="true">
+            <option value="">请选择</option>
+        </select>
+        <span ng-show="profileForm.experience.$error.required && validated" class="error">请选择您相应的工作经验</span>
+    </div>
+    <div class="form-group">
+        <label for="diploma">最高学历*</label>
+        <select name="diploma" class="form-control" ng-model="profile.diploma" ng-options="(diploma | localized) for diploma in data.diploma" ng-required="true">
+            <option value="">请选择</option>
+        </select>
+        <span ng-show="profileForm.diploma.$error.required && validated" class="error">请选择您的最高学历</span>
+    </div>
+    <div class="form-group">
+        <label for="detail">个人简单介绍</label>
+        <textarea class="form-control" id="detail" ng-model="profile.detail"></textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="attachment">简历附件(只能一个附件)</label>
+        <input type="file" id="attachment" file-model="profileAttachment" >
+        <p class="help-block">你可以用手机拍摄纸质的简历,然后将照片作为附件一并上传. 你也可以在电脑上打开此页面来编辑并上传word版本简历.</p>
+    </div>
+
+    <button type="submit" class="btn btn-success">申请</button>
+    <span class="fix-width-8px"></span>
+    <button type="button" class="btn btn-default" ng-click="goBack()">返回</button>
+</form>

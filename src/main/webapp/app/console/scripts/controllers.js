@@ -195,10 +195,10 @@ angular.module('consoleApp').controller('bannerController',
     };
 }]);
 
-angular.module('consoleApp').controller('resumeListController', ['$scope','$http', '$modal', function($scope, $http, $modal) {
+angular.module('consoleApp').controller('profileListController', ['$scope','$http', '$modal', function($scope, $http, $modal) {
 
     $http.get('api/profile/all').success(function(data, status, headers, config){
-      $scope.resumes = data.result;
+      $scope.profiles = data.result;
     });
 
 //    $scope.searchForm = {
@@ -210,12 +210,12 @@ angular.module('consoleApp').controller('resumeListController', ['$scope','$http
 //    };
 
     $scope.closeSearch = function() {
-        $scope.resumeSearchModal.dismiss();
+        $scope.profileSearchModal.dismiss();
     };
 
     $scope.openSearch = function(){
-        $scope.resumeSearchModal = $modal.open({
-            templateUrl: 'app/console/views/resume.search.dialog.html',
+        $scope.profileSearchModal = $modal.open({
+            templateUrl: 'app/console/views/profile.search.dialog.html',
             size : 'md',
             scope: $scope
         });
