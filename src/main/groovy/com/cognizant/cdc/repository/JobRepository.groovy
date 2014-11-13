@@ -49,11 +49,6 @@ class JobRepository extends BaseRepository{
         null
     }
 
-    public int getTotal() {
-        DBCollection col = getCollection(DocumentNames.JOB)
-        col.count()
-    }
-
     public void invalidateJob(long jobId) {
         DBCollection col = getCollection(DocumentNames.JOB)
         DBObject query = new BasicDBObject([_id: jobId])
@@ -113,7 +108,8 @@ class JobRepository extends BaseRepository{
         queryMap.putAll(locationQuery)
 
         DBObject query = new BasicDBObject(queryMap)
-        DBCursor dbCursor = col.find(query, fields)
+        DBObject sort = new BasicDBObject([ _id: -1 ])
+        DBCursor dbCursor = col.find(query, fields).sort(sort)
 
         JobSearchResult result = new JobSearchResult()
         result.total = dbCursor.count()

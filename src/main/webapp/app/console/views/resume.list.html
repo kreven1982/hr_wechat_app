@@ -1,3 +1,14 @@
+<div class="search col-xs-12 col-lg-10 col-lg-offset-1">
+    <div class="filter-toggle">
+        <span class="label label-success" ng-show="total" ng-bind="'共' + total + '条'"></span>
+        <span class="label label-warning" ng-show="hasSearchCriteria == true" ng-bind="'有过滤条件'"></span>
+        <button class="btn btn-success pull-right" ng-click="openSearch()">
+            <span class="glyphicon glyphicon-search"></span>
+        </button>
+    </div>
+</div>
+
+
 <div ng-switch on="resumes.length">
     <div class="job-container col-xs-12 col-lg-10 col-lg-offset-1" ng-switch-when="0">
         <h4 class="no-data">还没有简历信息</h4>

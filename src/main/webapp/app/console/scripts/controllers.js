@@ -116,15 +116,14 @@ angular.module('consoleApp').controller('jobController', ['$scope', '$http', '$m
 }]);
 
 angular.module('consoleApp').controller('jobListController',
- ['$scope', '$http', '$location', '$routeParams', '$rootScope', 'userInfo', function($scope, $http, $location, $routeParams, $rootScope, userInfo) {
+ ['$scope', '$http', '$location', '$routeParams', '$rootScope', "jobService", 'userInfo', function($scope, $http, $location, $routeParams, $rootScope, jobService, userInfo) {
 
     $scope.total = 1000; //given pagination control a chance to allow actual page selected
     $scope.pageSize = 10;
-    $scope.page = {
-        currentPage : $routeParams.page != null ? $routeParams.page : 1
+    $scope.search = {
+        page : $routeParams.page != null ? $routeParams.page : 1
     };
 
-    console.log(userInfo);
     $rootScope.hasPermission = userInfo;
 
     var NO_JOB_INFO = "还没有职位信息,请点击菜单新建一个";
@@ -136,18 +135,25 @@ angular.module('consoleApp').controller('jobListController',
          }
     };
 
-    $scope.$watch("page.currentPage", function(){
-           $scope.message = "正在加载中...";
-           var currentPage = $scope.page.currentPage;
-           $http.get('api/job/all?page=' + currentPage).success(function(data, status, headers, config){
-               $scope.jobs = data.result;
-               $scope.total = data.total;
-               $scope.pageSize = data.pageSize;
-               $scope.pageTotal = data.total % data.pageSize ?  (data.total / data.pageSize + 1) : (data.total / data.pageSize);
-               $location.search({page : currentPage});
-               $scope.message = NO_JOB_INFO;
-           });
+    $scope.$watch("search.page", function(){
+        $scope.searchJob();
     },true);
+
+    $scope.searchJob = function () {
+        $scope.message = "正在加载中...";
+
+        $scope.jobs = [];
+        $scope.searchOpen = false;
+
+        jobService.searchJob($scope.search.page, $scope.search.keyword).then(function(data){
+            $scope.jobs = data.jobs;
+            $scope.total = data.total;
+            $scope.pageSize = data.pageSize;
+            $scope.pageTotal = data.total % data.pageSize ?  (data.total / data.pageSize + 1) : (data.total / data.pageSize);
+            $location.search($scope.search);
+            $scope.message = NO_JOB_INFO;
+        });
+    }
 }]);
 
 angular.module('consoleApp').controller('jobSearchController', ['$scope', '$http', '$location', '$routeParams', function($scope, $http, $location, $routeParams) {
@@ -187,48 +193,30 @@ angular.module('consoleApp').controller('bannerController',
     };
 }]);
 
-angular.module('consoleApp').controller('resumeListController', ['$scope','$http', function($scope, $http) {
-     $http.get('api/profile/all').success(function(data, status, headers, config){
-          $scope.resumes = data.result;
-     });
-}]);
+angular.module('consoleApp').controller('resumeListController', ['$scope','$http', '$modal', function($scope, $http, $modal) {
 
-angular.module('consoleApp').controller('resumeSearchController', ['$scope','$modal', function($scope, $modal) {
+    $http.get('api/profile/all').success(function(data, status, headers, config){
+      $scope.resumes = data.result;
+    });
 
-	$scope.openSearchResume = function(){
-		var modalInstance = $modal.open({
-			templateUrl: 'app/console/views/resume.search.dialog.html',
-		    size : 'md',
-		    controller: resumeSearchModalController
-		});
+//    $scope.searchForm = {
+//        name: '',
+//        mobile: '',
+//        diploma: 'none',
+//        experience: 'none',
+//        keyword: ''
+//    };
 
-		modalInstance.result.then(function (result) {
-			console.log('Result is: ' + result.mobile);
-		}, function (reason) {
-			console.log('Modal dismissed at: ' + new Date() + '| Reason is: ' + reason);
-		});
-	};
+    $scope.closeSearch = function() {
+        $scope.resumeSearchModal.dismiss();
+    };
 
-	var resumeSearchModalController = function($scope, $modalInstance, $http, $window) {
-		$scope.searchForm = {
-			name: '',
-			mobile: '',
-			diploma: 'none',
-			experience: 'none',
-			keyword: ''
-		};
+    $scope.openSearch = function(){
+        $scope.resumeSearchModal = $modal.open({
+            templateUrl: 'app/console/views/resume.search.dialog.html',
+            size : 'md',
+            scope: $scope
+        });
+    };
 
-		$scope.search = function () {
-			/*$http.get('api/resume/all', $scope.searchForm).success(function(data, status, headers, config){
-				$scope.resumes = data.result;
-			});*/
-
-			$window.location.href = '#/resumes';
-			$modalInstance.close($scope.searchForm);
-		};
-
-		$scope.close = function () {
-			$modalInstance.dismiss('cancel');
-		};
-	};
 }]);

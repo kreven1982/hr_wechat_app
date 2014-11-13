@@ -24,17 +24,6 @@ class JobController {
 
     public static int PAGE_SIZE = 15
 
-    @RequestMapping(value = "all", method = RequestMethod.GET)
-    @ResponseBody
-    public Map allJobs(@RequestParam ("page") Integer page) {
-
-        [
-                result: jobService.listJobs(page ?: 1, PAGE_SIZE),
-                total : jobService.getTotal(),
-                pageSize : PAGE_SIZE
-        ]
-    }
-
     @RequestMapping(value = "search", method = RequestMethod.GET)
     @ResponseBody
     public Map search(@RequestParam(value = "keyword", required = false) String keyword,
@@ -47,10 +36,9 @@ class JobController {
         JobSearchResult result = jobService.search(keyword, type, experienceFrom, experienceTo, diploma, location)
 
         [
-                result: [
-                        total : result.total,
-                        jobs : result.jobs*.toRepresentationMap()
-                ]
+            total : result.total,
+            jobs : result.jobs*.toRepresentationMap(),
+            pageSize : PAGE_SIZE
         ]
     }
 

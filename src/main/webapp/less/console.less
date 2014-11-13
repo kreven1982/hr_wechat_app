@@ -4,6 +4,19 @@
 @import "modules/bootstrap.less";
 @import "global.less";
 
+
+.job-container {
+    &.ng-leave {
+        -webkit-animation-duration: 0s;
+        animation-duration: 0s;
+    }
+
+    &.ng-enter {
+        -webkit-animation-name: fadeInLeft;
+        animation-name: fadeInLeft;
+    }
+}
+
 body {
     font-family: "Helvetica Neue",Helvetica,Arial,"Open Sans","Hiragino Sans GB","Microsoft YaHei","微软雅黑","STHeiti","WenQuanYi Micro Hei",SimSun,sans-serif;
 }

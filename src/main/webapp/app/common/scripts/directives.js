@@ -37,7 +37,6 @@ angular.module('common').directive('formRequired', function(){
         link : function(scope, element, attrs, ngModel) {
             scope.$watch("ngModel", function(){
 
-                console.log(scope.ngModel);
                 if(scope.ngModel == [] || scope.ngModel == "" || scope.ngModel == {}) {
                     ngModel.$setValidity("required", false);
                 } else {

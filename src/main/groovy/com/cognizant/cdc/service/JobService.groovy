@@ -40,15 +40,6 @@ class JobService {
         jobRepository.applyJob(jobId, profileId)
     }
 
-    public List<Job> listJobs(int page, int pageSize) {
-        JobSearchResult jobSearchResult = jobRepository.search(null, null, null, null, null, null, page, pageSize)
-        jobSearchResult.jobs
-    }
-
-    public int getTotal() {
-        jobRepository.getTotal()
-    }
-
     public JobSearchResult search(String keyword, RecruitmentType type, Integer experienceFrom, Integer experienceTo, Diploma diploma, String location) {
 
         jobRepository.search(keyword, type, experienceFrom, experienceTo, diploma, location, 1, 50)

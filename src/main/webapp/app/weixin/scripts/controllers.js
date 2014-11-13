@@ -9,8 +9,6 @@ weixinApp.controller('jobListController', ['$scope', '$http', '$location', '$rou
 
     $scope.hasSearchCriteria = Object.keys( $scope.search ).length != 0;
 
-    console.log( Object.keys({ key : "value"}).length);
-    console.log($scope.hasSearchCriteria);
     var NO_JOB_RESULT = "没有符合的职位信息,请重新搜索";
 
     var LOADING = "正在搜索中,请耐心等待...";

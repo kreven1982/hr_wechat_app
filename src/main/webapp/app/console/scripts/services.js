@@ -10,17 +10,27 @@ angular.module('consoleApp').service('userService', ['$http', function($http){
 
       this.logout = function() {
         return $http.get("api/user/logout").then(function(){
-            console.log("logout");
+
         });
       }
 }]);
 
 
+angular.module('consoleApp').service('jobService', ['$http', function($http){
+
+      this.searchJob = function(page, keyword) {
+
+          return $http.get('api/job/search?page=' + page + "&keyword=" + (keyword || "")).then(function(response) {
+              return response.data;
+          });
+      };
+}]);
+
 angular.module('consoleApp').service('resumeService', ['$http', function($http){
 
       this.getResumeList = function (searchForm) {
     	  $http.get('api/resume/search').success(function(data, status, headers, config){
-    		  console.log(data);
+
     	  });
       }
 
