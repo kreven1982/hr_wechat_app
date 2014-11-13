@@ -27,9 +27,9 @@ weixinApp.controller('jobListController', ['$scope', '$http', '$location', '$rou
     });
 
     $http.get(url).success(function(data, status, headers, config){
-       $scope.jobs = data.result.jobs;
-       $scope.total = data.result.total;
-       if(data.result.total == 0) {
+       $scope.jobs = data.jobs;
+       $scope.total = data.total;
+       if(data.total == 0) {
             $scope.message = NO_JOB_RESULT;
        }
     });

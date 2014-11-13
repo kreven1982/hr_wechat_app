@@ -36,16 +36,16 @@
 
         <div class="job-container">
             <div class="job" ng-repeat="job in jobs">
-                <h3 ng-bind="job.title"></h3>
+                <h3 ng-bind="::job.title"></h3>
                 <h6>
-                    <span ng-bind="job.type | localized"></span> ·
-                    <span ng-bind="job.locations | locationString"></span> ·
-                    <span ng-bind="job.diploma | localized"></span> ·
-                    <span job-experience from="job.experienceFrom" to="job.experienceTo"></span>
+                    <span ng-bind="::job.type | localized"></span> ·
+                    <span ng-bind="::job.locations | locationString"></span> ·
+                    <span ng-bind="::job.diploma | localized"></span> ·
+                    <span job-experience from="::job.experienceFrom" to="::job.experienceTo"></span>
                 </h6>
                 <div class="content">
                     <h6>简介</h6>
-                    <p ng-bind="job.introduction"></p>
+                    <p ng-bind="::job.introduction"></p>
                     <span class="detail" ng-click="showContent = !showContent" title="点击显示或关闭详细内容">
                         <h6>
                             详细内容
@@ -53,7 +53,7 @@
                             <span ng-show="showContent" class="glyphicon glyphicon-chevron-up"></span>
                         </h6>
                     </span>
-                    <div ng-show="showContent" ng-bind-html="job.content | trustAsHtml"></div>
+                    <div ng-show="showContent" ng-bind-html="::job.content | trustAsHtml"></div>
                 </div>
                 <div class="footer row">
                     <div class="create-time col-xs-4">
