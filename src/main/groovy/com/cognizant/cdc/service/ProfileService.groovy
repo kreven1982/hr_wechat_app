@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service
 import com.cognizant.cdc.repository.ProfileRepository
 import com.cognizant.cdc.repository.SequenceRepository
 import com.cognizant.cdc.model.Profile
+import com.cognizant.cdc.model.vo.ProfileSearchResult
+import com.cognizant.cdc.model.enums.Diploma
+import com.cognizant.cdc.model.vo.ProfileSearchCriteria
 
 @CompileStatic
 @TypeChecked
@@ -36,5 +39,9 @@ class ProfileService {
 
     private long getNextProfileId() {
         sequenceRepository.getNextID("PROFILE_SEQ")
+    }
+
+    ProfileSearchResult search(ProfileSearchCriteria profileSearchCriteria, Integer page, Integer pageSize) {
+        profileRepository.search(profileSearchCriteria, page, pageSize)
     }
 }

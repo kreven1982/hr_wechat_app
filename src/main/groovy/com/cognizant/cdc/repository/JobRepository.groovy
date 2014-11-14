@@ -14,6 +14,7 @@ import groovy.transform.TypeChecked
 import org.springframework.stereotype.Repository
 
 import com.cognizant.cdc.util.Utils
+import com.cognizant.cdc.model.vo.JobSearchCriteria
 
 @CompileStatic
 @TypeChecked
@@ -69,33 +70,33 @@ class JobRepository extends BaseRepository{
      * 1) Use Solr/Lucene/ElasticSearch Solution
      * 2) Wait for chinese full text search in MongoDB
      */
-    public JobSearchResult search(String keyword, RecruitmentType type, Integer experienceFrom, Integer experienceTo, Diploma diploma, String location, int page, int pageSize) {
+    public JobSearchResult search(JobSearchCriteria jobSearchCriteria, int page, int pageSize) {
         DBCollection col = getCollection(DocumentNames.JOB)
 
         int skip = (page - 1) * pageSize
 
-        Map keywordQuery = keyword ? [
-            keywords : [ $in: Utils.parseKeywords(keyword)]
+        Map keywordQuery = jobSearchCriteria.keyword ? [
+            keywords : [ $in: Utils.parseKeywords(jobSearchCriteria.keyword)]
         ] : [:]
 
-        Map typeQuery = type ? [
-            type : type.toString()
+        Map typeQuery = jobSearchCriteria.type ? [
+            type : jobSearchCriteria.type.toString()
         ]: [:]
 
-        Map fromQuery = experienceFrom ? [
-            experienceFrom: [ $gte : experienceFrom ]
+        Map fromQuery = jobSearchCriteria.from ? [
+            experienceFrom: [ $gte : jobSearchCriteria.from ]
         ]: [:]
 
-        Map toQuery = experienceTo ? [
-            experienceTo  : [ $lte : experienceTo ]
+        Map toQuery = jobSearchCriteria.to ? [
+            experienceTo  : [ $lte : jobSearchCriteria.to ]
         ]: [:]
 
-        Map diplomaQuery = diploma ? [
-             diploma : diploma.toString()
+        Map diplomaQuery = jobSearchCriteria.diploma ? [
+             diploma : jobSearchCriteria.diploma.toString()
         ]: [:]
 
-        Map locationQuery = location ? [
-             locations : location
+        Map locationQuery = jobSearchCriteria.location ? [
+             locations : jobSearchCriteria.location
         ]: [:]
 
         Map queryMap = [:]

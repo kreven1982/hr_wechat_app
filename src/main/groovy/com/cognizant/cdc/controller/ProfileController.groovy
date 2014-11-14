@@ -21,18 +21,17 @@ import org.apache.commons.io.IOUtils
 import com.cognizant.cdc.util.Utils
 import org.springframework.beans.factory.annotation.Value
 import com.cognizant.cdc.service.JobService
+import com.cognizant.cdc.model.enums.RecruitmentType
+import com.cognizant.cdc.model.enums.Diploma
+import com.cognizant.cdc.model.vo.JobSearchResult
+import com.cognizant.cdc.model.vo.ProfileSearchResult
+import com.cognizant.cdc.model.vo.ProfileSearchCriteria
 
 @Controller
 @RequestMapping(value = "profile")
 class ProfileController {
 
-	public static final String[] ACCEPTED_CONTENT_TYPE = [
-		'image/jpeg',
-		'image/gif',
-		'image/png',
-		'application/msword',
-		'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
-		]
+    public static int PAGE_SIZE = 15
 
     @Value('${max.file.size}')
 	private long MAX_UPLOAD_FILE_SIZE
@@ -51,6 +50,19 @@ class ProfileController {
     @ResponseBody
     public Map allProfiles() {
         [result: profileService.listProfiles()*.toRepresentationMap()]
+    }
+
+    @RequestMapping(value = "search", method = RequestMethod.GET)
+    @ResponseBody
+    public Map search(ProfileSearchCriteria profileSearchCriteria, @RequestParam(required = false, defaultValue = "1") Integer page) {
+
+        ProfileSearchResult result = profileService.search(profileSearchCriteria, page, PAGE_SIZE)
+
+        [
+                total : result.total,
+                jobs : result.profiles*.toRepresentationMap(),
+                pageSize : PAGE_SIZE
+        ]
     }
 
     final String EXCEED_MAXIMAL_FILE_SIZE = '附件尺寸不能大于3M'

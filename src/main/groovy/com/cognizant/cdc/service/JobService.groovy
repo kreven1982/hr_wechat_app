@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import com.cognizant.cdc.model.enums.Diploma
 import com.cognizant.cdc.model.enums.RecruitmentType
+import com.cognizant.cdc.model.vo.JobSearchCriteria
 
 @CompileStatic
 @TypeChecked
@@ -40,8 +41,7 @@ class JobService {
         jobRepository.applyJob(jobId, profileId)
     }
 
-    public JobSearchResult search(String keyword, RecruitmentType type, Integer experienceFrom, Integer experienceTo, Diploma diploma, String location) {
-
-        jobRepository.search(keyword, type, experienceFrom, experienceTo, diploma, location, 1, 50)
+    public JobSearchResult search(JobSearchCriteria jobSearchCriteria, Integer page, Integer pageSize) {
+        jobRepository.search(jobSearchCriteria, page, pageSize)
     }
 }

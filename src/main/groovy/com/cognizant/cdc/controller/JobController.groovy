@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView
 import com.cognizant.cdc.model.enums.Diploma
 import com.cognizant.cdc.model.enums.RecruitmentType
 import com.cognizant.cdc.model.vo.JobSearchResult
+import com.cognizant.cdc.model.vo.JobSearchCriteria
 
 @Controller
 @RequestMapping(value = "job")
@@ -22,18 +23,13 @@ class JobController {
     @Autowired
     JobService jobService
 
-    public static int PAGE_SIZE = 15
+    public static int PAGE_SIZE = 3
 
     @RequestMapping(value = "search", method = RequestMethod.GET)
     @ResponseBody
-    public Map search(@RequestParam(value = "keyword", required = false) String keyword,
-                      @RequestParam(value = "type", required = false) RecruitmentType type,
-                      @RequestParam(value = "from", required = false) Integer experienceFrom,
-                      @RequestParam(value = "to", required = false) Integer experienceTo,
-                      @RequestParam(value = "diploma", required = false) Diploma diploma,
-                      @RequestParam(value = "location", required = false) String location) {
+    public Map search(JobSearchCriteria jobSearchCriteria, @RequestParam(required = false, defaultValue = "1") Integer page) {
 
-        JobSearchResult result = jobService.search(keyword, type, experienceFrom, experienceTo, diploma, location)
+        JobSearchResult result = jobService.search(jobSearchCriteria, page, PAGE_SIZE)
 
         [
             total : result.total,

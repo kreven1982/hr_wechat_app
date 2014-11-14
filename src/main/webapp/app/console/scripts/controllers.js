@@ -120,11 +120,14 @@ function($scope, $http, $modal, $routeParams, $window, constantsService, jobServ
 angular.module('consoleApp').controller('jobListController',
  ['$scope', '$http', '$location', '$routeParams', '$rootScope', "jobService", 'userInfo', function($scope, $http, $location, $routeParams, $rootScope, jobService, userInfo) {
 
-    $scope.total = 1000; //given pagination control a chance to allow actual page selected
-    $scope.pageSize = 10;
-    $scope.search = {
-        page : $routeParams.page != null ? $routeParams.page : 1
-    };
+    $scope.total = 99; //given pagination control a chance to allow actual page selected
+    $scope.pageSize = 1;
+
+    $scope.search = $location.search();
+
+    if(!$scope.search.page) {
+        $scope.search.page = 1; //initialize page if not exist
+    }
 
     $rootScope.hasPermission = userInfo;
 
