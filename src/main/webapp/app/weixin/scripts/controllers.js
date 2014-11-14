@@ -3,14 +3,14 @@
 var weixinApp = angular.module('weixinApp');
 
 weixinApp.controller('jobListController', [
-    '$scope', '$rootScope', '$http', '$location', '$routeParams', 'constantsService',
-    function($scope, $rootScope, $http, $location, $routeParams, constantsService) {
+    '$scope', '$rootScope', '$http', '$location', '$routeParams', 'constantsService', "utils",
+    function($scope, $rootScope, $http, $location, $routeParams, constantsService, utils) {
 
     $scope.data = {};
     $scope.search = $location.search();
     $rootScope.title = "";
 
-    $scope.hasSearchCriteria = Object.keys( $scope.search ).length != 0;
+    $scope.hasSearchCriteria = utils.checkSize($scope.search) > 0;
 
     var NO_JOB_RESULT = "没有符合的职位信息,请重新搜索";
 
@@ -26,7 +26,9 @@ weixinApp.controller('jobListController', [
     var url =  'api/job/search?';
 
     angular.forEach($scope.search,function(value,index){
-        url += index + "=" + value + "&";
+        if(value) {
+            url += index + "=" + value + "&";
+        }
     });
 
     $http.get(url).success(function(data, status, headers, config){
@@ -51,15 +53,11 @@ weixinApp.controller('jobListController', [
     $scope.clearSearch = function() {
         $scope.search = {}
     };
-
-    function isEmpty(obj) {
-        return Object.keys(obj).length == 0;
-    }
 }]);
 
 weixinApp.controller('jobController', [
-    '$scope', '$http', '$routeParams','$rootScope',
-    function($scope, $http, $routeParams, $rootScope) {
+    '$scope', '$http', '$routeParams','utils',
+    function($scope, $http, $routeParams, utils) {
 
     //load job
     var jobId = $routeParams.jobId;
@@ -67,14 +65,14 @@ weixinApp.controller('jobController', [
     if(jobId != undefined && jobId != 0) {
         $http.get('api/job/' + jobId).success(function(data, status, headers, config){
             $scope.job = data.result;
-            $rootScope.title = " - " + $scope.job.title;
+            utils.setTitle(" - " + $scope.job.title);
         });
     }
 }]);
 
 weixinApp.controller('profileController', [
-    '$scope', '$http', '$routeParams', '$location', '$window', 'profileConstant','constantsService', 'multiFormService',
-    function($scope, $http, $routeParams, $location, $window, profileConstant, constantsService, multiFormService) {
+    '$scope', '$http', '$routeParams', '$location', 'utils', 'profileConstant','constantsService', 'multiFormService',
+    function($scope, $http, $routeParams, $location, utils, profileConstant, constantsService, multiFormService) {
 
     $scope.validated = false;
 
@@ -109,7 +107,6 @@ weixinApp.controller('profileController', [
     };
 
     $scope.goBack = function() {
-        $window.history.back();
+        utils.goBack();
     };
-
 }]);

@@ -8,10 +8,31 @@ angular.module('common').service('constantsService', ['$http', function($http){
 
 }]);
 
-angular.module('common').service('titleService', ['$rootScope', function($rootScope){
+angular.module('common').service('utils', ['$rootScope', '$window', function($rootScope, $window){
 
     this.setTitle = function(title) {
         $rootScope.title = title;
+    };
+
+    //remove all empty string, null, false values from a map / object
+    this.purifyObject = function(objectToBePurify) {
+        var purifiedObject = angular.copy(objectToBePurify);
+
+        angular.forEach(purifiedObject,function( value, key){
+            if(!value) {
+                delete purifiedObject[key];
+            }
+        });
+
+        return purifiedObject;
+    };
+
+    this.checkSize = function(objectToTest) {
+        return Object.keys( objectToTest ).length;
+    };
+
+    this.goBack = function() {
+        $window.history.back();
     };
 
 }]);

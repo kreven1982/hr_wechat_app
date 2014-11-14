@@ -9,17 +9,17 @@
 </div>
 
 
-<div ng-switch on="profiles.length">
-    <div class="job-container col-xs-12 col-lg-10 col-lg-offset-1" ng-switch-when="0">
-        <h4 class="no-data">还没有简历信息</h4>
+<div ng-switch on="profiles == undefined || profiles.length == 0">
+    <div class="col-xs-12 col-lg-10 col-lg-offset-1 message" ng-switch-default>
+        <h4 class="no-data">没有符合要求的应聘者信息</h4>
     </div>
 
-    <div class="profile-container col-xs-12 col-lg-10 col-lg-offset-1 animated fadeInRight" ng-switch-default>
+    <div class="profile-container col-xs-12 col-lg-10 col-lg-offset-1 animated fadeInRight" ng-switch-when="false">
 
         <pagination total-items="total" items-per-page="pageSize" ng-model="search.page" max-size="5"
                     previous-text="·" next-text="·" first-text="··" last-text="··" class="pagination-sm" boundary-links="true"></pagination>
 
-        <div class="profile" ng-repeat="profile in ::profiles">
+        <div class="profile" ng-repeat="profile in profiles">
             <h4><span ng-bind="profile.name"></span></h4>
             <h5><i class="fa fa-mobile fa-lg"></i>&nbsp; <span ng-bind="profile.mobile"></span></h5>
             <h5>最高学历：<span ng-bind="profile.diploma | localized"></span></h5>

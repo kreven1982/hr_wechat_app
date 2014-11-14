@@ -54,7 +54,7 @@ class ProfileRepository extends BaseRepository{
         ]: [:]
 
         Map experienceQuery = profileSearchCriteria.experience ? [
-                experience: [ $gte : profileSearchCriteria.experience ]
+                experience: profileSearchCriteria.experience
         ]: [:]
 
         Map diplomaQuery = profileSearchCriteria.diploma ? [
@@ -66,6 +66,10 @@ class ProfileRepository extends BaseRepository{
                 keywords : [ $in: Utils.parseKeywords(profileSearchCriteria.keyword)]
         ] : [:]
 
+        Map attachmentQuery = profileSearchCriteria.hasAttachmentOnly ? [
+                attachmentId : [ $ne : null ]
+        ] : [:]
+
         Map queryMap = [:]
 
         queryMap.putAll(nameQuery)
@@ -73,6 +77,9 @@ class ProfileRepository extends BaseRepository{
         queryMap.putAll(experienceQuery)
         queryMap.putAll(diplomaQuery)
         queryMap.putAll(keywordQuery)
+        queryMap.putAll(attachmentQuery)
+
+        println queryMap
 
         DBObject query = new BasicDBObject(queryMap)
         DBObject sort = new BasicDBObject([ _id: -1 ])

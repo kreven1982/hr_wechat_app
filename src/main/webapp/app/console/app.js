@@ -18,7 +18,8 @@ consoleApp.config(function($routeProvider, $httpProvider) {
             controller  : 'jobController'
         }).when('/profiles', {
             templateUrl : viewPath + 'profile.list.html',
-            controller  : 'profileListController'
+            controller  : 'profileListController',
+            reloadOnSearch : false
         }).when('/searchJob', {
             templateUrl : viewPath + 'job.list.html',
             controller  : 'jobSearchController'

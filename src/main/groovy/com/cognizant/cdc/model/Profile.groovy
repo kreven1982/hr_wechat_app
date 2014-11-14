@@ -1,6 +1,7 @@
 package com.cognizant.cdc.model
 
 import com.cognizant.cdc.model.enums.Diploma
+import com.cognizant.cdc.util.Utils
 
 class Profile implements Entity<Profile> {
 
@@ -15,6 +16,9 @@ class Profile implements Entity<Profile> {
 	
     @Override
     Map toDBMap() {
+
+        Set<String> keywords = Utils.parseKeywords(detail)
+
         [
              _id : id,
              name : name,
@@ -23,7 +27,8 @@ class Profile implements Entity<Profile> {
              detail : detail,
              diploma : diploma.toString(),
              attachmentId : attachmentId,
-             createTime : createTime
+             createTime : createTime,
+             keywords : keywords
         ]
     }
 

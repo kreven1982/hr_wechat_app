@@ -1,33 +1,42 @@
+<div class="modal-header">
+    搜索简历
+</div>
 <div class="modal-body">
-    <h4>搜索简历</h4>
-    <button type="button" class="close" ng-click="closeSearch()"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-    <form role="form">
+    <div role="form">
         <div class="form-group">
-            <input type="text" id="name" class="form-control" placeholder="姓名" ng-model="searchForm.name" />
+            <input type="text" id="name" class="form-control" placeholder="姓名" ng-model="search.name" />
         </div>
 
         <div class="form-group">
-            <input type="text" id="mobile" class="form-control" placeholder="电话" ng-model="searchForm.mobile" />
+            <input type="text" id="mobile" class="form-control" placeholder="电话" ng-model="search.mobile" />
         </div>
 
         <div class="form-group">
-            <select name="diploma" class="form-control" ng-model="searchForm.diploma" ng-options="(diploma | localized) for diploma in data.diplomas">
+            <select name="diploma" class="form-control" ng-model="search.diploma" ng-options="(diploma | localized) for diploma in data.diplomas">
                 <option value="">学历</option>
             </select>
         </div>
 
         <div class="form-group">
-            <select id="experience" class="form-control" ng-model="searchForm.experience" ng-options="(experience + ' 年') for experience in data.experiences">
+            <select id="experience" class="form-control" ng-model="search.experience" ng-options="(experience + ' 年') for experience in data.experiences">
                 <option value="">工作经验</option>
             </select>
         </div>
 
         <div class="form-group">
-            <input type="text" class="form-control" id="keyword" placeholder="个人简介的关键字" ng-model="searchForm.keyword"/>
+            <input type="text" class="form-control" placeholder="个人简介的关键字" ng-model="search.keyword"/>
         </div>
 
-        <div class="form-group">
-            <button type="submit" class="btn btn-primary center-block" ng-click="search()"><i class="fa fa-search"></i>&nbsp;搜索</button>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" ng-model="search.hasAttachmentOnly"> 有附件 (不选择时，此过滤条件将被忽略）
+            </label>
         </div>
-    </form>
+    </div>
+</div>
+
+<div class="modal-footer">
+    <button type="submit" class="btn btn-primary" ng-click="searchProfile()"><i class="fa fa-search"></i>&nbsp;搜索</button>
+    <button class="btn btn-warning" ng-click="resetSearch()">重置</button>
+    <button class="btn btn-default" ng-click="closeSearch()">关闭</button>
 </div>

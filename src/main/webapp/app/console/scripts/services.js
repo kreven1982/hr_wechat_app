@@ -18,9 +18,17 @@ angular.module('consoleApp').service('userService', ['$http', function($http){
 
 angular.module('consoleApp').service('jobService', ['$http', function($http){
 
-      this.searchJob = function(page, keyword) {
+      this.searchJob = function(searchCriteria) {
 
-          return $http.get('api/job/search?page=' + page + "&keyword=" + (keyword || "")).then(function(response) {
+          var url = 'api/job/search?';
+
+          angular.forEach(searchCriteria,function( value, key){
+              if(value) {
+                  url += key + "=" + value + "&";
+              }
+          });
+
+          return $http.get(url).then(function(response) {
               return response.data;
           });
       };
@@ -34,9 +42,18 @@ angular.module('consoleApp').service('jobService', ['$http', function($http){
 
 angular.module('consoleApp').service('profileService', ['$http', function($http){
 
-    this.getProfileList = function (searchForm) {
-        $http.get('api/profile/search').success(function(data, status, headers, config){
+    this.searchProfile = function (searchCriteria) {
 
+        var url =  'api/profile/search?';
+
+        angular.forEach(searchCriteria,function( value, key){
+            if(value) {
+                url += key + "=" + value + "&";
+            }
+        });
+
+        return $http.get(url).then(function(response){
+            return response.data;
         });
     }
 

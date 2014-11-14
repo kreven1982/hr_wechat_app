@@ -1,8 +1,8 @@
 "use strict";
 
 angular.module('consoleApp').controller('jobController',[
-'$scope', '$http', '$modal', '$routeParams', '$window', 'constantsService', "jobService",
-function($scope, $http, $modal, $routeParams, $window, constantsService, jobService) {
+'$scope', '$http', '$modal', '$routeParams', '$window', 'constantsService', "jobService", "utils",
+function($scope, $http, $modal, $routeParams, $window, constantsService, jobService, utils) {
 
     $scope.jobId = $routeParams.jobId;
 
@@ -84,6 +84,10 @@ function($scope, $http, $modal, $routeParams, $window, constantsService, jobServ
         $scope.confirmDialog.dismiss();
     };
 
+    $scope.goBack = function() {
+        utils.goBack();
+    };
+
     function showConfirmDialog() {
          $scope.confirmDialog = $modal.open({
             templateUrl: 'app/console/views/job.confirm.dialog.html',
@@ -118,7 +122,8 @@ function($scope, $http, $modal, $routeParams, $window, constantsService, jobServ
 }]);
 
 angular.module('consoleApp').controller('jobListController',
- ['$scope', '$http', '$location', '$routeParams', '$rootScope', "jobService", 'userInfo', function($scope, $http, $location, $routeParams, $rootScope, jobService, userInfo) {
+ ['$scope', '$http', '$location', '$routeParams', '$rootScope', "jobService", 'utils', 'userInfo',
+     function($scope, $http, $location, $routeParams, $rootScope, jobService, utils, userInfo) {
 
     $scope.total = 99; //given pagination control a chance to allow actual page selected
     $scope.pageSize = 1;
@@ -131,9 +136,6 @@ angular.module('consoleApp').controller('jobListController',
 
     $rootScope.hasPermission = userInfo;
 
-    var NO_JOB_INFO = "还没有职位信息,请点击菜单新建一个";
-    $scope.message = NO_JOB_INFO;
-
     $scope.deleteJob = function(job) {
          if(confirm("你想删除该职位信息吗?\n" + job.title)) {
             $scope.jobs.splice(  $scope.jobs.indexOf(job), 1 );
@@ -144,19 +146,24 @@ angular.module('consoleApp').controller('jobListController',
         $scope.searchJob();
     },true);
 
-    $scope.searchJob = function () {
-        $scope.message = "正在加载中...";
+    $scope.clearSearch = function() {
+        $scope.search = {};
+    };
 
-        $scope.jobs = [];
+    $scope.searchJob = function () {
         $scope.searchOpen = false;
 
-        jobService.searchJob($scope.search.page, $scope.search.keyword).then(function(data){
+        var toSearch = utils.purifyObject($scope.search);
+        //ignore "page"
+        $scope.hasSearchCriteria = utils.checkSize(toSearch) > 1;
+
+        jobService.searchJob(toSearch).then(function(data){
             $scope.jobs = data.jobs;
             $scope.total = data.total;
             $scope.pageSize = data.pageSize;
             $scope.pageTotal = data.total % data.pageSize ?  (data.total / data.pageSize + 1) : (data.total / data.pageSize);
-            $location.search($scope.search);
-            $scope.message = NO_JOB_INFO;
+
+            $location.search(toSearch);
         });
     }
 }]);
@@ -199,9 +206,8 @@ angular.module('consoleApp').controller('bannerController',
 }]);
 
 angular.module('consoleApp').controller('profileListController', [
-    '$scope','$http', '$modal', '$location', 'constantsService', 'profileConstant',
-    function($scope, $http, $modal, $location, constantsService, profileConstant) {
-
+    '$scope','$http', '$modal', '$location', 'profileService', 'constantsService', 'utils', 'profileConstant',
+    function($scope, $http, $modal, $location, profileService, constantsService, utils, profileConstant) {
 
     $scope.total = 99; //given pagination control a chance to allow actual page selected
     $scope.pageSize = 1;
@@ -222,15 +228,22 @@ angular.module('consoleApp').controller('profileListController', [
         $scope.data.diplomas = diplomas;
     });
 
+    $scope.$watch("search.page", function(){
+        searchProfile();
+    },true);
 
-
-    $http.get('api/profile/all').success(function(data, status, headers, config){
-        $scope.profiles = data.result;
-    });
-
+    $scope.searchProfile = function() {
+        $scope.search.page = 1;  //reset to first page when criteria updated.
+        searchProfile();
+        $scope.profileSearchModal.dismiss();
+    };
 
     $scope.closeSearch = function() {
         $scope.profileSearchModal.dismiss();
+    };
+
+    $scope.resetSearch = function() {
+        $scope.search = {};
     };
 
     $scope.openSearch = function(){
@@ -240,5 +253,22 @@ angular.module('consoleApp').controller('profileListController', [
             scope: $scope
         });
     };
+
+    function searchProfile() {
+
+        var toSearch = utils.purifyObject($scope.search);
+
+        //ignore "page"
+        $scope.hasSearchCriteria = utils.checkSize(toSearch) > 1;
+
+        profileService.searchProfile(toSearch).then(function(data){
+
+            $scope.profiles = data.profiles;
+            $scope.total = data.total;
+            $scope.pageSize = data.pageSize;
+
+            $location.search(toSearch);
+        });
+    }
 
 }]);

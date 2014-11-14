@@ -60,7 +60,7 @@ class ProfileController {
 
         [
                 total : result.total,
-                jobs : result.profiles*.toRepresentationMap(),
+                profiles : result.profiles*.toRepresentationMap(),
                 pageSize : PAGE_SIZE
         ]
     }

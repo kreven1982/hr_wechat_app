@@ -11,4 +11,5 @@ class ProfileSearchCriteria {
     Diploma diploma
     String experience
     String keyword
+    Boolean hasAttachmentOnly
 }
