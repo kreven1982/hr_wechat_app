@@ -31,7 +31,7 @@ import com.cognizant.cdc.model.vo.ProfileSearchCriteria
 @RequestMapping(value = "profile")
 class ProfileController {
 
-    public static int PAGE_SIZE = 15
+    public static int PAGE_SIZE = 3
 
     @Value('${max.file.size}')
 	private long MAX_UPLOAD_FILE_SIZE

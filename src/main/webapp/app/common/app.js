@@ -12,3 +12,15 @@ commonModule.constant("labelTranslation", {
     "talent" : "社会招聘",
     "graduate" : "校园招聘"
 });
+
+
+commonModule.constant("profileConstant", {
+    experiences: [
+        "0-1",
+        "1-2",
+        "2-3",
+        "3-5",
+        "5-7",
+        "8+"
+    ]
+});

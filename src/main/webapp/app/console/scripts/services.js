@@ -34,11 +34,11 @@ angular.module('consoleApp').service('jobService', ['$http', function($http){
 
 angular.module('consoleApp').service('profileService', ['$http', function($http){
 
-      this.getProfileList = function (searchForm) {
-    	  $http.get('api/profile/search').success(function(data, status, headers, config){
+    this.getProfileList = function (searchForm) {
+        $http.get('api/profile/search').success(function(data, status, headers, config){
 
-    	  });
-      }
+        });
+    }
 
 }]);
 

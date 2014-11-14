@@ -73,8 +73,8 @@ weixinApp.controller('jobController', [
 }]);
 
 weixinApp.controller('profileController', [
-    '$scope', '$http', '$routeParams', '$location', '$window', 'constantsService', 'multiFormService',
-    function($scope, $http, $routeParams, $location, $window, constantsService, multiFormService) {
+    '$scope', '$http', '$routeParams', '$location', '$window', 'profileConstant','constantsService', 'multiFormService',
+    function($scope, $http, $routeParams, $location, $window, profileConstant, constantsService, multiFormService) {
 
     $scope.validated = false;
 
@@ -87,20 +87,14 @@ weixinApp.controller('profileController', [
     };
 
     $scope.data = {
-        experiences: [
-            "1-2",
-            "2-3",
-            "3-5",
-            "5-7",
-            "8+"
-        ],
+        experiences: profileConstant.experiences,
         diploma : []
     };
 
     constantsService.getDiplomas().then(function(response) {
         var diplomas = response.data.diplomas;
         diplomas.shift(); //remove the first item which is "none"
-        $scope.data.diploma = diplomas;
+        $scope.data.diplomas = diplomas;
     });
 
     $scope.submitProfile = function(){

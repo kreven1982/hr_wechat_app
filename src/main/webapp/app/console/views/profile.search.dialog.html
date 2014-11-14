@@ -1,52 +1,33 @@
-<div>
+<div class="modal-body">
+    <h4>搜索简历</h4>
+    <button type="button" class="close" ng-click="closeSearch()"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+    <form role="form">
+        <div class="form-group">
+            <input type="text" id="name" class="form-control" placeholder="姓名" ng-model="searchForm.name" />
+        </div>
 
-	<div class="modal-body">
-		<h4>搜索简历</h4>
-		<button type="button" class="close" ng-click="closeSearch()"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-		<form role="form">
-			<div class="form-group">
-				<input type="text" id="name" class="form-control" placeholder="姓名" ng-model="searchForm.name" />
-			</div>
-			
-			<div class="form-group">
-				<input type="text" id="mobile" class="form-control" placeholder="电话" ng-model="searchForm.mobile" />
-			</div>
-			
-			<div class="form-group">
-				<select id="diploma" class="form-control" ng-model="searchForm.diploma">
-					<option value="none">学历</option>
-					<optgroup label="--------------">
-			            <option value="assosicate">大专</option>
-						<option value="bachlor">本科</option>
-						<option value="master">硕士</option>
-						<option value="doctor">博士</option>
-			        </optgroup>
-					<optgroup label="--------------">
-			            <option value="mba">MBA</option>
-			        </optgroup>
-				</select>
-			</div>
-			
-			<div class="form-group">
-				<select id="experience" class="form-control" ng-model="searchForm.experience">
-					<option value="none">工作经验</option>
-		            <option value="1-2">1-2年</option>
-					<option value="2-3">2-3年</option>
-					<option value="3-5">3-5年</option>
-					<option value="5-8">5-8年</option>
-		            <option value="8+">8年以上</option>
-				</select>
-			</div>
-			
-			<div class="form-group">
-				<input type="text" class="form-control" id="keyword" placeholder="关键字" ng-model="searchForm.keyword"/>
-			</div>
-			
-			<div class="form-group">
-				<button type="submit" class="btn btn-primary center-block" ng-click="search()"><i class="fa fa-search"></i>&nbsp;搜索</button>
-			</div>
-		</form>
-	</div>
+        <div class="form-group">
+            <input type="text" id="mobile" class="form-control" placeholder="电话" ng-model="searchForm.mobile" />
+        </div>
 
+        <div class="form-group">
+            <select name="diploma" class="form-control" ng-model="searchForm.diploma" ng-options="(diploma | localized) for diploma in data.diplomas">
+                <option value="">学历</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <select id="experience" class="form-control" ng-model="searchForm.experience" ng-options="(experience + ' 年') for experience in data.experiences">
+                <option value="">工作经验</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <input type="text" class="form-control" id="keyword" placeholder="个人简介的关键字" ng-model="searchForm.keyword"/>
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary center-block" ng-click="search()"><i class="fa fa-search"></i>&nbsp;搜索</button>
+        </div>
+    </form>
 </div>
-

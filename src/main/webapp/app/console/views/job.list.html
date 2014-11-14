@@ -27,14 +27,12 @@
         <h4 class="no-data">{{message}}</h4>
     </div>
 
-    <div class="job-container col-xs-12 col-lg-10 col-lg-offset-1 animated" ng-switch-when="false">
+    <div class="job-container col-xs-12 col-lg-10 col-lg-offset-1" ng-switch-when="false">
 
-        <div class="pagination-container">
-            <pagination total-items="total" items-per-page="pageSize" ng-model="search.page" max-size="5"
-            previous-text="·" next-text="·" first-text="··" last-text="··" class="pagination-sm" boundary-links="true"></pagination>
-        </div>
+        <pagination total-items="total" items-per-page="pageSize" ng-model="search.page" max-size="5"
+        previous-text="·" next-text="·" first-text="··" last-text="··" class="pagination-sm" boundary-links="true"></pagination>
 
-        <div class="job-container">
+        <div class="job-container  animated fadeInLeft">
             <div class="job" ng-repeat="job in ::jobs">
                 <h3 ng-bind="job.title"></h3>
                 <h6>
@@ -69,9 +67,7 @@
             </div>
         </div>
 
-        <div class="pagination-container">
-            <pagination total-items="total" items-per-page="pageSize" ng-model="search.page" max-size="5"
-            previous-text="·" next-text="·" first-text="··" last-text="··" class="pagination-sm" boundary-links="true"></pagination>
-        </div>
+        <pagination total-items="total" items-per-page="pageSize" ng-model="search.page" max-size="5"
+        previous-text="·" next-text="·" first-text="··" last-text="··" class="pagination-sm" boundary-links="true"></pagination>
     </div>
 </div>

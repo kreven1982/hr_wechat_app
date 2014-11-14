@@ -198,19 +198,36 @@ angular.module('consoleApp').controller('bannerController',
     };
 }]);
 
-angular.module('consoleApp').controller('profileListController', ['$scope','$http', '$modal', function($scope, $http, $modal) {
+angular.module('consoleApp').controller('profileListController', [
+    '$scope','$http', '$modal', '$location', 'constantsService', 'profileConstant',
+    function($scope, $http, $modal, $location, constantsService, profileConstant) {
 
-    $http.get('api/profile/all').success(function(data, status, headers, config){
-      $scope.profiles = data.result;
+
+    $scope.total = 99; //given pagination control a chance to allow actual page selected
+    $scope.pageSize = 1;
+
+    $scope.search = $location.search();
+
+    if(!$scope.search.page) {
+        $scope.search.page = 1; //initialize page if not exist
+    }
+
+    $scope.data = {
+        experiences : profileConstant.experiences
+    };
+
+    constantsService.getDiplomas().then(function(response) {
+        var diplomas = response.data.diplomas;
+        diplomas.shift(); //remove the first item which is "none"
+        $scope.data.diplomas = diplomas;
     });
 
-//    $scope.searchForm = {
-//        name: '',
-//        mobile: '',
-//        diploma: 'none',
-//        experience: 'none',
-//        keyword: ''
-//    };
+
+
+    $http.get('api/profile/all').success(function(data, status, headers, config){
+        $scope.profiles = data.result;
+    });
+
 
     $scope.closeSearch = function() {
         $scope.profileSearchModal.dismiss();

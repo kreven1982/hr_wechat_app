@@ -15,6 +15,10 @@
     </div>
 
     <div class="profile-container col-xs-12 col-lg-10 col-lg-offset-1 animated fadeInRight" ng-switch-default>
+
+        <pagination total-items="total" items-per-page="pageSize" ng-model="search.page" max-size="5"
+                    previous-text="·" next-text="·" first-text="··" last-text="··" class="pagination-sm" boundary-links="true"></pagination>
+
         <div class="profile" ng-repeat="profile in ::profiles">
             <h4><span ng-bind="profile.name"></span></h4>
             <h5><i class="fa fa-mobile fa-lg"></i>&nbsp; <span ng-bind="profile.mobile"></span></h5>
@@ -35,5 +39,9 @@
                 </div>
             </div>
         </div>
+
+        <pagination total-items="total" items-per-page="pageSize" ng-model="search.page" max-size="5"
+                    previous-text="·" next-text="·" first-text="··" last-text="··" class="pagination-sm" boundary-links="true"></pagination>
+
     </div>
 </div>
