@@ -24,7 +24,8 @@ enum DocumentNames {
     PROFILE("profile", [
             [[ name: 1, mobile: 1 ], [ unique:  true ]]
     ]),
-    ATTACHMENT("attachment")
+    ATTACHMENT("attachment"),
+    APPLICATION("application")
 
     private String collectionName
     private Map options

@@ -11,12 +11,10 @@ import com.mongodb.BasicDBObject
 import com.mongodb.DBCollection
 import com.mongodb.DBCursor
 import com.mongodb.DBObject
-import com.cognizant.cdc.model.enums.Diploma
+
 import com.cognizant.cdc.model.vo.ProfileSearchResult
 import com.cognizant.cdc.model.vo.ProfileSearchCriteria
 import com.cognizant.cdc.util.Utils
-import com.cognizant.cdc.model.vo.JobSearchResult
-import com.cognizant.cdc.model.Job
 
 @CompileStatic
 @TypeChecked
@@ -28,16 +26,12 @@ class ProfileRepository extends BaseRepository{
         col.save(new BasicDBObject(profile.toDBMap()))
     }
 
-    public List<Profile> listAll() {
+    public Profile find(String name, String mobile) {
         DBCollection col = getCollection(DocumentNames.PROFILE)
-        DBCursor result = col.find();
+        DBObject query = new BasicDBObject([ name: name, mobile: mobile ])
+        DBObject result = col.findOne(query)
 
-        result.collect {
-            DBObject record ->
-                Profile profile = new Profile()
-                profile.fromDBMap(record.toMap())
-                profile
-        }
+        result ? new Profile().fromDBMap(result.toMap()) : null
     }
 
     ProfileSearchResult search(ProfileSearchCriteria profileSearchCriteria, Integer page, Integer pageSize) {
@@ -89,9 +83,7 @@ class ProfileRepository extends BaseRepository{
         result.total = dbCursor.count()
         result.profiles = dbCursor.skip(skip).limit(pageSize).collect {
             DBObject record ->
-            Profile profile = new Profile()
-            profile.fromDBMap(record.toMap())
-            profile
+            new Profile().fromDBMap(record.toMap())
         }
 
         result

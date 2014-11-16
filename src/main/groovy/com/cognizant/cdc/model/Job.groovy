@@ -22,8 +22,7 @@ class Job implements Entity<Job> {
     Integer experienceTo
 
     boolean activated = true
-    int totalOfResumes = 0
-    List<Long> profiles
+    int totalOfApplications = 0
 
     long createTime
 
@@ -46,7 +45,7 @@ class Job implements Entity<Job> {
                 experienceFrom : experienceFrom,
                 experienceTo : experienceTo,
                 createTime : createTime,
-                totalOfResumes : totalOfResumes,
+                totalOfApplications : totalOfApplications,
                 activated : activated,
                 keywords : keywords
         ]
@@ -59,7 +58,7 @@ class Job implements Entity<Job> {
         //should not override below fields
         dataToUpdate.remove("_id")
         dataToUpdate.remove("createTime")
-        dataToUpdate.remove("totalOfResumes")
+        dataToUpdate.remove("totalOfApplications")
         dataToUpdate.remove("activated")
 
         dataToUpdate
@@ -82,7 +81,7 @@ class Job implements Entity<Job> {
         this.locations = map.locations
         this.experienceFrom = map.experienceFrom
         this.experienceTo = map.experienceTo
-        this.totalOfResumes = map.totalOfResumes ?: 0
+        this.totalOfApplications = map.totalOfApplications ?: 0
         this.createTime = map.createTime ?: 0
         this.activated = map.activated
 
@@ -102,7 +101,7 @@ class Job implements Entity<Job> {
                 locations: locations,
                 experienceFrom : experienceFrom,
                 experienceTo : experienceTo,
-                totalOfResumes : totalOfResumes,
+                totalOfApplications : totalOfApplications,
                 createTime : createTime
         ]
     }

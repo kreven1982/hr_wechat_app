@@ -46,12 +46,6 @@ class ProfileController {
     AttachmentService attachmentService
 
 
-    @RequestMapping(value = "all", method = RequestMethod.GET)
-    @ResponseBody
-    public Map allProfiles() {
-        [result: profileService.listProfiles()*.toRepresentationMap()]
-    }
-
     @RequestMapping(value = "search", method = RequestMethod.GET)
     @ResponseBody
     public Map search(ProfileSearchCriteria profileSearchCriteria, @RequestParam(required = false, defaultValue = "1") Integer page) {
@@ -101,6 +95,7 @@ class ProfileController {
 		profile.attachmentId = attachmentId
 
 		long profileId = profileService.newProfile(profile)
+
         jobService.applyJob(jobId, profileId)
 
 		return ["success" : true]

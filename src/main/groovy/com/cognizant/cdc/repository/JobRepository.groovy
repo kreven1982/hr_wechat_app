@@ -36,6 +36,14 @@ class JobRepository extends BaseRepository{
         col.update(query, update)
     }
 
+    public increaseApplicationCount(long jobId) {
+        DBCollection col = getCollection(DocumentNames.JOB)
+        BasicDBObject query = new BasicDBObject([_id: jobId])
+
+        BasicDBObject update = new BasicDBObject([$inc : [ totalOfApplications : 1 ] ])
+        col.update(query, update)
+    }
+
     public Job get(Integer id) {
         DBCollection col = getCollection(DocumentNames.JOB)
         BasicDBObject query = new BasicDBObject([_id: id])
@@ -124,12 +132,20 @@ class JobRepository extends BaseRepository{
         result
     }
 
-    void applyJob(long jobId, long profileId) {
-        DBCollection col = getCollection(DocumentNames.JOB)
-        DBObject query = new BasicDBObject([ _id: jobId])
-        DBObject update = new BasicDBObject([ $addToSet: [ profiles : profileId ]])
+    /**
+     * @param jobId
+     * @param profileId
+     * @return true : add new record, false : update existing record
+     */
+    boolean applyJob(long jobId, long profileId) {
+        DBCollection col = getCollection(DocumentNames.APPLICATION)
+        DBObject query = new BasicDBObject([ _id: [ jobId: jobId,  profileId : profileId ] ] )
+        DBObject update = new BasicDBObject([ time: System.currentTimeMillis() ])
 
-        //TODO not completed.
-        col.findAndModify(query, update)
+        DBObject dbObject = col.findAndModify(query, null, null, false, update, false, true)
+
+        boolean addNewRecord = dbObject == null
+        addNewRecord
     }
+
 }

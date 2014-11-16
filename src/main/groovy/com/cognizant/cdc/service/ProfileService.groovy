@@ -31,10 +31,9 @@ class ProfileService {
         profile.id
 	}
 
-
-    public List<Profile> listProfiles() {
-		profileRepository.listAll()
-	}
+    public Profile find(String name, String mobile) {
+        profileRepository.find(name, mobile)
+    }
 
 
     private long getNextProfileId() {

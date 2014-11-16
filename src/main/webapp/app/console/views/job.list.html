@@ -59,7 +59,7 @@
                     <span ng-bind="job.createTime | timeString"></span>
                 </div>
                 <div class="toolbar col-xs-8">
-                    <a>查看简历(0)</a>
+                    <a>应聘者({{job.totalOfApplications}})</a>
                     <a href="#/job/{{job.id}}">编辑</a>
                     <a ng-click="deleteJob(job)">删除</a>
                     <a>停止招聘</a>

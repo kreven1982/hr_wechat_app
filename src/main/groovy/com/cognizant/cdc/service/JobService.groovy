@@ -38,7 +38,10 @@ class JobService {
     }
 
     public void applyJob(long jobId, long profileId) {
-        jobRepository.applyJob(jobId, profileId)
+        boolean newApply = jobRepository.applyJob(jobId, profileId)
+        if(newApply) {
+            jobRepository.increaseApplicationCount(jobId)
+        }
     }
 
     public JobSearchResult search(JobSearchCriteria jobSearchCriteria, Integer page, Integer pageSize) {
