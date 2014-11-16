@@ -1,0 +1,2 @@
+mongodump -db hr_app
+mongorestore -db hr_app
