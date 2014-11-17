@@ -199,6 +199,12 @@ angular.module('consoleApp').controller('jobListController',
         job.activated = ! job.activated;
     };
 
+    $scope.getProfiles = function(job) {
+        jobService.getProfiles(job.id).then(function(data){
+            console.log(data);
+        });
+    };
+
     $scope.deleteJob = function(job) {
         if(confirm("你想删除该职位信息吗?\n" + job.title)) {
             $scope.jobs.splice(  $scope.jobs.indexOf(job), 1 );

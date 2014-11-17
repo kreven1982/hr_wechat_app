@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody
 import org.springframework.web.multipart.MultipartFile
 
 import com.cognizant.cdc.service.ProfileService
-import com.cognizant.cdc.util.UUIDUtil
+
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.springframework.web.bind.annotation.PathVariable
 import com.cognizant.cdc.model.Profile
@@ -21,11 +21,10 @@ import org.apache.commons.io.IOUtils
 import com.cognizant.cdc.util.Utils
 import org.springframework.beans.factory.annotation.Value
 import com.cognizant.cdc.service.JobService
-import com.cognizant.cdc.model.enums.RecruitmentType
-import com.cognizant.cdc.model.enums.Diploma
-import com.cognizant.cdc.model.vo.JobSearchResult
+
 import com.cognizant.cdc.model.vo.ProfileSearchResult
 import com.cognizant.cdc.model.vo.ProfileSearchCriteria
+import com.cognizant.cdc.service.ApplicationService
 
 @Controller
 @RequestMapping(value = "profile")
@@ -38,6 +37,9 @@ class ProfileController {
 
     @Autowired
     JobService jobService
+
+    @Autowired
+    ApplicationService applicationService
 
 	@Autowired
 	ProfileService profileService
@@ -89,14 +91,23 @@ class ProfileController {
 				return ['error':'附件类型只接受图片和word文档']
 			}
 		}
-		
+
+
 		ObjectMapper mapper = new ObjectMapper()
 		Profile profile = mapper.readValue(data, Profile.class)
-		profile.attachmentId = attachmentId
+        profile.attachmentId = attachmentId
 
-		long profileId = profileService.newProfile(profile)
+        Profile existingProfile = profileService.find(profile.name, profile.mobile)
 
-        jobService.applyJob(jobId, profileId)
+        //only keep id and create time, replace rest of fields
+        if(existingProfile) {
+            profile.id = existingProfile.id
+            profile.createTime = existingProfile.createTime
+        }
+
+		long profileId = profileService.saveOrUpdateProfile(profile)
+
+        applicationService.newApplication(jobId, profileId)
 
 		return ["success" : true]
 	}

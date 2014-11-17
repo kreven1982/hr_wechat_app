@@ -34,6 +34,21 @@ class ProfileRepository extends BaseRepository{
         result ? new Profile().fromDBMap(result.toMap()) : null
     }
 
+    public List<Profile> getProfiles(List<Long> ids) {
+
+        DBCollection col = getCollection(DocumentNames.PROFILE)
+        DBObject query = new BasicDBObject([ _id: [ $in: ids ] ])
+        DBCursor dbCursor = col.find(query)
+
+        List<Profile> profiles = dbCursor.collect {
+            DBObject dbObject ->
+
+            new Profile().fromDBMap(dbObject.toMap())
+        }
+
+        profiles
+    }
+
     ProfileSearchResult search(ProfileSearchCriteria profileSearchCriteria, Integer page, Integer pageSize) {
         DBCollection col = getCollection(DocumentNames.PROFILE)
 

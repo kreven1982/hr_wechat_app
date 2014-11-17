@@ -23,9 +23,12 @@ class ProfileService {
 	@Autowired
 	ProfileRepository profileRepository
 	
-	public long newProfile(Profile profile) {
-		profile.id = getNextProfileId()
-		profile.createTime = System.currentTimeMillis()
+	public long saveOrUpdateProfile(Profile profile) {
+
+        if(!profile.id) {
+            profile.id = getNextProfileId()
+            profile.createTime = System.currentTimeMillis()
+        }
 		profileRepository.save(profile)
 
         profile.id
@@ -35,6 +38,9 @@ class ProfileService {
         profileRepository.find(name, mobile)
     }
 
+    public List<Profile> getProfiles(List<Long> ids) {
+        profileRepository.getProfiles(ids)
+    }
 
     private long getNextProfileId() {
         sequenceRepository.getNextID("PROFILE_SEQ")

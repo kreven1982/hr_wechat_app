@@ -26,6 +26,8 @@ class Application implements Entity<Application> {
         this.jobId = map._id?.jobId
         this.profileId = map._id?.profileId
         this.time = map.time
+
+        this
     }
 
     @Override

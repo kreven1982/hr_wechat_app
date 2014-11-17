@@ -40,10 +40,27 @@ angular.module('consoleApp').service('jobService', ['$http', function($http){
       };
 
       this.activateJob = function(jobId, activated) {
-          return $http.post('api/job/' + jobId + "/activated", { activated : activated }).then(function(response){
+          return $http({
+              method : "POST",
+              url :'api/job/' + jobId + "/activated",
+              data : { activated : activated },
+              headers : { 'Content-Type': 'application/x-www-form-urlencoded' },
+              transformRequest: function(obj) {
+                  var str = [];
+                  for(var p in obj)
+                      str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                  return str.join("&");
+              }
+          }).then(function(response){
               return response.data;
           });
       };
+
+      this.getProfiles = function(jobId) {
+          return $http.get('api/job/' + jobId + '/applications').then(function(response) {
+             return response.data;
+          });
+      }
 }]);
 
 angular.module('consoleApp').service('profileService', ['$http', function($http){

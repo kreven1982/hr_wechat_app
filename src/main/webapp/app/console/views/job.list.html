@@ -29,12 +29,12 @@
     </div>
 </div>
 
-<div ng-switch on="jobs.length">
-    <div class="col-xs-12 col-lg-10 col-lg-offset-1 message" ng-switch-when="0">
+<div ng-switch on="jobs.length == 0">
+    <div class="col-xs-12 col-lg-10 col-lg-offset-1 message" ng-switch-when="true">
         <h4 class="no-data">还没有职位信息,请<a href="#/job/0">新建一个</a></h4>
     </div>
 
-    <div class="job-container col-xs-12 col-lg-10 col-lg-offset-1 animated fadeInLeft" ng-switch-default>
+    <div class="job-container col-xs-12 col-lg-10 col-lg-offset-1 animated fadeInLeft" ng-switch-when="false">
 
         <pagination total-items="total" items-per-page="pageSize" ng-model="search.page" max-size="5"
         previous-text="·" next-text="·" first-text="··" last-text="··" class="pagination-sm" boundary-links="true"></pagination>
@@ -65,7 +65,7 @@
                     <span ng-bind="job.createTime | timeString"></span>
                 </div>
                 <div class="toolbar col-xs-8">
-                    <a>应聘者({{job.totalOfApplications}})</a>
+                    <a ng-click="getProfiles(job)">应聘者({{job.totalOfApplications}})</a>
                     <a href="#/job/{{job.id}}">编辑</a>
                     <a ng-click="deleteJob(job)">删除</a>
                     <a ng-click="activateJob(job);">{{ job.activated ? '停止招聘' : '继续招聘'}}</a>

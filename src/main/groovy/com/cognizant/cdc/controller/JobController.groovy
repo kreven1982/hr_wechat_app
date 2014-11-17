@@ -15,6 +15,10 @@ import com.cognizant.cdc.model.enums.Diploma
 import com.cognizant.cdc.model.enums.RecruitmentType
 import com.cognizant.cdc.model.vo.JobSearchResult
 import com.cognizant.cdc.model.vo.JobSearchCriteria
+import com.cognizant.cdc.service.ApplicationService
+import com.cognizant.cdc.model.Application
+import com.cognizant.cdc.model.Profile
+import com.cognizant.cdc.service.ProfileService
 
 @Controller
 @RequestMapping(value = "job")
@@ -22,6 +26,12 @@ class JobController {
 
     @Autowired
     JobService jobService
+
+    @Autowired
+    ApplicationService applicationService
+
+    @Autowired
+    ProfileService profileService
 
     public static int PAGE_SIZE = 3
 
@@ -62,6 +72,25 @@ class JobController {
         jobService.activateJob(jobId, activated)
 
         return [ success: true ]
+    }
+
+    @RequestMapping(value = "{id}/applications", method = RequestMethod.GET)
+    @ResponseBody
+    public Map listApplications(@PathVariable("id") Integer jobId) {
+
+        List<Application> applications = applicationService.getApplications(jobId)
+        List<Profile> profiles = profileService.getProfiles(applications*.profileId)
+
+        Map<Long, Profile> profileMap = [:]
+        profiles.collect {
+            Profile profile ->
+            profileMap.put(profile.id, profile)
+        }
+
+        return [
+                applications : applications,
+                profiles : profileMap
+        ]
     }
 
     @RequestMapping(value = "locations", method = RequestMethod.GET)

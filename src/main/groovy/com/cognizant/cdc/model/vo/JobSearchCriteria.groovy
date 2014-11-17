@@ -13,4 +13,5 @@ class JobSearchCriteria {
     Integer to
     Diploma diploma
     String location
+    Boolean activated
 }

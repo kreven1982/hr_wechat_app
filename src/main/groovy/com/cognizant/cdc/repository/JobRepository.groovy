@@ -108,6 +108,10 @@ class JobRepository extends BaseRepository{
              locations : jobSearchCriteria.location
         ]: [:]
 
+        Map activatedQuery = jobSearchCriteria.activated ? [
+             activated: jobSearchCriteria.activated
+        ] : [:]
+
         Map queryMap = [:]
 
         queryMap.putAll(keywordQuery)
@@ -116,6 +120,7 @@ class JobRepository extends BaseRepository{
         queryMap.putAll(toQuery)
         queryMap.putAll(diplomaQuery)
         queryMap.putAll(locationQuery)
+        queryMap.putAll(activatedQuery)
 
         DBObject query = new BasicDBObject(queryMap)
         DBObject sort = new BasicDBObject([ _id: -1 ])

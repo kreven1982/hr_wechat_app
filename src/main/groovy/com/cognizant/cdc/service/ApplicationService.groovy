@@ -21,7 +21,7 @@ class ApplicationService {
     @Autowired
     ApplicationRepository applicationRepository
 
-    public void applyJob(long jobId, long profileId) {
+    public void newApplication(long jobId, long profileId) {
 
         Application application = new Application([
                 jobId : jobId,
@@ -34,5 +34,9 @@ class ApplicationService {
         if(newApplication) {
             jobRepository.increaseApplicationCount(jobId)
         }
+    }
+
+    public List<Application> getApplications(long jobId) {
+        applicationRepository.getApplications(jobId)
     }
 }
