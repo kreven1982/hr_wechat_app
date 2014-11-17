@@ -62,14 +62,22 @@ angular.module('consoleApp').service('profileService', ['$http', function($http)
 
 angular.module('consoleApp').factory('authInterceptor', [ '$q', '$window', function ($q, $window) {
 
+    //to prevent alert multiple times
+    var logout = false;
+
     return {
         response: function (response) {
             return response || $q.when(response);
         },
         responseError: function (rejection) {
             if(rejection.status === 401) {
-                alert("你的session已过期或者无效,请重新登录!");
+
+                console.log("logout...");
                 $window.location = "login";
+                if(!logout) {
+                    logout = true;
+                    alert("你的session已过期或者无效,请重新登录!");
+                }
             }
             return $q.reject(rejection);
         }

@@ -48,7 +48,7 @@
 
 </head>
 <body>
-<nav class="navbar navbar-default" role="navigation" ng-controller="bannerController">
+<nav class="navbar navbar-default" role="navigation" ng-controller="bannerController" ng-show="userName">
     <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" ng-click="isCollapsed = !isCollapsed">
