@@ -6,6 +6,7 @@ class User implements Entity<User> {
     String userName
     String contact
     String password
+    Boolean isAdmin
     long createTime
 
     @Override
@@ -30,6 +31,7 @@ class User implements Entity<User> {
         this.contact = map.contact
         this.password = map.password
         this.createTime = map.createTime
+        this.isAdmin = map.isAdmin
 
         this
     }
@@ -40,7 +42,8 @@ class User implements Entity<User> {
                 id : id,
                 userName : userName,
                 contact: contact,
-                createTime: createTime
+                createTime: createTime,
+                isAdmin : isAdmin
         ]
     }
 }

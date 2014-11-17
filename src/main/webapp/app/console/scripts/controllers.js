@@ -63,6 +63,21 @@ function($scope, $http, $modal, $routeParams, $window, constantsService, jobServ
         }
     };
 
+    var previousExperience;
+    $scope.$watch("job.type", function(){
+
+        //when select graduate, means No Experience Required.
+        if($scope.job.type == "graduate") {
+            previousExperience = $scope.data.experience;
+            $scope.experienceEnabled = false;
+            $scope.data.experience = [0, 0];
+        } else {
+            $scope.experienceEnabled = true;
+            $scope.data.experience = previousExperience;
+        }
+
+    }, true);
+
     $scope.$watch("data.selectedLocations", function(){
         $scope.job.locations = convertLocations($scope.data.selectedLocations);
     }, true);
@@ -122,8 +137,10 @@ function($scope, $http, $modal, $routeParams, $window, constantsService, jobServ
 }]);
 
 angular.module('consoleApp').controller('jobListController',
- ['$scope', '$http', '$location', '$routeParams', '$rootScope', "jobService", 'utils', 'userInfo',
-     function($scope, $http, $location, $routeParams, $rootScope, jobService, utils, userInfo) {
+ ['$log', '$scope', '$http', '$location', '$routeParams', '$rootScope', "jobService", 'utils', 'userInfo',
+     function($log, $scope, $http, $location, $routeParams, $rootScope, jobService, utils, userInfo) {
+
+    $log.debug("in console App jobListController");
 
     $scope.total = 99; //given pagination control a chance to allow actual page selected
     $scope.pageSize = 1;
@@ -143,17 +160,24 @@ angular.module('consoleApp').controller('jobListController',
     };
 
     $scope.$watch("search.page", function(){
-        $scope.searchJob();
+        $scope.searchJob(false);
     },true);
 
     $scope.clearSearch = function() {
-        $scope.search = {};
+        $scope.search = {
+            page : 1
+        };
     };
 
-    $scope.searchJob = function () {
+    $scope.searchJob = function (reset) {
         $scope.searchOpen = false;
 
         var toSearch = utils.purifyObject($scope.search);
+
+        if(reset) {
+            toSearch.page = 1;
+        }
+
         //ignore "page"
         $scope.hasSearchCriteria = utils.checkSize(toSearch) > 1;
 
@@ -165,30 +189,21 @@ angular.module('consoleApp').controller('jobListController',
 
             $location.search(toSearch);
         });
-    }
-}]);
-
-angular.module('consoleApp').controller('jobSearchController', ['$scope', '$http', '$location', '$routeParams', function($scope, $http, $location, $routeParams) {
-
-    $scope.currentPage = $routeParams.page != null ? $routeParams.page : 1;
-
-    $scope.deleteJob = function(job) {
-         if(confirm("你想删除该职位信息吗?\n" + job.title)) {
-            $scope.jobs.splice(  $scope.jobs.indexOf(job), 1 );
-         }
     };
 
-    $scope.$watch("currentPage", function(){
-           var currentPage = $scope.currentPage;
-           $http.get('api/job/all?page=' + $scope.currentPage).success(function(data, status, headers, config){
-               $scope.jobs = data.result;
-               $scope.total = data.total;
-               $scope.pageSize = data.pageSize;
-               $scope.pageTotal = data.total % data.pageSize ?  (data.total / data.pageSize + 1) : (data.total / data.pageSize);
-               $location.search({page : currentPage});
-           });
-    },true);
+    $scope.activateJob = function(job) {
+        jobService.activateJob(job.id, !job.activated).then(function(){
+            //do nothing here
+        });
 
+        job.activated = ! job.activated;
+    };
+
+    $scope.deleteJob = function(job) {
+        if(confirm("你想删除该职位信息吗?\n" + job.title)) {
+            $scope.jobs.splice(  $scope.jobs.indexOf(job), 1 );
+        }
+    };
 }]);
 
 angular.module('consoleApp').controller('bannerController',
@@ -196,7 +211,7 @@ angular.module('consoleApp').controller('bannerController',
 
     $scope.isCollapsed = true;
     userService.getUserInfo().then(function(userInfo) {
-        $scope.userName = userInfo.userName;
+        $scope.userInfo = userInfo;
     });
 
     $scope.logout = function() {

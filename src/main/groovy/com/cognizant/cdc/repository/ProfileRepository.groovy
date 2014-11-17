@@ -73,8 +73,6 @@ class ProfileRepository extends BaseRepository{
         queryMap.putAll(keywordQuery)
         queryMap.putAll(attachmentQuery)
 
-        println queryMap
-
         DBObject query = new BasicDBObject(queryMap)
         DBObject sort = new BasicDBObject([ _id: -1 ])
         DBCursor dbCursor = col.find(query).sort(sort)

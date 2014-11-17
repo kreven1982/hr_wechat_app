@@ -37,11 +37,8 @@ class JobService {
         jobRepository.update(job);
     }
 
-    public void applyJob(long jobId, long profileId) {
-        boolean newApply = jobRepository.applyJob(jobId, profileId)
-        if(newApply) {
-            jobRepository.increaseApplicationCount(jobId)
-        }
+    public void activateJob(long jobId, boolean activated) {
+        jobRepository.activateJob(jobId, activated)
     }
 
     public JobSearchResult search(JobSearchCriteria jobSearchCriteria, Integer page, Integer pageSize) {

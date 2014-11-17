@@ -5,9 +5,14 @@
                 <label for="keyword">关键字</label>
                 <input id="keyword" name="keyword" type="text" class="form-control" placeholder="关键字" ng-model="search.keyword"/>
             </div>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" ng-model="search.activated"> 只显示进行中的职位信息 (不选择时，此过滤条件将被忽略）
+                </label>
+            </div>
         </div>
         <div class="panel-footer">
-            <button class="btn btn-success" ng-click="searchJob();">搜索</button>
+            <button class="btn btn-success" ng-click="searchJob(true);">搜索</button>
             <span class="fix-width-8px"></span>
             <button class="btn btn-warning" ng-click="clearSearch();">重置</button>
             <span class="fix-width-8px"></span>
@@ -35,7 +40,8 @@
         previous-text="·" next-text="·" first-text="··" last-text="··" class="pagination-sm" boundary-links="true"></pagination>
 
         <div class="job" ng-repeat="job in jobs">
-            <h3 ng-bind="job.title"></h3>
+
+            <h3>{{job.title}}</h3>
             <h6>
                 <span ng-bind="job.type | localized"></span> ·
                 <span ng-bind="job.locations | locationString"></span> ·
@@ -62,7 +68,7 @@
                     <a>应聘者({{job.totalOfApplications}})</a>
                     <a href="#/job/{{job.id}}">编辑</a>
                     <a ng-click="deleteJob(job)">删除</a>
-                    <a>停止招聘</a>
+                    <a ng-click="activateJob(job);">{{ job.activated ? '停止招聘' : '继续招聘'}}</a>
                 </div>
             </div>
         </div>

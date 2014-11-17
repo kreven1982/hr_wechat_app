@@ -55,6 +55,15 @@ class JobController {
         return [ success: true ]
     }
 
+    @RequestMapping(value = "{id}/activated", method = RequestMethod.POST)
+    @ResponseBody
+    public Map activateJob(@PathVariable("id") Integer jobId, @RequestParam(value= "activated") Boolean activated) {
+
+        jobService.activateJob(jobId, activated)
+
+        return [ success: true ]
+    }
+
     @RequestMapping(value = "locations", method = RequestMethod.GET)
     @ResponseBody
     public Map getLocations() {

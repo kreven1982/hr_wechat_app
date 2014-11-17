@@ -58,10 +58,11 @@ class JobRepository extends BaseRepository{
         null
     }
 
-    public void invalidateJob(long jobId) {
+    public void activateJob(long jobId, boolean activated) {
         DBCollection col = getCollection(DocumentNames.JOB)
         DBObject query = new BasicDBObject([_id: jobId])
-        DBObject update = new BasicDBObject([ $set: [ invalid: true ] ])
+        DBObject update = new BasicDBObject([ $set: [ activated: activated ] ])
+
         col.update(query, update)
     }
 
@@ -131,21 +132,4 @@ class JobRepository extends BaseRepository{
 
         result
     }
-
-    /**
-     * @param jobId
-     * @param profileId
-     * @return true : add new record, false : update existing record
-     */
-    boolean applyJob(long jobId, long profileId) {
-        DBCollection col = getCollection(DocumentNames.APPLICATION)
-        DBObject query = new BasicDBObject([ _id: [ jobId: jobId,  profileId : profileId ] ] )
-        DBObject update = new BasicDBObject([ time: System.currentTimeMillis() ])
-
-        DBObject dbObject = col.findAndModify(query, null, null, false, update, false, true)
-
-        boolean addNewRecord = dbObject == null
-        addNewRecord
-    }
-
 }

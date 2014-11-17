@@ -16,9 +16,9 @@ angular.module('common').directive('jobExperience', function(){
                 var experienceText = from + " - " + to + " 年";
 
                 if(to == 16) {
-                   experienceText = from + "+ 年"
+                   experienceText = from + "+ 年";
                 } else if (from == to) {
-                   experienceText = from + " 年"
+                   experienceText = from + " 年";
                 }
 
                 element.text(experienceText);

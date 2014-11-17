@@ -20,9 +20,6 @@ consoleApp.config(function($routeProvider, $httpProvider) {
             templateUrl : viewPath + 'profile.list.html',
             controller  : 'profileListController',
             reloadOnSearch : false
-        }).when('/searchJob', {
-            templateUrl : viewPath + 'job.list.html',
-            controller  : 'jobSearchController'
         }).otherwise({redirectTo: '/jobs'});
 
 

@@ -102,7 +102,8 @@ class Job implements Entity<Job> {
                 experienceFrom : experienceFrom,
                 experienceTo : experienceTo,
                 totalOfApplications : totalOfApplications,
-                createTime : createTime
+                createTime : createTime,
+                activated : activated
         ]
     }
 }

@@ -37,7 +37,13 @@ angular.module('consoleApp').service('jobService', ['$http', function($http){
           return $http.get('api/job/' + jobId).then(function(response){
               return response.data.result;
           });
-      }
+      };
+
+      this.activateJob = function(jobId, activated) {
+          return $http.post('api/job/' + jobId + "/activated", { activated : activated }).then(function(response){
+              return response.data;
+          });
+      };
 }]);
 
 angular.module('consoleApp').service('profileService', ['$http', function($http){

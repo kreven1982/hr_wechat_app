@@ -17,8 +17,9 @@
     <div class="form-group">
         <label class="col-sm-2 control-label">经验要求</label>
         <div class="col-sm-8" style="margin-top: 6px;">
-            <span slider ng-model="data.experience" min="0" max="16" range="true" tooltip="hide"></span>
-            <span style="margin-left: 16px"><b job-experience from="job.experienceFrom" to="job.experienceTo"></b></span>
+            <span slider ng-disabled="!experienceEnabled" ng-model="data.experience" min="0" max="16" range="true" tooltip="hide"></span>
+            <span class="fix-width-16px"><b job-experience from="job.experienceFrom" to="job.experienceTo"></b></span>
+            <small class="fix-width-16px color-light-gray" ng-hide="experienceEnabled">校园招聘时默认经验要求为 0</small>
         </div>
     </div>
     <div class="form-group">

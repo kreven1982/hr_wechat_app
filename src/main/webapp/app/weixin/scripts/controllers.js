@@ -3,19 +3,25 @@
 var weixinApp = angular.module('weixinApp');
 
 weixinApp.controller('jobListController', [
-    '$scope', '$rootScope', '$http', '$location', '$routeParams', 'constantsService', "utils",
-    function($scope, $rootScope, $http, $location, $routeParams, constantsService, utils) {
+    '$log', '$scope', '$rootScope', '$http', '$location', '$routeParams', 'constantsService', "utils",
+    function($log, $scope, $rootScope, $http, $location, $routeParams, constantsService, utils) {
 
-    $scope.data = {};
-    $scope.search = $location.search();
-    $rootScope.title = "";
-
-    $scope.hasSearchCriteria = utils.checkSize($scope.search) > 0;
+    $log.debug("in weixin App jobListController");
 
     var NO_JOB_RESULT = "没有符合的职位信息,请重新搜索";
-
     var LOADING = "正在搜索中,请耐心等待...";
-    $scope.message = LOADING;
+
+    $scope.total = 99; //given pagination control a chance to allow actual page selected
+    $scope.pageSize = 1;
+
+    $scope.data = {};
+    $rootScope.title = "";
+
+    $scope.search = $location.search();
+
+    if(!$scope.search.page) {
+        $scope.search.page = 1; //initialize page if not exist
+    }
 
     constantsService.getDiplomas().then(function(response) {
         var diplomas = response.data.diplomas;
@@ -23,35 +29,48 @@ weixinApp.controller('jobListController', [
         $scope.data.diploma = diplomas;
     });
 
-    var url =  'api/job/search?';
+    $scope.$watch("search.page", function(){
+        $scope.searchJob(false);
+    },true);
 
-    angular.forEach($scope.search,function(value,index){
-        if(value) {
-            url += index + "=" + value + "&";
-        }
-    });
-
-    $http.get(url).success(function(data, status, headers, config){
-       $scope.jobs = data.jobs;
-       $scope.total = data.total;
-       if(data.total == 0) {
-            $scope.message = NO_JOB_RESULT;
-       }
-    });
-
-    $scope.searchJob = function() {
-        var toSearch = angular.copy($scope.search);
-
-        if(!toSearch.keyword) {
-            delete toSearch.keyword;
-        }
-
+    $scope.searchJob = function(reset) {
         $scope.searchOpen = false;
-        $location.search(toSearch);
+        $scope.message = LOADING;
+
+        var toSearch = utils.purifyObject($scope.search);
+
+        if(reset) {
+            toSearch.page = 1;
+        }
+
+        $scope.hasSearchCriteria = utils.checkSize(toSearch) > 1;
+
+        var url =  'api/job/search?';
+
+        angular.forEach(toSearch,function(value,index){
+            if(value) {
+                url += index + "=" + value + "&";
+            }
+        });
+
+        $http.get(url).success(function(data, status, headers, config){
+            $scope.jobs = data.jobs;
+            $scope.total = data.total;
+            $scope.pageSize = data.pageSize;
+            $scope.pageTotal = data.total % data.pageSize ?  (data.total / data.pageSize + 1) : (data.total / data.pageSize);
+
+            $location.search(toSearch);
+
+            if(data.total == 0) {
+                $scope.message = NO_JOB_RESULT;
+            }
+        });
     };
 
     $scope.clearSearch = function() {
-        $scope.search = {}
+        $scope.search = {
+            page : 1
+        }
     };
 }]);
 
