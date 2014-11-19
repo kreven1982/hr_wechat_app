@@ -28,6 +28,43 @@ button.btn {
     margin-left: 8px;
 }
 
+
+.arrow-up(@size, @color) {
+    width: 0;
+    height: 0;
+    border-left: @size solid transparent;
+    border-right: @size solid transparent;
+
+    border-bottom: @size solid @color;
+}
+
+.arrow-down(@size, @color) {
+    width: 0;
+    height: 0;
+    border-left: @size solid transparent;
+    border-right: @size solid transparent;
+
+    border-top: @size solid @color;
+}
+
+.arrow-right(@size, @color) {
+    width: 0;
+    height: 0;
+    border-top: @size solid transparent;
+    border-bottom: @size solid transparent;
+
+    border-left: @size solid @color;
+}
+
+.arrow-left(@size, @color) {
+    width: 0;
+    height: 0;
+    border-top: @size solid transparent;
+    border-bottom: @size solid transparent;
+
+    border-right:@size solid @color;
+}
+
 .color-light-gray {
     color: #d3d3d3;
 }

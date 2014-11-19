@@ -6,7 +6,7 @@
     <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
     <meta name="format-detection" content="telephone=no">
     <div id='wx_pic' style='margin:0 auto;display:none;'>
-      <img src='images/cognizant.jpg' />
+      <img src='images/cognizant_logo.png' />
     </div>
     <title ng-bind="'高知特微招聘' + title"></title>
 

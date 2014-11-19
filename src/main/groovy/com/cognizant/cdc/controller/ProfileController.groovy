@@ -30,7 +30,8 @@ import com.cognizant.cdc.service.ApplicationService
 @RequestMapping(value = "profile")
 class ProfileController {
 
-    public static int PAGE_SIZE = 3
+    @Value('${profile.page.size}')
+    private int PAGE_SIZE
 
     @Value('${max.file.size}')
 	private long MAX_UPLOAD_FILE_SIZE

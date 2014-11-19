@@ -137,8 +137,8 @@ function($scope, $http, $modal, $routeParams, $window, constantsService, jobServ
 }]);
 
 angular.module('consoleApp').controller('jobListController',
- ['$log', '$scope', '$http', '$location', '$routeParams', '$rootScope', "jobService", 'utils', 'userInfo',
-     function($log, $scope, $http, $location, $routeParams, $rootScope, jobService, utils, userInfo) {
+ ['$log', '$scope', '$http', '$location', '$routeParams', '$rootScope', '$modal', "jobService", 'utils', 'userInfo',
+     function($log, $scope, $http, $location, $routeParams, $rootScope, $modal, jobService, utils, userInfo) {
 
     $log.debug("in console App jobListController");
 
@@ -199,17 +199,34 @@ angular.module('consoleApp').controller('jobListController',
         job.activated = ! job.activated;
     };
 
-    $scope.getProfiles = function(job) {
-        jobService.getProfiles(job.id).then(function(data){
-            console.log(data);
-        });
-    };
-
     $scope.deleteJob = function(job) {
         if(confirm("你想删除该职位信息吗?\n" + job.title)) {
             $scope.jobs.splice(  $scope.jobs.indexOf(job), 1 );
         }
     };
+
+
+    //=======================================================
+    // Functions used in modal of profiles for specific Job
+    //=======================================================
+
+    $scope.checkApplications = function(job) {
+
+        //self protected
+        if(!job.totalOfApplications) {
+            return;
+        }
+
+        if(!job.showProfiles && !job.applications) {
+            jobService.getProfiles(job.id).then(function(data){
+                job.applications = data.applications;
+                job.profiles = data.profiles;
+            });
+        }
+
+        job.showProfiles = !job.showProfiles;
+    };
+
 }]);
 
 angular.module('consoleApp').controller('bannerController',

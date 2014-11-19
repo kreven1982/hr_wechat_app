@@ -33,7 +33,7 @@ class JobController {
     @Autowired
     ProfileService profileService
 
-    public static int PAGE_SIZE = 3
+    public static int PAGE_SIZE = 8
 
     @RequestMapping(value = "search", method = RequestMethod.GET)
     @ResponseBody

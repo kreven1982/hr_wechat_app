@@ -45,7 +45,7 @@
 
     <div class="job-container col-xs-12 col-lg-10 col-lg-offset-1" ng-switch-default>
 
-        <div class="job" ng-repeat="job in ::jobs">
+        <div class="job" ng-repeat="job in jobs">
             <h3 ng-bind="job.title"></h3>
             <h6>
                 工作地点 : <span ng-bind="job.locations | locationString"></span>
