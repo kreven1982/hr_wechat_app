@@ -35,6 +35,7 @@ angular.module('common').directive('formRequired', function(){
            ngModel : "="
         },
         link : function(scope, element, attrs, ngModel) {
+
             scope.$watch("ngModel", function(){
 
                 if(scope.ngModel == [] || scope.ngModel == "" || scope.ngModel == {}) {

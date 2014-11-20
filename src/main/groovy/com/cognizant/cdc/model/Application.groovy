@@ -4,6 +4,8 @@ class Application implements Entity<Application> {
 
     long jobId
     long profileId
+    int rate
+    String comment
     long time
 
     @Override
@@ -13,6 +15,8 @@ class Application implements Entity<Application> {
                 jobId : jobId,
                 profileId : profileId
             ],
+            rate : rate,
+            comment: comment,
             time : time
         ]
     }
@@ -25,6 +29,8 @@ class Application implements Entity<Application> {
 
         this.jobId = map._id?.jobId
         this.profileId = map._id?.profileId
+        this.rate = map.rate ?: 0
+        this.comment = map.comment
         this.time = map.time
 
         this
@@ -35,6 +41,8 @@ class Application implements Entity<Application> {
         return [
              jobId: jobId,
              profileId: profileId,
+             rate: rate,
+             comment: comment,
              time: time
         ]
     }

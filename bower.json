@@ -5,7 +5,7 @@
   "dependencies": {
     "angular-route": "1.3.x",
     "angular-animate": "1.3.x",
-    "angular-editor": "https://github.com/wanming/angular-editor.git",
+    "angular-editor": "https://github.com/realdah/angular-editor.git",
     "angular-bootstrap-slider": "~0.0.8",
     "angular-bootstrap": "~0.11.2"
   },

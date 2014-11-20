@@ -44,9 +44,17 @@ class JobRepository extends BaseRepository{
         col.update(query, update)
     }
 
-    public Job get(Integer id) {
+    public void increaseViewCount(long jobId) {
         DBCollection col = getCollection(DocumentNames.JOB)
-        BasicDBObject query = new BasicDBObject([_id: id])
+        BasicDBObject query = new BasicDBObject([_id: jobId])
+
+        BasicDBObject update = new BasicDBObject([$inc : [ viewCount : 1 ] ])
+        col.update(query, update)
+    }
+
+    public Job get(long jobId) {
+        DBCollection col = getCollection(DocumentNames.JOB)
+        BasicDBObject query = new BasicDBObject([_id: jobId])
         DBObject result = col.findOne(query, fields)
 
         if(result) {

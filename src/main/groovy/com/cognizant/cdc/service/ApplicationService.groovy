@@ -21,19 +21,34 @@ class ApplicationService {
     @Autowired
     ApplicationRepository applicationRepository
 
-    public void newApplication(long jobId, long profileId) {
+    public boolean newApplication(long jobId, long profileId) {
 
-        Application application = new Application([
+        Application application = applicationRepository.getApplication(jobId, profileId)
+
+        if(application) {
+            return false
+        }
+
+        application = new Application([
                 jobId : jobId,
                 profileId : profileId,
+                rate : 0,
+                comment: "",
                 time : System.currentTimeMillis()
         ])
 
-        boolean newApplication = applicationRepository.newApplication(application)
+        applicationRepository.save(application)
+        jobRepository.increaseApplicationCount(jobId)
 
-        if(newApplication) {
-            jobRepository.increaseApplicationCount(jobId)
-        }
+        true
+    }
+
+    public void updateComment(long jobId, long profileId, String newComment) {
+        applicationRepository.updateComment(jobId, profileId, newComment)
+    }
+
+    public void updateRate(long jobId, long profileId, int rate) {
+        applicationRepository.updateRate(jobId, profileId, rate)
     }
 
     public List<Application> getApplications(long jobId) {

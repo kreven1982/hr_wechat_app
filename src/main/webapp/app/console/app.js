@@ -13,9 +13,9 @@ consoleApp.config(function($routeProvider, $httpProvider) {
                     return userService.getUserInfo();
                 }
             }
-        }).when('/job/:jobId', {
+        }).when('/job/:jobId/edit', {
             templateUrl : viewPath + 'job.edit.html',
-            controller  : 'jobController'
+            controller  : 'jobEditController'
         }).when('/profiles', {
             templateUrl : viewPath + 'profile.list.html',
             controller  : 'profileListController',

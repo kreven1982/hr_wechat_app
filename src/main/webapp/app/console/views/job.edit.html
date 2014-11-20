@@ -46,7 +46,7 @@
     <div class="form-group">
         <label for="detail" class="col-sm-2 control-label">职责介绍</label>
         <div class="col-sm-8">
-            <div simditor name="content" ng-model="job.content" form-required="true"></div>
+            <div simditor name="content" ng-model="job.content" toolbar="['title', 'bold', 'italic', 'underline', 'strikethrough', '|', 'ol', 'ul', 'blockquote', 'table']" ng-required="true"></div>
             <span ng-show="jobForm.content.$error.required && validated" class="error">职责介绍不能为空</span>
         </div>
     </div>

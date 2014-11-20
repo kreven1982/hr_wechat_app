@@ -23,6 +23,7 @@ class Job implements Entity<Job> {
 
     boolean activated = true
     int totalOfApplications = 0
+    int viewCount = 0
 
     long createTime
 
@@ -46,6 +47,7 @@ class Job implements Entity<Job> {
                 experienceTo : experienceTo,
                 createTime : createTime,
                 totalOfApplications : totalOfApplications,
+                viewCount : viewCount,
                 activated : activated,
                 keywords : keywords
         ]
@@ -59,6 +61,7 @@ class Job implements Entity<Job> {
         dataToUpdate.remove("_id")
         dataToUpdate.remove("createTime")
         dataToUpdate.remove("totalOfApplications")
+        dataToUpdate.remove("viewCount")
         dataToUpdate.remove("activated")
 
         dataToUpdate
@@ -82,6 +85,7 @@ class Job implements Entity<Job> {
         this.experienceFrom = map.experienceFrom
         this.experienceTo = map.experienceTo
         this.totalOfApplications = map.totalOfApplications ?: 0
+        this.viewCount = map.viewCount ?: 0
         this.createTime = map.createTime ?: 0
         this.activated = map.activated
 
@@ -102,6 +106,7 @@ class Job implements Entity<Job> {
                 experienceFrom : experienceFrom,
                 experienceTo : experienceTo,
                 totalOfApplications : totalOfApplications,
+                viewCount : viewCount,
                 createTime : createTime,
                 activated : activated
         ]

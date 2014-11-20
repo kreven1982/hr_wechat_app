@@ -82,7 +82,7 @@ weixinApp.controller('jobController', [
     var jobId = $routeParams.jobId;
 
     if(jobId != undefined && jobId != 0) {
-        $http.get('api/job/' + jobId).success(function(data, status, headers, config){
+        $http.get('api/job/' + jobId + "?updateViewCount=true").success(function(data, status, headers, config){
             $scope.job = data.result;
             utils.setTitle(" - " + $scope.job.title);
         });

@@ -20,16 +20,37 @@ class ApplicationRepository extends BaseRepository{
      * @param profileId
      * @return true : add new record, false : update existing record
      */
-    public boolean newApplication(Application application) {
+    public void save(Application application) {
+
         DBCollection col = getCollection(DocumentNames.APPLICATION)
-        DBObject query = new BasicDBObject([ _id: [ jobId: application.jobId,  profileId : application.profileId ] ] )
-        DBObject update = new BasicDBObject([ time: application.time ])
+        DBObject save = new BasicDBObject(application.toDBMap())
 
-        DBObject dbObject = col.findAndModify(query, null, null, false, update, false, true)
-
-        boolean addNewRecord = dbObject == null
-        addNewRecord
+        col.save(save)
     }
+
+    public void updateComment(long jobId, long profileId, String newComment) {
+        DBCollection col = getCollection(DocumentNames.APPLICATION)
+        DBObject query = new BasicDBObject([ _id: [ jobId: jobId,  profileId : profileId ] ] )
+        DBObject update = new BasicDBObject([ $set : [ comment: newComment ] ])
+        col.update(query, update)
+    }
+
+    public void updateRate(long jobId, long profileId, int rate) {
+        DBCollection col = getCollection(DocumentNames.APPLICATION)
+        DBObject query = new BasicDBObject([ _id: [ jobId: jobId,  profileId : profileId ] ] )
+        DBObject update = new BasicDBObject([ $set : [ rate: rate ] ])
+        col.update(query, update)
+    }
+
+    public Application getApplication(long jobId, profileId) {
+        DBCollection col = getCollection(DocumentNames.APPLICATION)
+        DBObject query = new BasicDBObject([ _id: [ jobId: jobId,  profileId : profileId ] ] )
+
+        DBObject result = col.findOne(query)
+
+        result ? new Application().fromDBMap(result.toMap()) : null
+    }
+
 
     public List<Application> getApplications(long jobId) {
 

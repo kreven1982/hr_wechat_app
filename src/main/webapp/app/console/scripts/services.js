@@ -9,9 +9,7 @@ angular.module('consoleApp').service('userService', ['$http', function($http){
       };
 
       this.logout = function() {
-        return $http.get("api/user/logout").then(function(){
-
-        });
+        return $http.get("api/user/logout");
       }
 }]);
 
@@ -40,18 +38,7 @@ angular.module('consoleApp').service('jobService', ['$http', function($http){
       };
 
       this.activateJob = function(jobId, activated) {
-          return $http({
-              method : "POST",
-              url :'api/job/' + jobId + "/activated",
-              data : { activated : activated },
-              headers : { 'Content-Type': 'application/x-www-form-urlencoded' },
-              transformRequest: function(obj) {
-                  var str = [];
-                  for(var p in obj)
-                      str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-                  return str.join("&");
-              }
-          }).then(function(response){
+          return $http.post('api/job/' + jobId + "/activated?activated=" + activated).then(function(response){
               return response.data;
           });
       };
@@ -78,7 +65,23 @@ angular.module('consoleApp').service('profileService', ['$http', function($http)
         return $http.get(url).then(function(response){
             return response.data;
         });
-    }
+    };
+
+}]);
+
+angular.module('consoleApp').service('applicationService', ['$http', function($http){
+
+    this.updateRate = function(jobId, profileId, rate) {
+        return $http.post("api/application/" + jobId + "," + profileId + "/rate", { rate : rate }).then(function(response) {
+            return response.data;
+        });
+    };
+
+    this.updateComment = function(jobId, profileId, comment) {
+        return $http.post("api/application/" + jobId + "," + profileId + "/comment", { comment : comment }).then(function(response) {
+            return response.data;
+        });
+    };
 
 }]);
 
@@ -95,7 +98,6 @@ angular.module('consoleApp').factory('authInterceptor', [ '$q', '$window', funct
         responseError: function (rejection) {
             if(rejection.status === 401) {
 
-                console.log("logout...");
                 $window.location = "login";
                 if(!logout) {
                     logout = true;

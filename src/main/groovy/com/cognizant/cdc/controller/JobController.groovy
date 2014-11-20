@@ -50,8 +50,8 @@ class JobController {
 
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
     @ResponseBody
-    public Map jobs(@PathVariable("id") Integer jobId) {
-        [result: jobService.getJob(jobId).toRepresentationMap()]
+    public Map jobs(@PathVariable("id") Integer jobId, @RequestParam(required = false, defaultValue = "false") Boolean updateViewCount) {
+        [result: jobService.getJob(jobId, updateViewCount).toRepresentationMap()]
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.POST)

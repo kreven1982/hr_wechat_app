@@ -1,6 +1,6 @@
 "use strict";
 
-angular.module('consoleApp').controller('jobController',[
+angular.module('consoleApp').controller('jobEditController',[
 '$scope', '$http', '$modal', '$routeParams', '$window', 'constantsService', "jobService", "utils",
 function($scope, $http, $modal, $routeParams, $window, constantsService, jobService, utils) {
 
@@ -83,8 +83,10 @@ function($scope, $http, $modal, $routeParams, $window, constantsService, jobServ
     }, true);
 
     $scope.$watch("data.experience", function(){
-        $scope.job.experienceFrom = $scope.data.experience[0];
-        $scope.job.experienceTo = $scope.data.experience[1];
+        if($scope.data.experience) {
+            $scope.job.experienceFrom = $scope.data.experience[0];
+            $scope.job.experienceTo = $scope.data.experience[1];
+        }
     }, true);
 
 
@@ -137,10 +139,8 @@ function($scope, $http, $modal, $routeParams, $window, constantsService, jobServ
 }]);
 
 angular.module('consoleApp').controller('jobListController',
- ['$log', '$scope', '$http', '$location', '$routeParams', '$rootScope', '$modal', "jobService", 'utils', 'userInfo',
-     function($log, $scope, $http, $location, $routeParams, $rootScope, $modal, jobService, utils, userInfo) {
-
-    $log.debug("in console App jobListController");
+ ['$log', '$scope', '$http', '$location', '$routeParams', '$rootScope', '$modal', "jobService", 'applicationService', 'utils', 'userInfo',
+     function($log, $scope, $http, $location, $routeParams, $rootScope, $modal, jobService, applicationService, utils, userInfo) {
 
     $scope.total = 99; //given pagination control a chance to allow actual page selected
     $scope.pageSize = 1;
@@ -220,12 +220,27 @@ angular.module('consoleApp').controller('jobListController',
         if(!job.showProfiles && !job.applications) {
             jobService.getProfiles(job.id).then(function(data){
                 job.applications = data.applications;
-                job.profiles = data.profiles;
+
+                angular.forEach(job.applications, function(application) {
+                    application.profile = data.profiles[application.profileId];
+                });
             });
         }
 
         job.showProfiles = !job.showProfiles;
     };
+
+
+     $scope.updateRate = function(application) {
+         applicationService.updateRate(application.jobId, application.profileId, application.rate).then(function(data){
+             //do nothing
+         });
+     };
+
+     $scope.hoveringOver = function(value) {
+         $scope.overStar = value;
+         $scope.percent = 100 * (value / $scope.max);
+     };
 
 }]);
 

@@ -23,7 +23,12 @@ class JobService {
     @Autowired
     SequenceRepository sequenceRepository
 
-    public Job getJob(Integer id) {
+    public Job getJob(long id, boolean updateViewCount = false) {
+
+        if(updateViewCount) {
+            jobRepository.increaseViewCount(id)
+        }
+
         jobRepository.get(id)
     }
 

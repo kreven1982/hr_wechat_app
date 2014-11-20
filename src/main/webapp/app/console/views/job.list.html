@@ -58,17 +58,16 @@
                         <span ng-show="showContent" class="glyphicon glyphicon-chevron-up"></span>
                     </h6>
                 </span>
-                <div class="panel panel-default" collapse="!showContent">
-                    <div class="panel-body" ng-bind-html="job.content | trustAsHtml"></div>
-                </div>
+                <div collapse="!showContent" ng-bind-html="job.content | trustAsHtml"></div>
             </div>
             <div class="footer row">
                 <div class="create-time col-xs-4">
                     <span ng-bind="job.createTime | timeString"></span>
                 </div>
                 <div class="toolbar col-xs-8">
-                    <a ng-click="checkApplications(job)">应聘者({{job.totalOfApplications}})</a>
-                    <a href="#/job/{{job.id}}">编辑</a>
+                    <span>查看{{job.viewCount}}次</span>
+                    <a ng-click="checkApplications(job)">{{job.totalOfApplications ? "应聘者(" + job.totalOfApplications + ")" : "暂无人应聘" }}</a>
+                    <a href="#/job/{{job.id}}/edit">编辑</a>
                     <a ng-click="deleteJob(job)">删除</a>
                     <a ng-click="activateJob(job);">{{ job.activated ? '停止招聘' : '继续招聘'}}</a>
                 </div>
@@ -76,30 +75,33 @@
             <div class="profiles" ng-if="job.totalOfApplications" collapse="!job.showProfiles">
                 <div class="arrow"></div>
                 <div class="well">
-                    <table class="table table-striped">
+                    <table ng-show="job.applications" class="table table-striped" ng-init="predicate='time'; reverse = true">
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>名字</th>
+                            <th><a title="点击排序" ng-click="predicate = 'profile.name'; reverse=!reverse">名字</a></th>
                             <th>手机号</th>
-                            <th>学历</th>
-                            <th>经验</th>
+                            <th><a title="点击排序" ng-click="predicate = 'profile.diploma'; reverse=!reverse">学历</a></th>
+                            <th><a title="点击排序" ng-click="predicate = 'profile.experience'; reverse=!reverse">经验</a></th>
                             <th>个人简介</th>
-                            <th>投递时间</th>
+                            <th><a title="点击排序" ng-click="predicate = 'time'; reverse=!reverse">投递时间</a></th>
+                            <th><a title="点击排序" ng-click="predicate = 'rate'; reverse=!reverse">星标</a></th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr ng-repeat="application in job.applications" ng-init="profile = job.profiles[application.profileId]">
+                        <tr ng-repeat="application in job.applications | orderBy:predicate:reverse">
                             <td>{{ $index + 1 }}</td>
-                            <td>{{ profile.name }}</td>
-                            <td>{{ profile.mobile }}</td>
-                            <td>{{ profile.experience }} 年</td>
-                            <td>{{ profile.diploma | localized }}</td>
-                            <td>{{ profile.detail }}</td>
+                            <td>{{ application.profile.name }}</td>
+                            <td>{{ application.profile.mobile }}</td>
+                            <td>{{ application.profile.diploma | localized }}</td>
+                            <td>{{ application.profile.experience }} 年</td>
+                            <td>{{ application.profile.detail }}</td>
                             <td>{{ application.time | timeString }}</td>
+                            <td><rating ng-click="updateRate(application)" ng-model="application.rate" max="5" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating></td>
                         </tr>
                         </tbody>
                     </table>
+                    <center ng-hide="job.applications">数据加载中...</center>
                 </div>
             </div>
         </div>
