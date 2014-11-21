@@ -6,7 +6,7 @@
     <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
     <meta name="format-detection" content="telephone=no">
     <div id='wx_pic' style='margin:0 auto;display:none;'>
-      <img src='images/cognizant_logo.png' />
+      <img src='images/cognizant.jpg' />
     </div>
     <title ng-bind="'高知特微招聘' + title"></title>
 
@@ -49,13 +49,23 @@
   <nav class="navbar navbar-default" role="navigation">
       <div class="container-fluid">
           <div class="navbar-header">
-              <button type="button" class="navbar-toggle collapsed" ng-click="isCollapsed = !isCollapsed">
+              <button type="button" class="navbar-toggle collapsed" ng-click="isCollapsed = !isCollapsed" ng-init="isCollapsed = true">
                   <span class="sr-only">Toggle navigation</span>
                   <span class="icon-bar"></span>
                   <span class="icon-bar"></span>
                   <span class="icon-bar"></span>
               </button>
               <a class="navbar-brand" href="javascript:void;"><img src="images/cognizant_logo.png" />高知特微招聘</a>
+          </div>
+
+          <!-- Collect the nav links-->
+          <div class="collapse navbar-collapse" collapse="isCollapsed">
+
+              <ul class="nav navbar-nav navbar-right">
+                  <li><a href="http://mp.weixin.qq.com/s?__biz=MzA4NDAwOTU3MQ==&mid=201543787&idx=1&sn=007e61a5b8f064c912b8f1f12f591cae#rd">关于微招聘</a></li>
+                  <li><a href="http://mp.weixin.qq.com/s?__biz=MzA4NDAwOTU3MQ==&mid=201543787&idx=1&sn=007e61a5b8f064c912b8f1f12f591cae#rd">关于高知特</a></li>
+              </ul>
+
           </div>
       </div>
   </nav>

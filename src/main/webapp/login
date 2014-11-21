@@ -22,11 +22,20 @@
     <link rel="stylesheet/less" type="text/css" href="less/login.less" />
     <script src="less/less.js" type="text/javascript"></script>
 
-    <script src="libs/jquery.js"></script>
-    <script src="libs/angular.min.js"></script>
-    <script src="libs/angular-route.min.js"></script>
-    <script src="libs/ui-bootstrap.min.js"></script>
-    <script src="libs/ui-bootstrap-tpls.min.js"></script>
+    <!-- bower:js -->
+    <script src="bower_components/modernizr/modernizr.js"></script>
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/simple-module/lib/module.js"></script>
+    <script src="bower_components/simple-uploader/lib/uploader.js"></script>
+    <script src="bower_components/simditor/lib/simditor.js"></script>
+    <script src="bower_components/angular-editor/javascripts/angular-editor.js"></script>
+    <script src="bower_components/seiyria-bootstrap-slider/js/bootstrap-slider.js"></script>
+    <script src="bower_components/angular-bootstrap-slider/slider.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <!-- endbower -->
 
     <script src="app/login/app.js"></script>
     <script src="app/login/scripts/controllers.js"></script>

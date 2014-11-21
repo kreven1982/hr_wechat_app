@@ -25,12 +25,12 @@ function($scope, $http, $modal, $routeParams, $window, constantsService, jobServ
     };
 
     //Initialize locations
-    $http.get('api/job/locations').success(function(data, status, headers, config){
-         $scope.data.locations = data.locations;
+    constantsService.getOfficeLocations().then(function(data) {
+        $scope.data.locations = data.locations;
     });
 
-    constantsService.getDiplomas().then(function(response) {
-        $scope.data.diploma = response.data.diplomas;
+    constantsService.getDiplomas().then(function(data) {
+        $scope.data.diploma = data.diplomas;
     });
 
     //load job

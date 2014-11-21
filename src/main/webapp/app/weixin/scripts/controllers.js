@@ -23,8 +23,13 @@ weixinApp.controller('jobListController', [
         $scope.search.page = 1; //initialize page if not exist
     }
 
-    constantsService.getDiplomas().then(function(response) {
-        var diplomas = response.data.diplomas;
+    //Initialize locations
+    constantsService.getOfficeLocations().then(function(data) {
+        $scope.data.locations = data.locations;
+    });
+
+    constantsService.getDiplomas().then(function(data) {
+        var diplomas = data.diplomas;
         diplomas.shift(); //remove the first item which is "none"
         $scope.data.diploma = diplomas;
     });
@@ -45,7 +50,7 @@ weixinApp.controller('jobListController', [
 
         $scope.hasSearchCriteria = utils.checkSize(toSearch) > 1;
 
-        var url =  'api/job/search?';
+        var url =  'api/job/search?activated=true&';
 
         angular.forEach(toSearch,function(value,index){
             if(value) {
@@ -108,8 +113,8 @@ weixinApp.controller('profileController', [
         diploma : []
     };
 
-    constantsService.getDiplomas().then(function(response) {
-        var diplomas = response.data.diplomas;
+    constantsService.getDiplomas().then(function(data) {
+        var diplomas = data.diplomas;
         diplomas.shift(); //remove the first item which is "none"
         $scope.data.diplomas = diplomas;
     });
