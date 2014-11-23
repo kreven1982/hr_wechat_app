@@ -31,7 +31,7 @@
 
 <div ng-switch on="jobs.length == 0">
     <div class="col-xs-12 col-lg-10 col-lg-offset-1 message" ng-switch-when="true">
-        <h4 class="no-data">还没有职位信息,请<a href="#/job/0">新建一个</a></h4>
+        <h4 class="no-data">{{ hasSearchCriteria ?  "没有符合条件的职位信息" : "还没有职位信息,请新建一个" }}</h4>
     </div>
 
     <div class="job-container col-xs-12 col-lg-10 col-lg-offset-1 animated fadeInLeft" ng-switch-when="false">
@@ -68,7 +68,6 @@
                     <span>查看{{job.viewCount}}次</span>
                     <a ng-click="checkApplications(job)">{{job.totalOfApplications ? "应聘者(" + job.totalOfApplications + ")" : "暂无人应聘" }}</a>
                     <a href="#/job/{{job.id}}/edit">编辑</a>
-                    <a ng-click="deleteJob(job)">删除</a>
                     <a ng-click="activateJob(job);">{{ job.activated ? '停止招聘' : '继续招聘'}}</a>
                 </div>
             </div>

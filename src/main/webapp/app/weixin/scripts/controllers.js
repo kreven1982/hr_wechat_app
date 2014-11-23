@@ -6,8 +6,6 @@ weixinApp.controller('jobListController', [
     '$log', '$scope', '$rootScope', '$http', '$location', '$routeParams', 'constantsService', "utils",
     function($log, $scope, $rootScope, $http, $location, $routeParams, constantsService, utils) {
 
-    $log.debug("in weixin App jobListController");
-
     var NO_JOB_RESULT = "没有符合的职位信息,请重新搜索";
     var LOADING = "正在搜索中,请耐心等待...";
 
@@ -66,7 +64,7 @@ weixinApp.controller('jobListController', [
 
             $location.search(toSearch);
 
-            if(data.total == 0) {
+            if(data.total === 0) {
                 $scope.message = NO_JOB_RESULT;
             }
         });
@@ -75,7 +73,7 @@ weixinApp.controller('jobListController', [
     $scope.clearSearch = function() {
         $scope.search = {
             page : 1
-        }
+        };
     };
 }]);
 
@@ -86,12 +84,10 @@ weixinApp.controller('jobController', [
     //load job
     var jobId = $routeParams.jobId;
 
-    if(jobId != undefined && jobId != 0) {
-        $http.get('api/job/' + jobId + "?updateViewCount=true").success(function(data, status, headers, config){
-            $scope.job = data.result;
-            utils.setTitle(" - " + $scope.job.title);
-        });
-    }
+    $http.get('api/job/' + jobId + "?updateViewCount=true").success(function(data, status, headers, config){
+        $scope.job = data.result;
+        utils.setTitle(" - " + $scope.job.title);
+    });
 }]);
 
 weixinApp.controller('profileController', [

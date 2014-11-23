@@ -15,16 +15,16 @@ angular.module('common').directive('jobExperience', function(){
                 var to = scope.to;
                 var experienceText = from + " - " + to + " 年";
 
-                if(to == 16) {
+                if(to === 16) {
                    experienceText = from + "+ 年";
-                } else if (from == to) {
+                } else if (from === to) {
                    experienceText = from + " 年";
                 }
 
                 element.text(experienceText);
             });
         }
-     }
+     };
 });
 
 angular.module('common').directive('formRequired', function(){
@@ -38,7 +38,7 @@ angular.module('common').directive('formRequired', function(){
 
             scope.$watch("ngModel", function(){
 
-                if(scope.ngModel == [] || scope.ngModel == "" || scope.ngModel == {}) {
+                if(scope.ngModel === [] || scope.ngModel === "" || scope.ngModel === {}) {
                     ngModel.$setValidity("required", false);
                 } else {
                     ngModel.$setValidity("required", true);
@@ -46,7 +46,7 @@ angular.module('common').directive('formRequired', function(){
 
             }, true);
         }
-     }
+     };
 });
 
 

@@ -35,7 +35,7 @@ function($scope, $http, $modal, $routeParams, $window, constantsService, jobServ
 
     //load job
     var jobId = $scope.jobId;
-    if(jobId != undefined && jobId != 0) {
+    if(jobId !== undefined && jobId !== "0") {
         jobService.getJob(jobId).then(function(data){
             $scope.job = data;
             $scope.data.experience = [$scope.job.experienceFrom, $scope.job.experienceTo];
@@ -56,7 +56,7 @@ function($scope, $http, $modal, $routeParams, $window, constantsService, jobServ
     };
 
     $scope.showTitle = function() {
-        if($scope.jobId == 0) {
+        if($scope.jobId === 0) {
             return "新建职位";
         } else {
             return "编辑职位";
@@ -67,7 +67,7 @@ function($scope, $http, $modal, $routeParams, $window, constantsService, jobServ
     $scope.$watch("job.type", function(){
 
         //when select graduate, means No Experience Required.
-        if($scope.job.type == "graduate") {
+        if($scope.job.type === "graduate") {
             previousExperience = $scope.data.experience;
             $scope.experienceEnabled = false;
             $scope.data.experience = [0, 0];
@@ -153,12 +153,6 @@ angular.module('consoleApp').controller('jobListController',
 
     $rootScope.hasPermission = userInfo;
 
-    $scope.deleteJob = function(job) {
-         if(confirm("你想删除该职位信息吗?\n" + job.title)) {
-            $scope.jobs.splice(  $scope.jobs.indexOf(job), 1 );
-         }
-    };
-
     $scope.$watch("search.page", function(){
         $scope.searchJob(false);
     },true);
@@ -199,16 +193,10 @@ angular.module('consoleApp').controller('jobListController',
         job.activated = ! job.activated;
     };
 
-    $scope.deleteJob = function(job) {
-        if(confirm("你想删除该职位信息吗?\n" + job.title)) {
-            $scope.jobs.splice(  $scope.jobs.indexOf(job), 1 );
-        }
-    };
 
-
-    //=======================================================
+    //==================================================================================
     // Functions used in modal of profiles for specific Job
-    //=======================================================
+    //==================================================================================
 
     $scope.checkApplications = function(job) {
 

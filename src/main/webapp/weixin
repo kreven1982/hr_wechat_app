@@ -2,7 +2,7 @@
 <html ng-app="weixinApp">
   <head>
     <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
     <meta name="format-detection" content="telephone=no">
     <div id='wx_pic' style='margin:0 auto;display:none;'>
@@ -62,8 +62,8 @@
           <div class="collapse navbar-collapse" collapse="isCollapsed">
 
               <ul class="nav navbar-nav navbar-right">
-                  <li><a href="http://mp.weixin.qq.com/s?__biz=MzA4NDAwOTU3MQ==&mid=201543787&idx=1&sn=007e61a5b8f064c912b8f1f12f591cae#rd">关于微招聘</a></li>
-                  <li><a href="http://mp.weixin.qq.com/s?__biz=MzA4NDAwOTU3MQ==&mid=201543787&idx=1&sn=007e61a5b8f064c912b8f1f12f591cae#rd">关于高知特</a></li>
+                  <li><a target="_blank" href="http://mp.weixin.qq.com/s?__biz=MzA4NDAwOTU3MQ==&mid=201543787&idx=1&sn=007e61a5b8f064c912b8f1f12f591cae#rd">关于微招聘</a></li>
+                  <li><a target="_blank" href="http://mp.weixin.qq.com/s?__biz=MzA4NDAwOTU3MQ==&mid=201543787&idx=1&sn=007e61a5b8f064c912b8f1f12f591cae#rd">关于高知特</a></li>
               </ul>
 
           </div>

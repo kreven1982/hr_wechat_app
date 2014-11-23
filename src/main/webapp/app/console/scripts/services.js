@@ -10,7 +10,7 @@ angular.module('consoleApp').service('userService', ['$http', function($http){
 
       this.logout = function() {
         return $http.get("api/user/logout");
-      }
+      };
 }]);
 
 
@@ -47,7 +47,7 @@ angular.module('consoleApp').service('jobService', ['$http', function($http){
           return $http.get('api/job/' + jobId + '/applications').then(function(response) {
              return response.data;
           });
-      }
+      };
 }]);
 
 angular.module('consoleApp').service('profileService', ['$http', function($http){
@@ -101,11 +101,11 @@ angular.module('consoleApp').factory('authInterceptor', [ '$q', '$window', funct
                 $window.location = "login";
                 if(!logout) {
                     logout = true;
-                    alert("你的session已过期或者无效,请重新登录!");
+                    $window.alert("你的session已过期或者无效,请重新登录!");
                 }
             }
             return $q.reject(rejection);
         }
-    }
+    };
 
 }]);

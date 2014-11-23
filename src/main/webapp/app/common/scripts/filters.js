@@ -18,15 +18,15 @@ angular.module('common').filter('timeString', function(){
         var minutes = "0" + currentTime.getMinutes();
         var seconds = "0" + currentTime.getSeconds();
 
-        return currentTime.getFullYear() + "/" + (currentTime.getMonth() + 1) + "/" + currentTime.getDate()
-                        + " " + hours.slice(-2) + ":" + minutes.slice(-2);
-    }
+        return currentTime.getFullYear() + "/" + (currentTime.getMonth() + 1) + "/"
+         + currentTime.getDate() + " " + hours.slice(-2) + ":" + minutes.slice(-2);
+    };
 });
 
 angular.module('common').filter('localized', function(labelTranslation){
     return function(key) {
         return labelTranslation[key];
-    }
+    };
 });
 
 angular.module('common').filter('locationString', function(){
@@ -36,5 +36,5 @@ angular.module('common').filter('locationString', function(){
         } else {
             return "";
         }
-     }
+     };
 });

@@ -72,6 +72,6 @@ angular.module('common').service('multiFormService', ['$http', function ($http) 
             }
 
         });
-    }
+    };
 
 }]);

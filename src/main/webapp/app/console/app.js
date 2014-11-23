@@ -1,3 +1,5 @@
+"use strict";
+
 var consoleApp = angular.module('consoleApp', ['common', 'ngRoute','ui.bootstrap','ui.bootstrap-slider','simditor', 'ngAnimate']);
 
 consoleApp.config(function($routeProvider, $httpProvider) {
