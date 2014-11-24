@@ -84,6 +84,7 @@
                             <th><a title="点击排序" ng-click="predicate = 'profile.experience'; reverse=!reverse">经验</a></th>
                             <th>个人简介</th>
                             <th><a title="点击排序" ng-click="predicate = 'time'; reverse=!reverse">投递时间</a></th>
+                            <th>附件</th>
                             <th><a title="点击排序" ng-click="predicate = 'rate'; reverse=!reverse">星标</a></th>
                         </tr>
                         </thead>
@@ -96,6 +97,10 @@
                             <td>{{ application.profile.experience }} 年</td>
                             <td>{{ application.profile.detail }}</td>
                             <td>{{ application.time | timeString }}</td>
+                            <td>
+                                <a ng-href="api/attachment/{{application.profile.attachmentId}}" target="_blank" ng-show="application.profile.attachmentId">下载</a>
+                                <span ng-hide="application.profile.attachmentId">无</span>
+                            </td>
                             <td><rating ng-click="updateRate(application)" ng-model="application.rate" max="5" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating></td>
                         </tr>
                         </tbody>

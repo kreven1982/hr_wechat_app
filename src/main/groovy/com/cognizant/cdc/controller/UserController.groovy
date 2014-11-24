@@ -64,4 +64,11 @@ class UserController {
     public Map info() {
         [result:  UserSession.getUser().toRepresentationMap()]
     }
+
+    @RequestMapping(value="list", method= RequestMethod.GET)
+    @ResponseBody
+    public Map list() {
+        List<User> users = userService.getUsers()
+        [users : users]
+    }
 }

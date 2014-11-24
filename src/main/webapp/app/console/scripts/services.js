@@ -8,6 +8,12 @@ angular.module('consoleApp').service('userService', ['$http', function($http){
                          });
       };
 
+      this.getUsers = function() {
+           return $http.get("api/user/list").then(function(response){
+               return response.data;
+           });
+      };
+
       this.logout = function() {
         return $http.get("api/user/logout");
       };

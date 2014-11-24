@@ -1,8 +1,8 @@
 "use strict";
 
 angular.module('consoleApp').controller('jobEditController',[
-'$scope', '$http', '$modal', '$routeParams', '$window', 'constantsService', "jobService", "utils",
-function($scope, $http, $modal, $routeParams, $window, constantsService, jobService, utils) {
+'$scope', '$http', '$modal', '$routeParams', '$window', 'constantsService', 'userService', "jobService", "utils",
+function($scope, $http, $modal, $routeParams, $window, constantsService, userService, jobService, utils) {
 
     $scope.jobId = $routeParams.jobId;
 
@@ -27,6 +27,10 @@ function($scope, $http, $modal, $routeParams, $window, constantsService, jobServ
     //Initialize locations
     constantsService.getOfficeLocations().then(function(data) {
         $scope.data.locations = data.locations;
+    });
+
+    userService.getUsers().then(function(data) {
+        $scope.data.users = data.users;
     });
 
     constantsService.getDiplomas().then(function(data) {

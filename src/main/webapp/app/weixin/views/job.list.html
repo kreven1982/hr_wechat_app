@@ -8,7 +8,7 @@
                 </div>
                 <div class="form-group col-xs-6">
                     <label for="location">工作地点</label>
-                    <select id="location" name="location" class="form-control" ng-model="search.location" ng-options="location for location in data.locations">
+                    <select id="location" name="location" class="form-control" ng-model="search.location" ng-options="location for location in data.locations track by location">
                         <option value="">不限</option>
                     </select>
                 </div>
@@ -17,13 +17,13 @@
             <div class="row">
                 <div class="form-group col-xs-6">
                     <label for="experienceFrom">经验要求</label>
-                    <select id="experienceFrom" name="experienceFrom" class="form-control" ng-model="search.from" ng-options="(experience + '年及以上') for experience in ['1','2','3','4','5','6','7','8']">
+                    <select id="experienceFrom" name="experienceFrom" class="form-control" ng-model="search.from" ng-options="(experience + '年及以上') for experience in ['1','2','3','4','5','6','7','8'] track by experience">
                         <option value="">不限</option>
                     </select>
                 </div>
                 <div class="form-group col-xs-6">
                     <label for="diploma">学历要求</label>
-                    <select id="diploma" class="form-control" ng-model="search.diploma" ng-options="(diploma | localized) for diploma in data.diploma">
+                    <select id="diploma" class="form-control" ng-model="search.diploma" ng-options="(diploma | localized) for diploma in data.diploma track by diploma">
                         <option value="">不限</option>
                     </select>
                 </div>

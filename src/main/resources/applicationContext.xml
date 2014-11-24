@@ -29,6 +29,10 @@
                     <entry key="method" value="get" />
                 </map>
                 <map>
+                    <entry key="path" value="api/user/list" />
+                    <entry key="method" value="get" />
+                </map>
+                <map>
                     <entry key="path" value="api/job/" />
                     <entry key="method" value="post" />
                 </map>

@@ -51,6 +51,11 @@ class UserService {
         userRepository.getUserByToken(token)
     }
 
+
+    public List<User> getUsers() {
+        userRepository.getUsers()
+    }
+
     //Login and associate user with a token
     public String newSession(String userName) {
         String token = new ObjectId().toString()
@@ -68,4 +73,5 @@ class UserService {
         String obfuscatedString = PASS_KEY + password + username
         return Utils.sha1(obfuscatedString)
     }
+
 }

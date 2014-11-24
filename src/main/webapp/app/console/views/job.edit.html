@@ -36,6 +36,15 @@
             </select>
         </div>
     </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">分管人事</label>
+        <div class="col-sm-8">
+            <select class="form-control" ng-model="job.userId" ng-options="user.userName for user in data.users track by user.userId">
+            </select>
+        </div>
+    </div>
+
     <div class="form-group">
         <label for="experience" class="col-sm-2 control-label">工作简单介绍</label>
         <div class="col-sm-8">

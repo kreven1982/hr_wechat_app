@@ -20,9 +20,10 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-    <!-- Less -->
+    <!-- build:css css/console.css -->
     <link rel="stylesheet/less" type="text/css" href="less/console.less" />
     <script src="less/less.js" type="text/javascript"></script>
+    <!-- /build -->
 
     <!-- bower:js -->
     <script src="bower_components/modernizr/modernizr.js"></script>
@@ -39,14 +40,18 @@
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <!-- endbower -->
 
+    <!-- build:js app/common.js -->
     <script src="app/common/app.js"></script>
     <script src="app/common/scripts/services.js"></script>
     <script src="app/common/scripts/directives.js"></script>
     <script src="app/common/scripts/filters.js"></script>
+    <!-- /build -->
 
+    <!-- build:js app/console.js -->
     <script src="app/console/app.js"></script>
     <script src="app/console/scripts/controllers.js"></script>
     <script src="app/console/scripts/services.js"></script>
+    <!-- /build -->
 
 </head>
 <body>
