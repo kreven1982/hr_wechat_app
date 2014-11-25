@@ -143,13 +143,15 @@ function($scope, $http, $modal, $routeParams, $window, constantsService, userSer
 }]);
 
 angular.module('consoleApp').controller('jobListController',
- ['$log', '$scope', '$http', '$location', '$routeParams', '$rootScope', '$modal', "jobService", 'applicationService', 'utils', 'userInfo',
-     function($log, $scope, $http, $location, $routeParams, $rootScope, $modal, jobService, applicationService, utils, userInfo) {
+ ['$log', '$scope', '$http', '$location', '$routeParams', '$window','$rootScope', '$modal', "jobService", 'applicationService', 'utils', 'userInfo',
+     function($log, $scope, $http, $location, $routeParams, $window, $rootScope, $modal, jobService, applicationService, utils, userInfo) {
+
+    var shouldReload = true;
 
     $scope.total = 99; //given pagination control a chance to allow actual page selected
     $scope.pageSize = 1;
 
-    $scope.search = $location.search();
+    $scope.search = angular.copy($location.search());
 
     if(!$scope.search.page) {
         $scope.search.page = 1; //initialize page if not exist
@@ -161,6 +163,17 @@ angular.module('consoleApp').controller('jobListController',
         $scope.searchJob(false);
     },true);
 
+    //$routeUpdate event will only be triggered when reloadOnSearch to false
+    //$locationChangeSuccess can also be used for the similar result
+    $scope.$on('$routeUpdate', function(){
+        if(shouldReload) {
+            console.log("reload");
+            $scope.search = $location.search();
+            $scope.searchJob();
+        }
+        shouldReload = true;
+    });
+
     $scope.clearSearch = function() {
         $scope.search = {
             page : 1
@@ -168,11 +181,12 @@ angular.module('consoleApp').controller('jobListController',
     };
 
     $scope.searchJob = function (reset) {
+
         $scope.searchOpen = false;
 
         var toSearch = utils.purifyObject($scope.search);
 
-        if(reset) {
+        if(reset || toSearch.page === undefined) {
             toSearch.page = 1;
         }
 
@@ -185,7 +199,10 @@ angular.module('consoleApp').controller('jobListController',
             $scope.pageSize = data.pageSize;
             $scope.pageTotal = data.total % data.pageSize ?  (data.total / data.pageSize + 1) : (data.total / data.pageSize);
 
-            $location.search(toSearch);
+            if(!angular.equals($location.search(), toSearch)) {
+                shouldReload = false;
+                $location.search(toSearch);
+            }
         });
     };
 
