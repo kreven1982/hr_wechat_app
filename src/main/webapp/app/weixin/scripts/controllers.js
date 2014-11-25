@@ -15,12 +15,6 @@ weixinApp.controller('jobListController', [
     $scope.data = {};
     $rootScope.title = "";
 
-    $scope.search = $location.search();
-
-    if(!$scope.search.page) {
-        $scope.search.page = 1; //initialize page if not exist
-    }
-
     //Initialize locations
     constantsService.getOfficeLocations().then(function(data) {
         $scope.data.locations = data.locations;
@@ -32,19 +26,30 @@ weixinApp.controller('jobListController', [
         $scope.data.diploma = diplomas;
     });
 
-    $scope.$watch("search.page", function(){
-        $scope.searchJob(false);
-    },true);
+    //$routeUpdate event will only be triggered when reloadOnSearch to false
+    //$locationChangeSuccess can also be used for the similar result
+    $scope.$on('$locationChangeSuccess', function(){
+
+        //If $scope.search is out of sync with $location.search()
+        //It means that user are changing urls directly (from menu or other places)
+        //Then, we should manually invoke search function
+        if(!angular.equals($location.search(), $scope.search)) {
+            $scope.search = null; //reset search
+            $scope.searchJob();
+        }
+    });
 
     $scope.searchJob = function(reset) {
         $scope.searchOpen = false;
         $scope.message = LOADING;
 
-        var toSearch = utils.purifyObject($scope.search);
+        $scope.search = $scope.search || angular.copy($location.search());
 
-        if(reset) {
-            toSearch.page = 1;
+        if(reset || !$scope.search.page) {
+            $scope.search.page = 1; //initialize page if not exist
         }
+
+        var toSearch = utils.purifyObject($scope.search);
 
         $scope.hasSearchCriteria = utils.checkSize(toSearch) > 1;
 
@@ -62,19 +67,26 @@ weixinApp.controller('jobListController', [
             $scope.pageSize = data.pageSize;
             $scope.pageTotal = data.total % data.pageSize ?  (data.total / data.pageSize + 1) : (data.total / data.pageSize);
 
-            $location.search(toSearch);
-
-            if(data.total === 0) {
+            if($scope.jobs.length === 0) {
                 $scope.message = NO_JOB_RESULT;
             }
         });
+        $location.search(toSearch);
     };
+
+    //initial the search data
+    $scope.searchJob(false);
 
     $scope.clearSearch = function() {
         $scope.search = {
             page : 1
         };
     };
+
+    $scope.pageChanged = function() {
+        $scope.searchJob(false);
+    };
+
 }]);
 
 weixinApp.controller('jobController', [

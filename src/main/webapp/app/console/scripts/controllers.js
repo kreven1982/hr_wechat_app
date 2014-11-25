@@ -146,32 +146,22 @@ angular.module('consoleApp').controller('jobListController',
  ['$log', '$scope', '$http', '$location', '$routeParams', '$window','$rootScope', '$modal', "jobService", 'applicationService', 'utils', 'userInfo',
      function($log, $scope, $http, $location, $routeParams, $window, $rootScope, $modal, jobService, applicationService, utils, userInfo) {
 
-    var shouldReload = true;
-
     $scope.total = 99; //given pagination control a chance to allow actual page selected
     $scope.pageSize = 1;
 
-    $scope.search = angular.copy($location.search());
-
-    if(!$scope.search.page) {
-        $scope.search.page = 1; //initialize page if not exist
-    }
-
     $rootScope.hasPermission = userInfo;
-
-    $scope.$watch("search.page", function(){
-        $scope.searchJob(false);
-    },true);
 
     //$routeUpdate event will only be triggered when reloadOnSearch to false
     //$locationChangeSuccess can also be used for the similar result
-    $scope.$on('$routeUpdate', function(){
-        if(shouldReload) {
-            console.log("reload");
-            $scope.search = $location.search();
+    $scope.$on('$locationChangeSuccess', function(){
+
+        //If $scope.search is out of sync with $location.search()
+        //It means that user are changing urls directly (from menu or other places)
+        //Then, we should manually invoke search function
+        if(!angular.equals($location.search(), $scope.search)) {
+            $scope.search = null; //reset search
             $scope.searchJob();
         }
-        shouldReload = true;
     });
 
     $scope.clearSearch = function() {
@@ -180,15 +170,21 @@ angular.module('consoleApp').controller('jobListController',
         };
     };
 
+    $scope.pageChanged = function() {
+        $scope.searchJob(false);
+    };
+
     $scope.searchJob = function (reset) {
 
         $scope.searchOpen = false;
 
-        var toSearch = utils.purifyObject($scope.search);
+        $scope.search = $scope.search || angular.copy($location.search());
 
-        if(reset || toSearch.page === undefined) {
-            toSearch.page = 1;
+        if(reset || !$scope.search.page) {
+            $scope.search.page = 1; //initialize page if not exist
         }
+
+        var toSearch = utils.purifyObject($scope.search);
 
         //ignore "page"
         $scope.hasSearchCriteria = utils.checkSize(toSearch) > 1;
@@ -198,12 +194,9 @@ angular.module('consoleApp').controller('jobListController',
             $scope.total = data.total;
             $scope.pageSize = data.pageSize;
             $scope.pageTotal = data.total % data.pageSize ?  (data.total / data.pageSize + 1) : (data.total / data.pageSize);
-
-            if(!angular.equals($location.search(), toSearch)) {
-                shouldReload = false;
-                $location.search(toSearch);
-            }
         });
+
+        $location.search($scope.search);
     };
 
     $scope.activateJob = function(job) {
@@ -214,6 +207,8 @@ angular.module('consoleApp').controller('jobListController',
         job.activated = ! job.activated;
     };
 
+    //load search result by default
+    $scope.searchJob();
 
     //==================================================================================
     // Functions used in modal of profiles for specific Job

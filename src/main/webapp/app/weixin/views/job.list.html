@@ -31,7 +31,7 @@
 
         </div>
         <div class="panel-footer">
-            <button class="btn btn-success" ng-click="searchJob()">搜索</button>
+            <button class="btn btn-success" ng-click="searchJob(true)">搜索</button>
             <span class="fix-width-8px"></span>
             <button class="btn btn-warning" ng-click="clearSearch()">重置</button>
             <span class="fix-width-8px"></span>
@@ -82,7 +82,7 @@
             </div>
         </div>
 
-        <pagination total-items="total" items-per-page="pageSize" ng-model="search.page" max-size="5"
+        <pagination total-items="total" items-per-page="pageSize" ng-model="search.page" max-size="5" ng-change="pageChanged()"
         previous-text="·" next-text="·" first-text="··" last-text="··" class="pagination-sm" boundary-links="true"></pagination>
     </div>
 </div>
