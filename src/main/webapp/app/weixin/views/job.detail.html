@@ -1,5 +1,6 @@
 <div class="job-container col-xs-12 col-lg-10 col-lg-offset-1">
-    <div class="job">
+    <div ng-class="{disabled : !job.activated}" class="job">
+        <div class="block-sign"><span class="glyphicon glyphicon-ban-circle"></span>本职位已停止招聘</div>
         <h3 ng-bind="::job.title"></h3>
         <h6>
             类型 : <span ng-bind="::job.type | localized"></span>
@@ -22,7 +23,7 @@
                 <span ng-bind="job.createTime | timeString"></span>
             </div>
             <div class="toolbar col-xs-6">
-                <a href="#/profile/{{::job.id}}">申请</a>
+                <a href="#/profile/{{::job.id}}" ng-show="job.activated">申请</a>
                 <a href="#/jobs">返回列表</a>
             </div>
         </div>

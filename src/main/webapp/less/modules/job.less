@@ -1,4 +1,5 @@
 .job {
+    position: relative;
     text-align: left;
     padding-bottom: 12px;
     padding-top: 8px;
@@ -42,6 +43,7 @@
 
     .profiles {
         margin-top: 10px;
+        color : black;
 
         .arrow {
             .arrow-up(8px, #e3e3e3);
@@ -75,7 +77,31 @@
     &:last-of-type {
         border-bottom: none;
     }
+
+
+    .block-sign {
+        display: none;
+        .glyphicon {
+            font-size: 80px;
+            top: 6px;
+        }
+    }
+
+    &.disabled {
+        color: #d3d3d3;
+
+        .block-sign {
+            display: block;
+            vertical-align: middle;
+            position: absolute;
+            left: 80px;
+            top: 56px;
+            opacity: 0.6;
+        }
+    }
 }
+
+
 
 .job-container {
     text-align: center;

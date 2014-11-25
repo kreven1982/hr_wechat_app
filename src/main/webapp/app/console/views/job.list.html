@@ -1,4 +1,4 @@
-<div class="search col-xs-12 col-lg-10 col-lg-offset-1">
+<div class="search col-xs-12 col-lg-10 col-lg-offset-1 animated fadeIn">
     <div class="panel panel-default animated" ng-class="" ng-show="searchOpen">
         <div class="panel-body">
             <div class="form-group">
@@ -39,8 +39,8 @@
         <pagination total-items="total" items-per-page="pageSize" ng-model="search.page" max-size="5"
         previous-text="·" next-text="·" first-text="··" last-text="··" class="pagination-sm" boundary-links="true"></pagination>
 
-        <div class="job" ng-repeat="job in jobs">
-
+        <div class="job" ng-class="{disabled : !job.activated}" ng-repeat="job in jobs">
+            <div class="block-sign"><span class="glyphicon glyphicon-ban-circle"></span></div>
             <h3>{{job.title}}</h3>
             <h6>
                 <span ng-bind="job.type | localized"></span> ·

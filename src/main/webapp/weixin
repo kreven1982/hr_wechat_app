@@ -13,40 +13,34 @@
     <link rel="stylesheet" href="css/bootstrap.min.css" />
     <link rel="stylesheet" href="css/animate.css" />
 
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-    <!-- Less -->
+    <!-- build:css css/weixin.css -->
     <link rel="stylesheet/less" type="text/css" href="less/weixin.less" />
     <script src="less/less.js" type="text/javascript"></script>
+    <!-- /build -->
 
     <!-- bower:js -->
-    <script src="bower_components/modernizr/modernizr.js"></script>
     <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
     <script src="bower_components/angular-animate/angular-animate.js"></script>
-    <script src="bower_components/simple-module/lib/module.js"></script>
-    <script src="bower_components/simple-uploader/lib/uploader.js"></script>
-    <script src="bower_components/simditor/lib/simditor.js"></script>
-    <script src="bower_components/angular-editor/javascripts/angular-editor.js"></script>
-    <script src="bower_components/seiyria-bootstrap-slider/js/bootstrap-slider.js"></script>
-    <script src="bower_components/angular-bootstrap-slider/slider.js"></script>
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <!-- endbower -->
 
+     <!-- build:js app/common.js -->
      <script src="app/common/app.js"></script>
      <script src="app/common/scripts/services.js"></script>
      <script src="app/common/scripts/directives.js"></script>
      <script src="app/common/scripts/filters.js"></script>
+     <!-- /build -->
 
+     <!-- build:js app/weixin.js -->
      <script src="app/weixin/app.js"></script>
      <script src="app/weixin/scripts/controllers.js"></script>
+     <!-- /build -->
+
   </head>
   <body>
-  <nav class="navbar navbar-default" role="navigation">
+  <nav class="navbar navbar-default animated fadeInDown" role="navigation">
       <div class="container-fluid">
           <div class="navbar-header">
               <button type="button" class="navbar-toggle collapsed" ng-click="isCollapsed = !isCollapsed" ng-init="isCollapsed = true">
@@ -61,9 +55,18 @@
           <!-- Collect the nav links-->
           <div class="collapse navbar-collapse" collapse="isCollapsed">
 
+              <ul class="nav navbar-nav">
+                  <li><a ng-click="isCollapsed = true" href="#">所有招聘信息</a></li>
+              </ul>
+
               <ul class="nav navbar-nav navbar-right">
-                  <li><a target="_blank" href="http://mp.weixin.qq.com/s?__biz=MzA4NDAwOTU3MQ==&mid=201543787&idx=1&sn=007e61a5b8f064c912b8f1f12f591cae#rd">关于微招聘</a></li>
-                  <li><a target="_blank" href="http://mp.weixin.qq.com/s?__biz=MzA4NDAwOTU3MQ==&mid=201543787&idx=1&sn=007e61a5b8f064c912b8f1f12f591cae#rd">关于高知特</a></li>
+                  <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown">关于<span class="caret"></span></a>
+                      <ul class="dropdown-menu" role="menu">
+                          <li><a ng-click="isCollapsed = true" target="_blank" href="http://mp.weixin.qq.com/s?__biz=MzA4NDAwOTU3MQ==&mid=201543787&idx=1&sn=007e61a5b8f064c912b8f1f12f591cae#rd">关于微招聘</a></li>
+                          <li><a ng-click="isCollapsed = true" target="_blank" href="http://mp.weixin.qq.com/s?__biz=MzA4NDAwOTU3MQ==&mid=201543787&idx=1&sn=007e61a5b8f064c912b8f1f12f591cae#rd">关于高知特</a></li>
+                      </ul>
+                  </li>
               </ul>
 
           </div>
