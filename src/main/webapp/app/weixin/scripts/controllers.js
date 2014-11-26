@@ -103,8 +103,8 @@ weixinApp.controller('jobController', [
 }]);
 
 weixinApp.controller('profileController', [
-    '$scope', '$http', '$routeParams', '$location', 'utils', 'profileConstant','constantsService', 'multiFormService',
-    function($scope, $http, $routeParams, $location, utils, profileConstant, constantsService, multiFormService) {
+    '$scope', '$http', '$routeParams', '$location', '$window', 'utils', 'profileConstant','constantsService', 'multiFormService',
+    function($scope, $http, $routeParams, $location, $window, utils, profileConstant, constantsService, multiFormService) {
 
     $scope.validated = false;
 
@@ -133,7 +133,13 @@ weixinApp.controller('profileController', [
     	if($scope.profileForm.$valid) {
             var jobId = $routeParams.jobId;
             multiFormService.submitMultiFormWithFile($scope.profileAttachment, "api/profile/" + $routeParams.jobId, JSON.stringify($scope.profile), function(data, status, headers, config){
-                $location.path("#/job/" + jobId);
+                if(data.error) {
+                    $window.alert("申请未成功，原因如下:\n" + data.error);
+                } else {
+                    $window.alert("申请成功\n如果你符合该职位要求，公司人事将联系你\n请耐心等待...\n你也可以直接发送信息到微招聘公众号参与互动。");
+                    $location.path("#/job/" + jobId);
+                }
+
             });
     	}
     };

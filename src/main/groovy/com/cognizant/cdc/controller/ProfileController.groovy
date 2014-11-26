@@ -100,7 +100,7 @@ class ProfileController {
 
         Profile existingProfile = profileService.find(profile.name, profile.mobile)
 
-        //only keep id and create time, replace rest of fields
+        //only keep id and create time, replace rest of the fields
         if(existingProfile) {
             profile.id = existingProfile.id
             profile.createTime = existingProfile.createTime

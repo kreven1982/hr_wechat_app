@@ -38,24 +38,25 @@
     </div>
 
     <div class="form-group">
-        <label class="col-sm-2 control-label">分管人事</label>
+        <label for="hr" class="col-sm-2 control-label">分管人事</label>
         <div class="col-sm-8">
-            <select class="form-control" ng-model="job.userId" ng-options="user.id as user.userName for user in data.users">
+            <select name="hr" id="hr" class="form-control" ng-model="job.userId" ng-options="user.id as user.userName for user in data.users" ng-required="true">
             </select>
+            <span ng-show="jobForm.hr.$error.required && validated" class="error">分管人事必选</span>
         </div>
     </div>
 
     <div class="form-group">
-        <label for="experience" class="col-sm-2 control-label">工作简单介绍</label>
+        <label for="introduction" class="col-sm-2 control-label">工作简单介绍</label>
         <div class="col-sm-8">
-            <input name="introduction" class="form-control" id="experience" placeholder="工作简单介绍" ng-model="job.introduction" ng-required="true">
+            <input name="introduction" class="form-control" id="introduction" placeholder="工作简单介绍" ng-model="job.introduction" ng-required="true">
             <span ng-show="jobForm.introduction.$error.required && validated" class="error">工作简单介绍不能为空</span>
         </div>
     </div>
     <div class="form-group">
-        <label for="detail" class="col-sm-2 control-label">职责介绍</label>
+        <label for="content" class="col-sm-2 control-label">职责介绍</label>
         <div class="col-sm-8">
-            <div simditor name="content" ng-model="job.content" toolbar="['title', 'bold', 'italic', 'underline', 'strikethrough', '|', 'ol', 'ul', 'blockquote', 'table']" ng-required="true"></div>
+            <div simditor name="content" id="content" ng-model="job.content" toolbar="['title', 'bold', 'italic', 'underline', 'strikethrough', '|', 'ol', 'ul', 'blockquote', 'table']" ng-required="true"></div>
             <span ng-show="jobForm.content.$error.required && validated" class="error">职责介绍不能为空</span>
         </div>
     </div>
