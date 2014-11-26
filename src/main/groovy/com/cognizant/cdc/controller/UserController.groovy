@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.ResponseBody
 import javax.servlet.http.Cookie
 import javax.servlet.http.HttpServletResponse
 import com.cognizant.cdc.model.enums.LoginStatus
+import org.springframework.web.bind.annotation.RequestParam
+import org.springframework.web.bind.annotation.PathVariable
 
 @Controller
 @RequestMapping(value="user")
@@ -23,12 +25,9 @@ class UserController {
     @Autowired
     UserService userService
 
-    @RequestMapping(value = "login", method = RequestMethod.POST)
+    @RequestMapping(value = "login", method = RequestMethod.GET)
     @ResponseBody
-    public Map login(@RequestBody Map request, HttpServletResponse response) {
-
-        String userName = request.userName
-        String password = request.password
+    public Map login(@RequestParam String userName, @RequestParam String password, HttpServletResponse response) {
 
         if(LoginStatus.Success != userService.checkCredential(userName, password)) {
             return [
@@ -61,14 +60,40 @@ class UserController {
 
     @RequestMapping(value="info", method= RequestMethod.GET)
     @ResponseBody
-    public Map info() {
-        [result:  UserSession.getUser().toRepresentationMap()]
+    public Map info(@RequestParam(value="userId", required = false) Long userId) {
+        User user = null
+
+        if(userId) {
+            user = userService.getUserById(userId)
+        } else {
+            user = UserSession.getUser()
+        }
+
+        [result:  user?.toRepresentationMap()]
     }
 
     @RequestMapping(value="list", method= RequestMethod.GET)
     @ResponseBody
     public Map list() {
         List<User> users = userService.getUsers()
-        [users : users]
+        [users : users*.toRepresentationMap()]
+    }
+
+    @RequestMapping(value="{id}", method= RequestMethod.POST)
+    @ResponseBody
+    public Map newUser(@PathVariable("id") Integer userId, @RequestBody User user) {
+
+        if(!userId) {
+            userService.newUser(user)
+        } else {
+
+            if(userId != user.id) {
+                throw new RuntimeException("Should not happen, might be security threat!")
+            }
+
+            userService.updateUser(user)
+        }
+
+       [success : true ]
     }
 }

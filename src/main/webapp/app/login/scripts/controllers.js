@@ -6,9 +6,9 @@ angular.module('loginApp').controller('loginController', ['$scope','$http','$win
     $scope.login = function() {
         $scope.validated = true;
         if($scope.loginForm.$valid) {
-            $http.post('api/user/login', { userName : $scope.userName, password : $scope.password }).success(function(data, status, headers, config){
+            $http.get("api/user/login?userName=" + $scope.userName + "&password=" + $scope.password).success(function(data, status, headers, config){
                  if(data.result === true) {
-                     $window.location = "/console";
+                     $window.location = "./console";
                  } else {
                      $scope.authenticationError = true;
                  }

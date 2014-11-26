@@ -24,7 +24,17 @@ class UserService {
 
     //Create an user
     public void newUser(User user) {
+
+        user.id = sequenceRepository.getNextID("USER_SEQ")
+        user.createTime = System.currentTimeMillis()
+        //Initial password
+        user.password = obfuscatePassword(user.password, user.userName)
         userRepository.newUser(user)
+    }
+
+    public void updateUser(User user) {
+        user.password = obfuscatePassword(user.password, user.userName)
+        userRepository.updateUser(user)
     }
 
     //Remove an user
@@ -49,6 +59,11 @@ class UserService {
     //Retrieve user by token
     public User getUserByToken(String token) {
         userRepository.getUserByToken(token)
+    }
+
+
+    public User getUserById(long userId) {
+        userRepository.getUserById(userId)
     }
 
 

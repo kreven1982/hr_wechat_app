@@ -22,6 +22,12 @@ consoleApp.config(function($routeProvider, $httpProvider) {
             templateUrl : viewPath + 'profile.list.html',
             controller  : 'profileListController',
             reloadOnSearch : false
+        }).when('/users', {
+            templateUrl : viewPath + 'user.list.html',
+            controller  : 'userListController'
+        }).when('/users/:userId', {
+            templateUrl : viewPath + 'user.edit.html',
+            controller  : 'userController'
         }).otherwise({redirectTo: '/jobs'});
 
 

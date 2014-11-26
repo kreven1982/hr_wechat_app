@@ -4,6 +4,8 @@ import org.ansj.domain.Term
 import org.ansj.splitWord.analysis.ToAnalysis
 import org.junit.Test
 import org.ansj.splitWord.analysis.IndexAnalysis
+import java.util.regex.Pattern
+import java.util.regex.Matcher
 
 class JobTest {
 

@@ -53,8 +53,8 @@ function($scope, $http, $modal, $routeParams, $window, constantsService, userSer
     $scope.submitJob = function() {
         $scope.validated = true;
         if($scope.jobForm.$valid) {
-            $http.post('api/job/' + $scope.jobId, $scope.job).success(function(data, status, headers, config){
-                 showConfirmDialog();
+            jobService.newJob($scope.jobId, $scope.job).then(function(){
+                showConfirmDialog();
             });
         }
     };
@@ -279,12 +279,6 @@ angular.module('consoleApp').controller('profileListController', [
         experiences : profileConstant.experiences
     };
 
-    constantsService.getDiplomas().then(function(response) {
-        var diplomas = response.data.diplomas;
-        diplomas.shift(); //remove the first item which is "none"
-        $scope.data.diplomas = diplomas;
-    });
-
     $scope.$watch("search.page", function(){
         searchProfile();
     },true);
@@ -327,5 +321,49 @@ angular.module('consoleApp').controller('profileListController', [
             $location.search(toSearch);
         });
     }
+
+}]);
+
+
+angular.module('consoleApp').controller('userListController',
+    ['$scope', '$http', 'userService', function($scope, $http, userService) {
+
+    userService.getUsers().then(function(data){
+       $scope.users = data.users;
+    });
+
+}]);
+
+angular.module('consoleApp').controller('userController',
+    ['$scope', '$routeParams', 'utils', 'userService', function($scope, $routeParams,  utils, userService) {
+
+    $scope.userId = $routeParams.userId;
+
+
+    $scope.user = {
+        id : $scope.userId
+    };
+
+    $scope.goBack = function() {
+        utils.goBack();
+    };
+
+    var userId = $scope.userId;
+    if(userId !== undefined && userId !== "0") {
+        userService.getUserInfo(userId).then(function(user){
+            $scope.user = user;
+        });
+    }
+
+    $scope.submit = function() {
+        $scope.validated = true;
+        if($scope.userForm.$valid) {
+            userService.newUser($scope.user).then(function(){
+                utils.goBack();
+            }, function(reason){
+                $scope.error = "新建用户出错，请检查是否同名。"
+            });
+        }
+    };
 
 }]);

@@ -2,16 +2,28 @@
 
 angular.module('consoleApp').service('userService', ['$http', function($http){
 
-      this.getUserInfo = function() {
-           return $http.get("api/user/info").then(function(response){
+      this.getUserInfo = function(id) {
+          var url = "api/user/info";
+
+          if(id) {
+              url += "?userId=" + id;
+          }
+
+           return $http.get(url, { cache : true }).then(function(response){
                                 return response.data.result;
-                         });
+           });
       };
 
       this.getUsers = function() {
            return $http.get("api/user/list").then(function(response){
                return response.data;
            });
+      };
+
+      this.newUser = function(user) {
+          return $http.post('api/user/' + user.id, user).then(function(response) {
+               return response.data;
+          });
       };
 
       this.logout = function() {
@@ -51,6 +63,12 @@ angular.module('consoleApp').service('jobService', ['$http', function($http){
 
       this.getProfiles = function(jobId) {
           return $http.get('api/job/' + jobId + '/applications').then(function(response) {
+             return response.data;
+          });
+      };
+
+      this.newJob = function(jobId, job) {
+          return $http.post('api/job/' + jobId, job).then(function(response){
              return response.data;
           });
       };

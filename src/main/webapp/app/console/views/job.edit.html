@@ -40,7 +40,7 @@
     <div class="form-group">
         <label class="col-sm-2 control-label">分管人事</label>
         <div class="col-sm-8">
-            <select class="form-control" ng-model="job.userId" ng-options="user.userName for user in data.users track by user.userId">
+            <select class="form-control" ng-model="job.userId" ng-options="user.id as user.userName for user in data.users">
             </select>
         </div>
     </div>

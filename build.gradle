@@ -12,11 +12,17 @@ repositories {
 }
 
 war {
-    baseName = "ROOT"
+    baseName = "hr"
+
+    webAppDirName = "${buildDir}/grunt_build"
+    webInf { from 'src/main/webapp/WEB-INF' }
 }
 
 jettyRun {
     contextPath = ""
+
+    webAppDirName = "src/main/webapp"
+
     reload ="automatic"
     scanIntervalSeconds = 1
 }
@@ -25,6 +31,28 @@ jettyRun {
 rootProject.idea.project.ipr {
     withXml { provider ->
         provider.node.component.find { it.@name == 'VcsDirectoryMappings' }.mapping.@vcs = 'Git'
+    }
+}
+
+task buildWebApp(type: GruntTask) {
+    gruntArgs = "buildWebApp"
+}
+
+import org.gradle.api.tasks.Exec
+import org.apache.tools.ant.taskdefs.condition.Os
+class GruntTask extends Exec {
+    private String gruntExecutable = Os.isFamily(Os.FAMILY_WINDOWS) ? "grunt.cmd" : "grunt"
+    private String switches = "--no-color"
+
+    String gruntArgs = ""
+
+    public GruntTask() {
+        super()
+        this.setExecutable(gruntExecutable)
+    }
+
+    public void setGruntArgs(String gruntArgs) {
+        this.args = "$switches $gruntArgs".trim().split(" ") as List
     }
 }
 

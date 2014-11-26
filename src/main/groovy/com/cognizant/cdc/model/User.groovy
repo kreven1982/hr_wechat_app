@@ -6,7 +6,7 @@ class User implements Entity<User> {
     String userName
     String contact
     String password
-    Boolean isAdmin
+    boolean isAdmin
     long createTime
 
     @Override
@@ -16,9 +16,24 @@ class User implements Entity<User> {
                 userName : userName,
                 contact: contact,
                 password: password,
+                isAdmin: isAdmin,
                 createTime: createTime
         ]
     }
+
+
+    public Map toDBUpdateMap() {
+
+        Map dataToUpdate = toDBMap()
+
+        //should not override below fields
+        dataToUpdate.remove("_id")
+        dataToUpdate.remove("createTime")
+        dataToUpdate.remove("activated")
+
+        dataToUpdate
+    }
+
 
     @Override
     public User fromDBMap(Map map) {

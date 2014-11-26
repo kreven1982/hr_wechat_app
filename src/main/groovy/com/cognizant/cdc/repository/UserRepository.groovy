@@ -25,9 +25,7 @@ class UserRepository extends BaseRepository{
             return null
         }
 
-        User user = new User()
-        user.fromDBMap(result.toMap())
-        user
+        new User().fromDBMap(result.toMap())
     }
 
     public void updateToken(String userName, String token) {
@@ -35,6 +33,14 @@ class UserRepository extends BaseRepository{
 
         DBObject query = new BasicDBObject([ userName : userName ])
         DBObject update = new BasicDBObject([ $set: [ token: token ]])
+        collection.update(query, update)
+    }
+
+    public void updateUser(User user) {
+        DBCollection collection = getCollection(DocumentNames.USER)
+
+        DBObject query = new BasicDBObject([ _id : user.id ])
+        DBObject update = new BasicDBObject([ $set: user.toDBUpdateMap() ])
         collection.update(query, update)
     }
 
@@ -55,9 +61,7 @@ class UserRepository extends BaseRepository{
         }
 
 
-        User user = new User()
-        user.fromDBMap(result.toMap())
-        user
+        new User().fromDBMap(result.toMap())
     }
 
     public void removeUser(long userId) {
@@ -75,5 +79,19 @@ class UserRepository extends BaseRepository{
             DBObject record ->
             new User().fromDBMap(record.toMap())
         }
+    }
+
+    public User getUserById(long userId) {
+
+        DBCollection collection = getCollection(DocumentNames.USER)
+
+        DBObject query = new BasicDBObject([ _id: userId ])
+        DBObject result = collection.findOne(query)
+
+        if(!result) {
+            return null
+        }
+
+        new User().fromDBMap(result.toMap())
     }
 }
