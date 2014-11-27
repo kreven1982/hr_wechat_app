@@ -101,4 +101,11 @@ class ProfileRepository extends BaseRepository{
 
         result
     }
+
+    public void deleteProfile(long profileId) {
+        DBCollection col = getCollection(DocumentNames.PROFILE)
+        DBObject delete = new BasicDBObject([ _id: profileId ])
+
+        col.remove(delete)
+    }
 }

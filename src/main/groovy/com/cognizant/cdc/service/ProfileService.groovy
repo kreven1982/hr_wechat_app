@@ -42,6 +42,10 @@ class ProfileService {
         profileRepository.getProfiles(ids)
     }
 
+    public void deleteProfile(long profileId) {
+        profileRepository.deleteProfile(profileId)
+    }
+
     private long getNextProfileId() {
         sequenceRepository.getNextID("PROFILE_SEQ")
     }

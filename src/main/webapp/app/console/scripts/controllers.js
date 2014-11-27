@@ -279,9 +279,15 @@ angular.module('consoleApp').controller('profileListController', [
         experiences : profileConstant.experiences
     };
 
-    $scope.$watch("search.page", function(){
+    constantsService.getDiplomas().then(function(data) {
+        var diplomas = data.diplomas;
+        diplomas.shift(); //remove the first item which is "none"
+        $scope.data.diplomas = diplomas;
+    });
+
+    $scope.pageChanged = function() {
         searchProfile();
-    },true);
+    };
 
     $scope.searchProfile = function() {
         $scope.search.page = 1;  //reset to first page when criteria updated.
@@ -304,6 +310,9 @@ angular.module('consoleApp').controller('profileListController', [
             scope: $scope
         });
     };
+
+    //Search profiles when controller is loaded.
+    searchProfile();
 
     function searchProfile() {
 

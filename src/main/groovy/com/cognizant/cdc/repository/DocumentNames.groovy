@@ -13,6 +13,7 @@ enum DocumentNames {
                 [[experienceTo: 1]],
                 [[type: 1]],
                 [[diploma: 1]],
+                [[activated: 1]],
                 [[keywords: 1]]
     ]),
 
@@ -22,10 +23,17 @@ enum DocumentNames {
     ]),
     SEQUENCE("sequence"),
     PROFILE("profile", [
-            [[ name: 1, mobile: 1 ], [ unique:  true ]]
+            [[ name: 1, mobile: 1 ], [ unique:  true ]],
+            [[ createTime : -1 ]],
+            [[ diploma : 1 ]],
+            [[ keywords : 1 ]],
+            [[ experience : 1 ]],
+            [[ attachmentId : 1 ]],
     ]),
     ATTACHMENT("attachment"),
-    APPLICATION("application")
+    APPLICATION("application", [
+            [[ time : -1 ]]
+    ])
 
     private String collectionName
     private Map options

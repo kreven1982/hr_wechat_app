@@ -136,7 +136,7 @@ weixinApp.controller('profileController', [
                 if(data.error) {
                     $window.alert("申请未成功，原因如下:\n" + data.error);
                 } else {
-                    $window.alert("申请成功\n如果你符合该职位要求，公司人事将联系你\n请耐心等待...\n你也可以直接发送信息到微招聘公众号参与互动。");
+                    $window.alert("申请成功\n\n请耐心等待...\n你也可以直接发送信息到微招聘公众号参与互动。");
                     $location.path("#/job/" + jobId);
                 }
 
