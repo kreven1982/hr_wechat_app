@@ -3,13 +3,13 @@
 angular.module('common').service('constantsService', ['$http', function($http){
 
     this.getDiplomas = function() {
-        return $http.get('api/diplomas').then(function(response) {
+        return $http.get('api/diplomas', { cache : true }).then(function(response) {
             return response.data;
         });
     };
 
     this.getOfficeLocations = function() {
-        return $http.get('api/job/locations').then(function(response){
+        return $http.get('api/job/locations', { cache: true }).then(function(response){
             return response.data;
         });
     };

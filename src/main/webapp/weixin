@@ -5,10 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
     <meta name="format-detection" content="telephone=no">
-    <div id='wx_pic' style='margin:0 auto;display:none;'>
-      <img src='images/cognizant.jpg' />
-    </div>
     <title ng-bind="'高知特微招聘' + title"></title>
+    <link rel="SHORTCUT ICON" href="images/cognizant_favicon.ico" />
 
     <!-- build:css styles/vendor-weixin.css -->
     <link rel="stylesheet" href="css/bootstrap.min.css" />
@@ -81,6 +79,9 @@
   </nav>
 
   <div class="ng-view animated"></div>
+  <div id='wx_pic' style='margin:0 auto;display:none;'>
+      <img src='images/cognizant.jpg' />
+  </div>
   </body>
 </html>
 

@@ -153,14 +153,17 @@ angular.module('consoleApp').controller('jobListController',
 
     //$routeUpdate event will only be triggered when reloadOnSearch to false
     //$locationChangeSuccess can also be used for the similar result
-    $scope.$on('$locationChangeSuccess', function(){
-
-        //If $scope.search is out of sync with $location.search()
-        //It means that user are changing urls directly (from menu or other places)
+    var oldPath = $location.path();
+    var listener = $scope.$on('$locationChangeSuccess', function(){
+        //When path has no change,
+        //if user update only search parameters (from menu or other places) directly,
+        //which will cause $scope search model out of sync with new search parameters,
         //Then, we should manually invoke search function
-        if(!angular.equals($location.search(), $scope.search)) {
+        var currentPath = $location.path();
+        if(oldPath == currentPath && !angular.equals($location.search(), $scope.search)) {
             $scope.search = null; //reset search
             $scope.searchJob();
+            oldPath = currentPath;
         }
     });
 
