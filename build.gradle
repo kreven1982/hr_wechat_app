@@ -13,16 +13,13 @@ repositories {
 
 war {
     baseName = "hr"
-
     webAppDirName = "${buildDir}/grunt_build"
     webInf { from 'src/main/webapp/WEB-INF' }
 }
 
 jettyRun {
     contextPath = ""
-
-    webAppDirName = "src/main/webapp"
-
+    webAppSourceDirectory = new File("src/main/webapp")
     reload ="automatic"
     scanIntervalSeconds = 1
 }
@@ -34,9 +31,13 @@ rootProject.idea.project.ipr {
     }
 }
 
-task buildWebApp(type: GruntTask) {
+task buildWeb(type: GruntTask) {
     gruntArgs = "buildWebApp"
 }
+
+//build.dependsOn buildWebApp
+//buildWebApp.shouldRunAfter clean
+//build.shouldRunAfter buildWebApp
 
 import org.gradle.api.tasks.Exec
 import org.apache.tools.ant.taskdefs.condition.Os

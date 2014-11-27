@@ -160,7 +160,7 @@ angular.module('consoleApp').controller('jobListController',
         //which will cause $scope search model out of sync with new search parameters,
         //Then, we should manually invoke search function
         var currentPath = $location.path();
-        if(oldPath == currentPath && !angular.equals($location.search(), $scope.search)) {
+        if(oldPath === currentPath && !angular.equals($location.search(), $scope.search)) {
             $scope.search = null; //reset search
             $scope.searchJob();
             oldPath = currentPath;
@@ -373,7 +373,7 @@ angular.module('consoleApp').controller('userController',
             userService.newUser($scope.user).then(function(){
                 utils.goBack();
             }, function(reason){
-                $scope.error = "新建用户出错，请检查是否同名。"
+                $scope.error = "新建用户出错，请检查是否同名。";
             });
         }
     };
