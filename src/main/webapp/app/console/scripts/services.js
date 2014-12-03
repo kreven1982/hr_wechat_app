@@ -9,7 +9,7 @@ angular.module('consoleApp').service('userService', ['$http', function($http){
               url += "?userId=" + id;
           }
 
-           return $http.get(url, { cache : true }).then(function(response){
+           return $http.get(url).then(function(response){
                                 return response.data.result;
            });
       };
