@@ -68,7 +68,7 @@
                   <li class="dropdown">
                       <a href="#" class="dropdown-toggle" data-toggle="dropdown">关于<span class="caret"></span></a>
                       <ul class="dropdown-menu" role="menu">
-                          <li><a ng-click="isCollapsed = true" target="_blank" href="http://mp.weixin.qq.com/s?__biz=MzA4NDAwOTU3MQ==&mid=201543787&idx=1&sn=007e61a5b8f064c912b8f1f12f591cae#rd">关于微招聘</a></li>
+                          <li><a ng-click="isCollapsed = true" target="_blank" href="http://mp.weixin.qq.com/s?__biz=MzA4NDAwOTU3MQ==&mid=201835189&idx=1&sn=104c912078041a944fc61581ffc44d33#rd">关于微招聘</a></li>
                           <li><a ng-click="isCollapsed = true" target="_blank" href="http://mp.weixin.qq.com/s?__biz=MzA4NDAwOTU3MQ==&mid=201543787&idx=1&sn=007e61a5b8f064c912b8f1f12f591cae#rd">关于高知特</a></li>
                       </ul>
                   </li>

@@ -1,5 +1,5 @@
 <form name="userForm" class="form-horizontal new-user col-lg-4 col-lg-offset-4 animated fadeInUp" role="form" ng-submit="submit()" novalidate>
-    <h4>{{ userId ? "更改用户信息" : "新建用户" }}</h4>
+    <h4>{{ userId != 0 ? "更改用户信息" : "新建用户" }}</h4>
     <div class="form-group">
         <label for="userName" class="col-sm-2 control-label">用户名*</label>
         <div class="col-sm-8">

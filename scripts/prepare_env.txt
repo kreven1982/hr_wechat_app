@@ -1,0 +1,10 @@
+ssh root@114.215.109.234 'rm -R /scripts'
+scp -r scripts root@114.215.109.234:/scripts
+
+chmod 777 *.sh
+
+ssh root@114.215.109.234 /scripts/install_env.sh
+
+
+
+scp -r build/libs/hr.war root@114.215.109.234:/usr/local/tomcat8/webapps

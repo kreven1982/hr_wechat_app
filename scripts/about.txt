@@ -1,0 +1,19 @@
+#Mongodb Installed Path & version:
+/root/mongodb
+2.6.4
+
+
+#Mongodb data & log location:
+/db/data
+/db/log
+
+
+#use below command to start mongodb:
+mongod --dbpath /db/data --logpath /db/log/db.log --fork
+
+
+#Tomcat Installed Path & Version:
+/usr/local/tomcat8
+8.0.15
+
+
