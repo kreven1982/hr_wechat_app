@@ -17,3 +17,10 @@ mongod --dbpath /db/data --logpath /db/log/db.log --fork
 8.0.15
 
 
+#How to build
+gradle clean buildWeb assemble
+
+
+#How to deploy
+scp -r build/libs/hr.war root@114.215.109.234:/usr/local/tomcat8/webapps
+
